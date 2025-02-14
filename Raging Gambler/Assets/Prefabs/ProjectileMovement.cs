@@ -6,7 +6,7 @@ public class ProjectileMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        Invoke("Hide", 0.2f);
+        Invoke("Hide", 1f);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

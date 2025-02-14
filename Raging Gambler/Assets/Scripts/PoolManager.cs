@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 
 public class PoolManager : MonoBehaviour
 {
@@ -44,7 +44,7 @@ public class PoolManager : MonoBehaviour
     public GameObject RequestBullet()
     {
         // Looks for inactive bullet in bullet pool and returns it
-        foreach(var bullet in _bulletPool)
+        foreach (var bullet in _bulletPool)
         {
             if (bullet.activeInHierarchy == false)
             {
@@ -62,12 +62,12 @@ public class PoolManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        _bulletPool = GenerateBullets(_bullets); 
+        _bulletPool = GenerateBullets(_bullets);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
