@@ -49,7 +49,7 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
 
         if (CompareTag("Player"))
         {
-            // Player death handling (for example, disable the player)
+            // Player death handling (disable the player)
             gameObject.SetActive(false);
         }
         else
