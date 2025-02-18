@@ -1,40 +1,39 @@
 using UnityEngine;
 using System.Collections;
+using System.Threading;
 
 public class ObsctacleSpawner : MonoBehaviour
 {
-     // Random position will be the position we want to place the object
-    Vector2 randomPosition;
 
     // xRange the range in the x axis that the object can be placed
-    public float xRange = 3f;
+    public float xRange = 12f;
 
     // yRange the range in the y axis that the object can be placed
-    public float yRange = 3f;
+    public float yRange = 12f;
 
     public GameObject obstaclePrefab;
 
-    public float spawnInterval = 1f;
+    public float minDist = 3f;
 
     void Start()
     {
-        StartCoroutine(SpawnObstacles());
+        SpawnObstacles();
     }
 
-     IEnumerator SpawnObstacles()
+    void SpawnObstacles()
     {
-        for (int i = 0; i < 10; i++) {
-            // xPosition and yPosition are set to random values with the ranges
-            float xPosition = Random.Range(0 - xRange, 0 + xRange);
-            float yPosition = Random.Range(0 - yRange, 0 + yRange);
+        for (int i = 0; i < 3; i++) {
+            
+            // Creates vector location for object
+            Vector2 randomPosition;
 
-            // randomPosition is then given values xPosition and yPosition, making it a random vector
+            float xPosition = Random.Range(-xRange, xRange);
+            float yPosition = Random.Range(-yRange, yRange);
             randomPosition = new Vector2(xPosition, yPosition);
 
-             Instantiate(obstaclePrefab, randomPosition, Quaternion.identity);
+            // Creates obstacle in frame     
+            Instantiate(obstaclePrefab, randomPosition, Quaternion.identity);
 
-            // Wait for the interval before spawning the next object
-            yield return new WaitForSeconds(spawnInterval);
         }
     }
 
