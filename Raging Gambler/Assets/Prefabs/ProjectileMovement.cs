@@ -44,7 +44,7 @@ public class ProjectileMovement : MonoBehaviour
 
         IDamagable hit = other.GetComponent<IDamagable>();
 
-        if (hit != null)
+        if (!other.gameObject.CompareTag("Player") && hit != null)
         {
             hit.Damage();
             Hide();
