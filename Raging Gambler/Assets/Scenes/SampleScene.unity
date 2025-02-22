@@ -649,7 +649,7 @@ MonoBehaviour:
   xRange: 3
   yRange: 3
   obstaclePrefab: {fileID: 2037352425}
-  spawnInterval: 1
+  minDist: 3
 --- !u!4 &1583508308
 Transform:
   m_ObjectHideFlags: 0
