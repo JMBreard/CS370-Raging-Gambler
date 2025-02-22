@@ -13,7 +13,7 @@ public class ObsctacleSpawner : MonoBehaviour
 
     public GameObject obstaclePrefab;
 
-    public float minDist = 3f;
+    public float minDist = 6f;
 
     void Start()
     {
