@@ -49,5 +49,10 @@ public class ProjectileMovement : MonoBehaviour
             hit.Damage();
             Hide();
         }
+
+        else if (other.CompareTag("Obstacle")) {
+            Hide(); 
+        }
     }
+
 }
