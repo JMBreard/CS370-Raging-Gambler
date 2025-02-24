@@ -5,7 +5,7 @@ public class TitleScreen : MonoBehaviour
 {
     public void moveToTutorialRoom()
     {
-        SceneManager.LoadScene("Tutorial Room");
+        SceneManager.LoadScene("SampleScene");
     }
     
     public void exitGame()
