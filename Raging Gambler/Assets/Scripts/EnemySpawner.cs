@@ -19,13 +19,16 @@ public class EnemySpawner : MonoBehaviour
     [Tooltip("Reference to the player's transform")]
     [SerializeField] private Transform playerTransform;
 
+    [Tooltip("Reference to the player's PlayerMoney component")]
+    [SerializeField] private PlayerMoney playerMoney;  // Reference to the player's PlayerMoney
+
     private float spawnTimer = 0f;
     private bool isSpawning = false;
 
     private void Start()
     {
-       isSpawning = true;
-        spawnTimer = 0f; 
+        isSpawning = true;
+        spawnTimer = 0f;
     }
 
     private void Update()
@@ -54,11 +57,27 @@ public class EnemySpawner : MonoBehaviour
         Vector3 spawnPosition = playerTransform.position + (Vector3)(randomDirection * _spawnDistance);
 
         // Spawn the enemy
-        Instantiate(_enemyPrefab, spawnPosition, Quaternion.identity);
+        GameObject enemy = Instantiate(_enemyPrefab, spawnPosition, Quaternion.identity);
+
+        // Ensure that the enemy has a HealthController component
+        HealthController healthController = enemy.GetComponent<HealthController>();
+
+        if (healthController != null)
+        {
+            // Assign the PlayerMoney reference to the HealthController on the new enemy
+            healthController.playerMoney = playerMoney;  // Pass the reference to the player's PlayerMoney
+
+            // Debug log to confirm assignment
+            Debug.Log("Assigned PlayerMoney to new enemy: " + enemy.name);
+        }
+        else
+        {
+            Debug.LogError("Enemy prefab missing HealthController!");
+        }
     }
 
     // Public method to begin spawning at runtime
-    
+
     // Public method to stop spawning
     public void StopSpawning()
     {

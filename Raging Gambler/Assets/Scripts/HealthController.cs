@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
@@ -8,9 +10,30 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
 
     private bool isDead = false;
 
+    public HealthBar healthbar;
+
+    public PlayerMoney playerMoney;
+
+    public event EventHandler OnHealthChanged;
+
+
     void Start()
     {
         currentHealth = maxHealth;
+        // healthbar.Setup(this);
+        // playerMoney.Setup(this);
+
+        // Check if healthbar is assigned and only call Setup for the player
+        if (healthbar != null)
+        {
+            healthbar.Setup(this);  // Assign the health bar only for the player
+        }
+
+        // Setup the player money system
+        if (playerMoney != null)
+        {
+            playerMoney.Setup(this);
+        }
     }
 
     // Implement the interface property.
@@ -38,6 +61,11 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
             currentHealth = 0; // Prevent health from going below zero
             Die();
         }
+
+        if (OnHealthChanged != null)
+        {
+            OnHealthChanged(this, EventArgs.Empty);
+        }
     }
 
     void Die()
@@ -47,16 +75,23 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
 
         isDead = true;
 
+        // When the enemy dies, reward the player with money
+        if (playerMoney != null)
+        {
+            playerMoney.addMoney(10);
+        }
         if (CompareTag("Player"))
         {
             // Player death handling (disable the player)
             FindFirstObjectByType<GameManager>().GameOver(); // GameOver() is in GameManager.cs
             gameObject.SetActive(false);
+            playerMoney.subtractMoney(playerMoney.money / 2);
         }
         else
         {
             // Enemy (or other damageable) death handling (destroy the game object)
             Destroy(gameObject);
+
         }
     }
 }

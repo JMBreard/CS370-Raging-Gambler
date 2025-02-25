@@ -1,9 +1,15 @@
 using UnityEngine;
+
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject gameOverUI;
+
+    private void Awake()
+    {
+        Time.timeScale = 1.0f;
+    }
 
     public void GameOver()
     {
@@ -22,4 +28,3 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-}

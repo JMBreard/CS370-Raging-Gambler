@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
     bool gamePaused = false;
     [SerializeField] GameObject pauseMenu;
 
+
     /*
     void Update()
     {
@@ -43,13 +44,14 @@ public class PauseMenu : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Destroy(GameObject.FindWithTag("Player"));
         Time.timeScale = 1;
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
 
     public void Quit()
     {
-        
+        SceneManager.LoadScene("Title Scene");
     }
 
     
