@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
@@ -8,9 +9,14 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
 
     private bool isDead = false;
 
+    public HealthBar healthbar;
+
+    public event EventHandler OnHealthChanged;
+
     void Start()
     {
         currentHealth = maxHealth;
+        healthbar.Setup(this);
     }
 
     // Implement the interface property.
@@ -37,6 +43,11 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
         {
             currentHealth = 0; // Prevent health from going below zero
             Die();
+        }
+
+        if (OnHealthChanged != null)
+        {
+            OnHealthChanged(this, EventArgs.Empty);
         }
     }
 
