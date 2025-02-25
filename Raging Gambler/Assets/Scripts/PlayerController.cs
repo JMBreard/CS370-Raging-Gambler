@@ -21,17 +21,30 @@ public class PlayerController : MonoBehaviour
     private bool _canFire = true;
     private bool _reloading = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+     void Awake() 
     {
+        _input = new PlayerInputActions();
+    }
+
+    // OnEnable is called if the player is active when the scene loads (or is reloaded in GameManager.Restart())
+    private void OnEnable() 
+    {    
         rb = GetComponent<Rigidbody2D>();
 
-        _input = new PlayerInputActions();
         _input.Player.Enable();
 
         _input.Player.Fire.performed += Fire_performed;
         _input.Player.Reload.performed += Reload_performed;
         _currentAmmoCount = _ammoCount;
+    }
+
+    // Disable input events in OnDisable to avoid callbacks on destroyed objects
+    void OnDisable()
+    {
+        _input.Player.Fire.performed -= Fire_performed;
+        _input.Player.Reload.performed -= Reload_performed;
+        _input.Player.Disable();
     }
 
     // Update is called once per frame

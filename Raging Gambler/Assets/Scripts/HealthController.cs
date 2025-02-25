@@ -50,6 +50,7 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
         if (CompareTag("Player"))
         {
             // Player death handling (disable the player)
+            FindFirstObjectByType<GameManager>().GameOver(); // GameOver() is in GameManager.cs
             gameObject.SetActive(false);
         }
         else
