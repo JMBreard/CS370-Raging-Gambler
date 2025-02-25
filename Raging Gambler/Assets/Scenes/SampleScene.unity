@@ -664,15 +664,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8046596132159135587, guid: 60cb10de44cc76744ba30bfe80167f3e, type: 3}
   m_PrefabInstance: {fileID: 207865604912892496}
   m_PrefabAsset: {fileID: 0}
-
-  m_GameObject: {fileID: 401708336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3504799fb07c1004ea5ce26e7016f228, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 3
-  currentHealth: 0
 --- !u!1 &488512062
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,7 +698,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -147}
+  m_AnchoredPosition: {x: 0, y: -79.651}
   m_SizeDelta: {x: 677.1056, y: 63.418}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &488512064
@@ -757,15 +748,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -809,7 +800,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 488512062}
   m_CullTransparentMesh: 1
-
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1082,9 +1072,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-
 --- !u!1 &1029621070
-
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1092,19 +1080,17 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-
-
   - component: {fileID: 1029621071}
   - component: {fileID: 1029621074}
-  - component: {fileID: 1029621073}
   - component: {fileID: 1029621072}
-  m_Layer: 5
-  m_Name: 'Text '
+  - component: {fileID: 1029621073}
+  m_Layer: 0
+  m_Name: 
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1029621071
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1249,40 +1235,34 @@ GameObject:
   - component: {fileID: 1123019681}
   m_Layer: 0
   m_Name: Game Manager
-
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-
 --- !u!114 &1123019681
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-
-
   m_GameObject: {fileID: 1123019680}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 883e24c2a2aa99d4b951a1f764f24642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverUI: {fileID: 334108748}
 --- !u!4 &1123019682
-
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-
   m_GameObject: {fileID: 1123019680}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.19779082, y: 0.015670506, z: -0.08244723}
-
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1552,7 +1532,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 720959865}
+      - m_Target: {fileID: 1123019681}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: Restart
         m_Mode: 1
@@ -2325,7 +2305,7 @@ GameObject:
   - component: {fileID: 2002747912}
   - component: {fileID: 2002747911}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Game Over
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2397,8 +2377,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 200
-  m_fontSizeBase: 200
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2921,7 +2901,6 @@ SceneRoots:
   - {fileID: 1583508308}
   - {fileID: 1673881725}
   - {fileID: 1865808166}
-
   - {fileID: 1123019682}
   - {fileID: 1565869209}
-
+  - {fileID: 334108752}

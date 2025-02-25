@@ -27,4 +27,4 @@ public class GameManager : MonoBehaviour
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
+}
