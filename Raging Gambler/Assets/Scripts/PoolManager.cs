@@ -65,9 +65,4 @@ public class PoolManager : MonoBehaviour
         _bulletPool = GenerateBullets(_bullets);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
