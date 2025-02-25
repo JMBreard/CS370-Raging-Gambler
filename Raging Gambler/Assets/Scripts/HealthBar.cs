@@ -1,4 +1,3 @@
-using System.Xml.Serialization;
 using UnityEngine;
 
 public class HealthBar : MonoBehaviour
@@ -9,18 +8,7 @@ public class HealthBar : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // // Get the health bar (the actual bar object)
-        // Transform healthBarTransform = transform.Find("Bar");
 
-        // // Make sure it's found
-        // if (healthBarTransform == null)
-        // {
-        //     Debug.LogError("No child named 'Bar' found in HealthBar object.");
-        // }
-        // else
-        // {
-        //     Setup(healthController, healthBarTransform);
-        // }
     }
 
     public void Setup(HealthController healthController)
@@ -32,7 +20,6 @@ public class HealthBar : MonoBehaviour
 
     private void HealthController_OnHealthChanged(object sender, System.EventArgs e)
     {
-        // Transform healthBarTransform = transform.Find("Bar");
         UpdateHealthBar();
 
     }
