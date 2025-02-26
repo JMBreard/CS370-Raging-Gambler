@@ -5,11 +5,6 @@ public class HealthBar : MonoBehaviour
 
     private HealthController healthController;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
 
     public void Setup(HealthController healthController)
     {
@@ -21,7 +16,6 @@ public class HealthBar : MonoBehaviour
     private void HealthController_OnHealthChanged(object sender, System.EventArgs e)
     {
         UpdateHealthBar();
-
     }
 
     private void UpdateHealthBar()
@@ -31,8 +25,4 @@ public class HealthBar : MonoBehaviour
         healthBarTransform.localScale = new Vector3(healthPercentage, 0.5f);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
 }

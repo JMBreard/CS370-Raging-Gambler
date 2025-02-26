@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Time.timeScale = 1.0f;
+        gameOverUI.SetActive(false);
     }
 
     public void GameOver()

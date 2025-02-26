@@ -64,7 +64,7 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
 
         if (OnHealthChanged != null)
         {
-            OnHealthChanged(this, EventArgs.Empty);
+            OnHealthChanged(this, EventArgs.Empty); //The "this" passed is the enemy at first
         }
     }
 
