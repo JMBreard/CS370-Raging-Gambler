@@ -2034,7 +2034,7 @@ PrefabInstance:
     - target: {fileID: 5746704200580065444, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
       propertyPath: healthbar
       value: 
-      objectReference: {fileID: 1565869210}
+      objectReference: {fileID: 0}
     - target: {fileID: 5746704200580065444, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
       propertyPath: playerMoney
       value: 
