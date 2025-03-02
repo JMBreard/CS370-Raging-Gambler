@@ -20,8 +20,7 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
     void Start()
     {
         currentHealth = maxHealth;
-        // healthbar.Setup(this);
-        // playerMoney.Setup(this);
+
 
         // Check if healthbar is assigned and only call Setup for the player
         if (healthbar != null)
