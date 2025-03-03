@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
     private int moveRoomY = 10; //How much to move a room in the Y axis
 
     private int comeFromRoom = 3; //Initially sets the room the player comes from as the bottom door
-    int currentDoorIndex;
+    private int currentDoorIndex;
+    private bool movingRooms;
 
     Vector3 newPos;
 
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     public void moveToNextRoom()
     {
+        movingRooms = true;
         currentDoorIndex = Random.Range(0, currentRoomDoors.Length); // Picks a random door
         while(currentDoorIndex == comeFromRoom)
         { //If the index is the door the player came from, pick a different door
@@ -93,7 +95,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.T)) //To test the room generation
+        if(Input.GetKeyDown(KeyCode.T) && !movingRooms) //To test the room generation
         {
             moveToNextRoom();
         }
@@ -113,6 +115,7 @@ public class GameManager : MonoBehaviour
             GameObject[] oldDoors = currentRoomDoors; //Swaps the door arrays between the current and next room
             currentRoomDoors = nextRoomDoors;
             nextRoomDoors = oldDoors;
+            movingRooms = false;
         }
     }
 }
