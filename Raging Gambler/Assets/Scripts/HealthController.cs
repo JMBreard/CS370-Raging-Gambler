@@ -47,6 +47,7 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
     public void Damage()
     {
         TakeDamage(1);
+        Debug.Log("Current health: " + currentHealth);
     }
 
     public void TakeDamage(int amount)

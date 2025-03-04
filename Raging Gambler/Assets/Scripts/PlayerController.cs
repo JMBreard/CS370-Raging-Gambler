@@ -109,4 +109,9 @@ public class PlayerController : MonoBehaviour
         _reloading = false;
         Debug.Log("Ready to fire....");
     }
+
+    public void reduceSpeed() {
+        _speed -= 2f;
+        Debug.Log("Current Speed: " + _speed);
+    }
 }

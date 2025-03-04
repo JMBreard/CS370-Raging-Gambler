@@ -715,7 +715,10 @@ MonoBehaviour:
   shopUI: {fileID: 486094664}
   wagerContent: {fileID: 449993012}
   wagerItem: {fileID: 5393312897184863794, guid: 6e980c5d6dcc4a94fb65d1333b94f770, type: 3}
+  enemySpawnRate: {fileID: 1589405770}
   player: {fileID: 1545220206}
+  health: {fileID: 1545220207}
+  bullet: {fileID: -3528085231807167959, guid: 94d1eb044f1f7ba4b9ccbc7e78483129, type: 3}
 --- !u!4 &307431533
 Transform:
   m_ObjectHideFlags: 0
@@ -2311,6 +2314,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9de0ae21bdc22c44bb1551692d9cb8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1545220207 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5788281844516825369, guid: 60cb10de44cc76744ba30bfe80167f3e, type: 3}
+  m_PrefabInstance: {fileID: 207865604912892496}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3504799fb07c1004ea5ce26e7016f228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1565869209
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2443,7 +2457,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1589405770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3033,7 +3047,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7138375181999766197, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9137329030014115116, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
       propertyPath: m_LocalPosition.x

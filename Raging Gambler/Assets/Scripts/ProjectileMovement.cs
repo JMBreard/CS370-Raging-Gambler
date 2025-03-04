@@ -3,6 +3,7 @@ using UnityEngine;
 public class ProjectileMovement : MonoBehaviour
 {
     [SerializeField] private float _speed = 10f;
+    private float bulletTime = 1f;
 
     private void OnEnable()
     {
@@ -53,6 +54,11 @@ public class ProjectileMovement : MonoBehaviour
         else if (other.CompareTag("Obstacle")) {
             Hide(); 
         }
+    }
+
+    public void reduceBulletTime() {
+        // bulletTime -= 0.25f;
+        Debug.Log("Bullet time: " + bulletTime);
     }
 
 }
