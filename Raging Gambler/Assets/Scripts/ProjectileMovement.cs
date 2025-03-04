@@ -40,7 +40,7 @@ public class ProjectileMovement : MonoBehaviour
     // Will call Damage() and hide the projectile
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Hit: " + other.name);
+        //Debug.Log("Hit: " + other.name);
 
         IDamagable hit = other.GetComponent<IDamagable>();
 

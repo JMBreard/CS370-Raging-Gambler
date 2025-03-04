@@ -47,27 +47,12 @@ public class PlayerController : MonoBehaviour
         _input.Player.Disable();
     }
 
-    // Update is called once per frame
-    // void Update()
-    // {
-    //     // Defines player movement 
-    //     //direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-    //     // Movement();
-    // }
-
     private void FixedUpdate()
     {
         Vector2 movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         rb.MovePosition(rb.position + movement * _speed * Time.fixedDeltaTime);
         //rb.MovePosition(rb.position + (direction * speed * Time.deltaTime));
     }
-
-    // private void Movement()
-    // {
-    //     var move = _input.Player.Movement.ReadValue<Vector2>();
-    //     transform.Translate(move * Time.deltaTime * _speed);
-    //     Debug.Log($"X: {move.x} Y: {move.y}");
-    // }
 
     private void Fire_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
@@ -100,13 +85,13 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Reload()
     {
-        Debug.Log("Reloading....");
+        //Debug.Log("Reloading....");
         _canFire = false;
         _reloading = true;
         yield return new WaitForSeconds(_reloadTime);
         _currentAmmoCount = _ammoCount;
         _canFire = true;
         _reloading = false;
-        Debug.Log("Ready to fire....");
+        //Debug.Log("Ready to fire....");
     }
 }
