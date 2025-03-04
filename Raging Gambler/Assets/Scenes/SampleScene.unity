@@ -1155,7 +1155,7 @@ MonoBehaviour:
   shopUI: {fileID: 486094664}
   wagerContent: {fileID: 1385476422}
   wagerItem: {fileID: 5393312897184863794, guid: 6e980c5d6dcc4a94fb65d1333b94f770, type: 3}
-  enemySpawnRate: {fileID: 1589405770}
+  enemy: {fileID: 1589405770}
   player: {fileID: 1545220206}
   health: {fileID: 1545220207}
   bullet: {fileID: -3528085231807167959, guid: 94d1eb044f1f7ba4b9ccbc7e78483129, type: 3}
@@ -2531,6 +2531,7 @@ GameObject:
   - component: {fileID: 745078563}
   - component: {fileID: 745078565}
   - component: {fileID: 745078564}
+  - component: {fileID: 745078566}
   m_Layer: 0
   m_Name: Bottom Door
   m_TagString: Untagged
@@ -2638,7 +2639,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -2681,6 +2682,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &745078566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745078561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48c4ec950452009419001c003bfd767e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &848725985
 GameObject:
   m_ObjectHideFlags: 0
@@ -2927,6 +2940,7 @@ GameObject:
   - component: {fileID: 961094787}
   - component: {fileID: 961094789}
   - component: {fileID: 961094788}
+  - component: {fileID: 961094790}
   m_Layer: 0
   m_Name: Left Door
   m_TagString: Untagged
@@ -3061,7 +3075,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -3077,6 +3091,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &961094790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961094785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48c4ec950452009419001c003bfd767e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &964728065
 GameObject:
   m_ObjectHideFlags: 0
@@ -7299,6 +7325,7 @@ GameObject:
   - component: {fileID: 2044536356}
   - component: {fileID: 2044536358}
   - component: {fileID: 2044536357}
+  - component: {fileID: 2044536359}
   m_Layer: 0
   m_Name: Top Door
   m_TagString: Untagged
@@ -7406,7 +7433,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -7449,6 +7476,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &2044536359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044536354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48c4ec950452009419001c003bfd767e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2095148857
 GameObject:
   m_ObjectHideFlags: 0
@@ -7729,6 +7768,7 @@ GameObject:
   - component: {fileID: 2139706589}
   - component: {fileID: 2139706591}
   - component: {fileID: 2139706590}
+  - component: {fileID: 2139706592}
   m_Layer: 0
   m_Name: Right Door
   m_TagString: Untagged
@@ -7836,7 +7876,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -7879,6 +7919,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &2139706592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139706587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48c4ec950452009419001c003bfd767e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2146040537
 GameObject:
   m_ObjectHideFlags: 0
