@@ -90,6 +90,6 @@ public class EnemySpawner : MonoBehaviour
     }
     
     public void increaseHealth() {
-        
+        Debug.Log("Current enemy health: ");
     }
 }

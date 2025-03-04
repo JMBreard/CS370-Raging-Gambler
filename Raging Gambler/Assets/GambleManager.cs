@@ -18,7 +18,7 @@ public class GambleManager : MonoBehaviour
     public GameObject shopUI;
     public Transform wagerContent;
     public GameObject wagerItem;
-    public EnemySpawner enemySpawnRate;
+    public EnemySpawner enemy;
     public PlayerController player;
     public HealthController health;
     public ProjectileMovement bullet;
@@ -78,13 +78,13 @@ public class GambleManager : MonoBehaviour
     public void ApplyWager(Wagers wager) {
         switch(wager.name) {
             case "Enemy: health buff":
-                health.Damage();
+                enemy.increaseHealth();
                 break;
             case "Enemy: population buff":
-                enemySpawnRate.increaseSpawnRate();
+                enemy.increaseSpawnRate();
                 break;
             case "Player: health debuff":
-                health.Damage();
+                health.reduceMaxHealth();
                 break;
             case "Player: speed debuff":
                 player.reduceSpeed();

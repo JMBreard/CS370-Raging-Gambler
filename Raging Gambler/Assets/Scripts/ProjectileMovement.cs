@@ -7,12 +7,14 @@ public class ProjectileMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        Invoke("Hide", 1f);
+        Invoke("Hide", bulletTime);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _speed = 10f;
+        bulletTime = 1f;
     }
 
     // Update is called once per frame
@@ -58,6 +60,8 @@ public class ProjectileMovement : MonoBehaviour
 
     public void reduceBulletTime() {
         // bulletTime -= 0.25f;
+        // _speed -= 2.5f;
+        Debug.Log("Bullet time: " + _speed);
         Debug.Log("Bullet time: " + bulletTime);
     }
 
