@@ -48,7 +48,7 @@ public class PlayerMoney : MonoBehaviour
     }
 
     // Method to update the UI text displaying the money
-    private void UpdateMoneyText()
+    public void UpdateMoneyText()
     {
         if (moneyText != null)
         {
