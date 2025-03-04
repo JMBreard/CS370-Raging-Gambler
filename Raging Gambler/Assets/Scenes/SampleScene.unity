@@ -685,6 +685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ad4b7e97458824a9567b0ba96f022c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMoney: {fileID: 1029621072}
   wagers:
   - name: 'Enemy: health buff'
     cost: 30
