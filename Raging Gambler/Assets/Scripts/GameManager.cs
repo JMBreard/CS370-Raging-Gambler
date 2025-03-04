@@ -104,7 +104,6 @@ public class GameManager : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            this.transform.position = newPos; //Moves the game manager to the new room
             currentDoor.gameObject.SetActive(true); //Turns on the doors so the room closes
             nextDoor.gameObject.SetActive(true);
             mainCamera.MoveToNewRoom(nextRoom.transform); //Moves the camera to the new room
@@ -115,7 +114,10 @@ public class GameManager : MonoBehaviour
             GameObject[] oldDoors = currentRoomDoors; //Swaps the door arrays between the current and next room
             currentRoomDoors = nextRoomDoors;
             nextRoomDoors = oldDoors;
+            newPos.x += 1.5f;
+            this.transform.position = newPos;
             movingRooms = false;
+
         }
     }
 }

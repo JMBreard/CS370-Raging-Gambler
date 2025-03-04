@@ -3,8 +3,8 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
-    private float currentPosX;
-    private float currentPosY;
+    private float currentPosX = 1.5f;
+    private float currentPosY = 0;
     private Vector3 velocity = Vector3.zero;
 
     private void Update()
