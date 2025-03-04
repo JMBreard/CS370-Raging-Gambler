@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor.Rendering.Universal;
 
 public class GambleManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class GambleManager : MonoBehaviour
     public static GambleManager instance;
 
     // public int coins = 100;
+    public PlayerMoney playerMoney;
 
     public Wagers[] wagers;
 
@@ -53,6 +55,18 @@ public class GambleManager : MonoBehaviour
                     child.gameObject.GetComponent<Image>().sprite = wager.image;
                 }
             }
+
+            item.GetComponent<Button>().onClick.AddListener(() => {
+                BuyWager(wager);
+                });
+        }
+    }
+
+    public void BuyWager(Wagers wager) {
+        int currentMoney = playerMoney.money;
+        if (currentMoney >= wager.cost) {
+            playerMoney.subtractMoney(wager.cost);
+            playerMoney.UpdateMoneyText();
         }
     }
 
