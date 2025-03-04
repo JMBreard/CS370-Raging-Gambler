@@ -6,7 +6,7 @@ public class ProjectileMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        Invoke("Hide", 1f);
+        Invoke("Hide", 2f);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -44,7 +44,7 @@ public class ProjectileMovement : MonoBehaviour
 
         IDamagable hit = other.GetComponent<IDamagable>();
 
-        if (!other.gameObject.CompareTag("Player") && hit != null)
+        if (hit != null)
         {
             hit.Damage();
             Hide();

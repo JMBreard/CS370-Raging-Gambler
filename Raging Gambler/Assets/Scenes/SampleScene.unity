@@ -2442,7 +2442,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1589405770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2455,10 +2455,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a3d1106748e082468c3e612d94d4ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 7138375181999766197, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+  enemySpawnData:
+  - enemyPrefab: {fileID: 7138375181999766197, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+    spawnChance: 5
+  - enemyPrefab: {fileID: 6875664626074797119, guid: ac1c3a84d26a97c45bf1a72dbb5b00af, type: 3}
+    spawnChance: 3
+  - enemyPrefab: {fileID: 5563381071322165230, guid: 31568eb26bb8c684f9c779da565a2560, type: 3}
+    spawnChance: 2
   spawnRate: 2
-  _spawnDistance: 10
-  _spawnOnStart: 1
+  spawnDistance: 10
+  spawnOnStart: 1
   playerTransform: {fileID: 401708340}
   playerMoney: {fileID: 1029621072}
 --- !u!4 &1589405771
