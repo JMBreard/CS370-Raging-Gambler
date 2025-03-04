@@ -46,6 +46,7 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
     public void Damage()
     {
         TakeDamage(1);
+        Debug.Log("Current health: " + currentHealth);
     }
 
     public void TakeDamage(int amount)
@@ -92,5 +93,10 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
             Destroy(gameObject);
 
         }
+    }
+
+    public void reduceMaxHealth() {
+        maxHealth -= 1;
+        Debug.Log("max health: " + maxHealth);
     }
 }

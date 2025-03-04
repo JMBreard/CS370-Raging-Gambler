@@ -18,7 +18,10 @@ public class GambleManager : MonoBehaviour
     public GameObject shopUI;
     public Transform wagerContent;
     public GameObject wagerItem;
+    public EnemySpawner enemy;
     public PlayerController player;
+    public HealthController health;
+    public ProjectileMovement bullet;
 
     private void Awake() 
     {
@@ -67,6 +70,31 @@ public class GambleManager : MonoBehaviour
         if (currentMoney >= wager.cost) {
             playerMoney.subtractMoney(wager.cost);
             playerMoney.UpdateMoneyText();
+            ApplyWager(wager);
+        }
+        
+    }
+
+    public void ApplyWager(Wagers wager) {
+        switch(wager.name) {
+            case "Enemy: health buff":
+                enemy.increaseHealth();
+                break;
+            case "Enemy: population buff":
+                enemy.increaseSpawnRate();
+                break;
+            case "Player: health debuff":
+                health.reduceMaxHealth();
+                break;
+            case "Player: speed debuff":
+                player.reduceSpeed();
+                break;
+            case "Player: range debuff":
+                bullet.reduceBulletTime();
+                break;
+            default:
+                Debug.Log("no debuff available");
+                break;
         }
     }
 

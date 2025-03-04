@@ -83,4 +83,13 @@ public class EnemySpawner : MonoBehaviour
     {
         isSpawning = false;
     }
+
+    public void increaseSpawnRate() {
+        spawnRate -= 1f;
+        Debug.Log("Spawn rate: " + spawnRate);
+    }
+    
+    public void increaseHealth() {
+        Debug.Log("Current enemy health: ");
+    }
 }
