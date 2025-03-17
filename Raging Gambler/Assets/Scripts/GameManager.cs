@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 using UnityEngine.SceneManagement;
@@ -25,6 +26,11 @@ public class GameManager : MonoBehaviour
     private bool movingRooms;
 
     Vector3 newPos;
+
+    [SerializeField] TextMeshProUGUI timerText;
+    [SerializeField] float remainingTime;
+
+    public GameObject enemySpawner;
 
     private void Awake()
     {
@@ -99,6 +105,19 @@ public class GameManager : MonoBehaviour
         {
             moveToNextRoom();
         }
+        if (remainingTime > 1)
+        {
+            remainingTime -= Time.deltaTime;
+        }
+        else if (remainingTime < 1 && !movingRooms)
+        {
+            remainingTime = 0;
+            enemySpawner.gameObject.SetActive(false);
+            moveToNextRoom();
+        }
+        int minutes = Mathf.FloorToInt(remainingTime / 60);
+        int seconds = Mathf.FloorToInt(remainingTime % 60);
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -116,8 +135,16 @@ public class GameManager : MonoBehaviour
             nextRoomDoors = oldDoors;
             newPos.x += 1.5f;
             this.transform.position = newPos;
-            movingRooms = false;
-
         }
+    }
+
+    public void startRoom()
+    {
+        //I NEED TO CREATE A SCREEN THAT SHOWS WHAT THE NEXT ROOM WILL BE BEFORE THE SHOP
+        //THIS WILL RANDOMIZE THE DIFFERENT POSSIBILITIES AND OPTIONS FOR THE TIME LENGTH
+        enemySpawner.gameObject.SetActive(true);
+        remainingTime = 10;
+        GambleManager.instance.ToggleShop();
+        movingRooms = false;
     }
 }
