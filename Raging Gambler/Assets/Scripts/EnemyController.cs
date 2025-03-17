@@ -3,20 +3,21 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float speed = 2f;
-    Transform player;
-    Rigidbody2D rb;
+    protected Transform player; 
+    protected Rigidbody2D rb;      
 
-    void Start()
+    protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player").transform;
     }
 
-    void FixedUpdate()
+    // Set to virtual to allow override in child classes.
+    protected virtual void FixedUpdate()
     {
         if (player != null)
         {
-            // Move towards the player
+            // Move towards the player in a straight line.
             Vector2 direction = ((Vector2)player.position - rb.position).normalized;
             rb.MovePosition(rb.position + direction * speed * Time.fixedDeltaTime);
         }
@@ -27,7 +28,7 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             // Use the IDamagable interface to damage the player.
-            ProjectileMovement.IDamagable playerHealth = collision.gameObject.GetComponent< ProjectileMovement.IDamagable>();
+            ProjectileMovement.IDamagable playerHealth = collision.gameObject.GetComponent<ProjectileMovement.IDamagable>();
             if (playerHealth != null)
             {
                 playerHealth.Damage();
