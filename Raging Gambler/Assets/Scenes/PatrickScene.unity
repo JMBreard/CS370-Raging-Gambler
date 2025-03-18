@@ -1132,6 +1132,11 @@ MonoBehaviour:
     reward: 100
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     itemRef: {fileID: 0}
+  - name: 'Enemy: Health Multiplier'
+    cost: 50
+    reward: 200
+    image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    itemRef: {fileID: 0}
   - name: 'Player: reload debuff'
     cost: 50
     reward: 100
@@ -5648,6 +5653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawnData: []
+  enemyHealthMultiplier: 0
   spawnRate: 2
   spawnDistance: 10
   spawnOnStart: 1
@@ -7211,6 +7217,7 @@ MonoBehaviour:
     spawnChance: 3
   - enemyPrefab: {fileID: 5563381071322165230, guid: 31568eb26bb8c684f9c779da565a2560, type: 3}
     spawnChance: 2
+  enemyHealthMultiplier: 0
   spawnRate: 2
   spawnDistance: 10
   spawnOnStart: 1

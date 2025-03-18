@@ -16,6 +16,9 @@ public class EnemySpawner : MonoBehaviour
     [Tooltip("List of enemy prefabs and their spawn chances")]
     [SerializeField] private EnemySpawnData[] enemySpawnData;
 
+    [Tooltip("Enemy Health Multiplier (to be altered with wager)")]
+    [SerializeField]public int enemyHealthMultiplier;
+
     [Tooltip("Time between enemy spawns")]
     [SerializeField] private float spawnRate = 2f;
 
@@ -82,6 +85,8 @@ public class EnemySpawner : MonoBehaviour
             randomValue -= enemyData.spawnChance;
         }
 
+        
+
 
         // Determine spawn position relative to the player.
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
@@ -89,6 +94,10 @@ public class EnemySpawner : MonoBehaviour
 
         // Instantiate the selected enemy.
         GameObject enemy = Instantiate(selectedEnemy, spawnPosition, Quaternion.identity);
+
+        // Apply Multiplied Health to Enemy Prefab
+        HealthController hc = enemy.GetComponent<HealthController>();
+        hc.currentHealth *= enemyHealthMultiplier;
 
         // Assign the player's PlayerMoney reference to the HealthController on the new enemy.
         HealthController healthController = enemy.GetComponent<HealthController>();
@@ -114,7 +123,8 @@ public class EnemySpawner : MonoBehaviour
         Debug.Log("Spawn rate: " + spawnRate);
     }
     
-    public void increaseHealth() {
-        Debug.Log("Current enemy health: ");
+    public void setEnemyHealthMultiplier(int newMultiplier) {
+        Debug.Log("Current enemy health Multiplier: ");
+        enemyHealthMultiplier = newMultiplier;
     }
 }

@@ -84,6 +84,12 @@ public class GambleManager : MonoBehaviour
                 break;
 
             // works
+            // enemy is EnemySpawner instance
+            case "Enemy: Health Multiplier":
+                enemy.setEnemyHealthMultiplier(2);
+                break;
+
+            // works
             // player is PlayerController instance
             case "Player: reload debuff":
                 player.increaseReloadTime();
