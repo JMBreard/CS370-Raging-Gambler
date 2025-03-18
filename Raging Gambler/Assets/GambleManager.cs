@@ -77,18 +77,38 @@ public class GambleManager : MonoBehaviour
 
     public void ApplyWager(Wagers wager) {
         switch(wager.name) {
-            case "Enemy: health buff":
-                enemy.increaseHealth();
-                break;
+            // may be bugged 
+            // enemy is EnemySpawner instance
             case "Enemy: population buff":
                 enemy.increaseSpawnRate();
                 break;
+
+            // works
+            // player is PlayerController instance
+            case "Player: reload debuff":
+                player.increaseReloadTime();
+                break;
+            
+            // works
+            // player is PlayerController instance
+            case "Player: ammo count debuff":
+                player.decreaseMaxAmmoCount();
+                break;
+
+            // works
+            // health is HealthController instance
             case "Player: health debuff":
                 health.reduceMaxHealth();
                 break;
+
+            // works
+            // player is PlayerController instance
             case "Player: speed debuff":
                 player.reduceSpeed();
                 break;
+
+            // bugged, bullet time doesn't reset after restart
+            // bullet is ProjectileMovement instance
             case "Player: range debuff":
                 bullet.reduceBulletTime();
                 break;

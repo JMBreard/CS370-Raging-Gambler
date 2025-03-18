@@ -1127,13 +1127,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMoney: {fileID: 1029621072}
   wagers:
-  - name: 'Enemy: health buff'
-    cost: 30
+  - name: 'Enemy: population buff'
+    cost: 40
     reward: 100
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     itemRef: {fileID: 0}
-  - name: 'Enemy: population buff'
-    cost: 40
+  - name: 'Player: reload debuff'
+    cost: 50
+    reward: 100
+    image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    itemRef: {fileID: 0}
+  - name: 'Player: ammo count debuff'
+    cost: 50
     reward: 100
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     itemRef: {fileID: 0}
