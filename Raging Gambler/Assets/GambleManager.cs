@@ -77,7 +77,7 @@ public class GambleManager : MonoBehaviour
 
     public void ApplyWager(Wagers wager) {
         switch(wager.name) {
-            // may be bugged 
+            // works
             // enemy is EnemySpawner instance
             case "Enemy: population buff":
                 enemy.increaseSpawnRate();
