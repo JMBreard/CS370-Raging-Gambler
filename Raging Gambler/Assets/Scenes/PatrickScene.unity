@@ -1132,7 +1132,7 @@ MonoBehaviour:
     reward: 100
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     itemRef: {fileID: 0}
-  - name: 'Enemy: Health Multiplier'
+  - name: 'Enemy: health buff'
     cost: 50
     reward: 200
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -1165,10 +1165,13 @@ MonoBehaviour:
   shopUI: {fileID: 486094664}
   wagerContent: {fileID: 1385476422}
   wagerItem: {fileID: 5393312897184863794, guid: 6e980c5d6dcc4a94fb65d1333b94f770, type: 3}
-  enemy: {fileID: 1589405770}
+  enemy: {fileID: 2034660915}
   player: {fileID: 1545220206}
   health: {fileID: 207865604912892497}
   bullet: {fileID: -3528085231807167959, guid: 94d1eb044f1f7ba4b9ccbc7e78483129, type: 3}
+  NormalEnemyPrefab: {fileID: 7138375181999766197, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+  CurvedEnemyPrefab: {fileID: 6875664626074797119, guid: ac1c3a84d26a97c45bf1a72dbb5b00af, type: 3}
+  ShooterEnemyPrefab: {fileID: 5563381071322165230, guid: 31568eb26bb8c684f9c779da565a2560, type: 3}
 --- !u!4 &307431533
 Transform:
   m_ObjectHideFlags: 0

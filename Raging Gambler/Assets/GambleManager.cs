@@ -23,6 +23,10 @@ public class GambleManager : MonoBehaviour
     public HealthController health;
     public ProjectileMovement bullet;
 
+    public GameObject NormalEnemyPrefab;
+    public GameObject CurvedEnemyPrefab;
+    public GameObject ShooterEnemyPrefab;
+
     private void Awake() 
     {
         if (instance == null)
@@ -83,10 +87,16 @@ public class GambleManager : MonoBehaviour
                 enemy.increaseSpawnRate();
                 break;
 
-            // works
+            // bugged: enemy health doesn't reset even after stopping/restarting scene
             // enemy is EnemySpawner instance
-            case "Enemy: Health Multiplier":
+            case "Enemy: health buff":
                 enemy.setEnemyHealthMultiplier(2);
+                HealthController normalEnemyHealth = NormalEnemyPrefab.GetComponent<HealthController>();
+                normalEnemyHealth.increaseMaxHealth();
+                HealthController curvedEnemyHealth = CurvedEnemyPrefab.GetComponent<HealthController>();
+                curvedEnemyHealth.increaseMaxHealth();
+                HealthController shooterEnemyHealth = ShooterEnemyPrefab.GetComponent<HealthController>();
+                shooterEnemyHealth.increaseMaxHealth();
                 break;
 
             // works

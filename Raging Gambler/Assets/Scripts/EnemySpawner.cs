@@ -17,7 +17,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private EnemySpawnData[] enemySpawnData;
 
     [Tooltip("Enemy Health Multiplier (to be altered with wager)")]
-    [SerializeField]public int enemyHealthMultiplier;
+    [SerializeField]public int enemyHealthMultiplier = 1;
 
     [Tooltip("Time between enemy spawns")]
     [SerializeField] private float spawnRate = 2f;
@@ -124,7 +124,7 @@ public class EnemySpawner : MonoBehaviour
     }
     
     public void setEnemyHealthMultiplier(int newMultiplier) {
-        Debug.Log("Current enemy health Multiplier: ");
         enemyHealthMultiplier = newMultiplier;
+        Debug.Log("Current enemy health multiplier: " + enemyHealthMultiplier);
     }
 }

@@ -99,4 +99,9 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
         maxHealth -= 1;
         Debug.Log("max health: " + maxHealth);
     }
+
+    public void increaseMaxHealth() {
+        maxHealth += 1;
+        Debug.Log("max health: " + maxHealth);
+    }
 }
