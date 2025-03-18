@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     private bool _reloading = false;
 
 
-     void Awake() 
+    void Awake() 
     {
         _input = new PlayerInputActions();
     }

@@ -67,8 +67,7 @@ public class EnemySpawner : MonoBehaviour
             // Assign the PlayerMoney reference to the HealthController on the new enemy
             healthController.playerMoney = playerMoney;  // Pass the reference to the player's PlayerMoney
 
-            // Debug log to confirm assignment
-            Debug.Log("Assigned PlayerMoney to new enemy: " + enemy.name);
+            healthController.gameManager = FindFirstObjectByType<GameManager>();
         }
         else
         {

@@ -29,8 +29,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] float remainingTime;
-
+    [SerializeField] TextMeshProUGUI remainingEnemies;
     public GameObject enemySpawner;
+
+    private int enemiesNeeded = 3;
 
     private void Awake()
     {
@@ -46,6 +48,25 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
     }
 
+    public void EnemiesLeftUpdate()
+    {
+        enemiesNeeded--;
+        Debug.Log("Enemies remaining: " + enemiesNeeded);
+
+        remainingEnemies.text = "Remaining: " + (enemiesNeeded);
+
+        if (enemiesNeeded == 0)
+        {
+            Win();
+        }
+    }
+
+    private void Win() // move to next room is the win condition
+    {
+        Debug.Log("Win condition met");
+        moveToNextRoom();
+    }
+
     //TODO- reset money once money system is made
     public void Restart()
     {
@@ -59,7 +80,7 @@ public class GameManager : MonoBehaviour
     {
         movingRooms = true;
         currentDoorIndex = Random.Range(0, currentRoomDoors.Length); // Picks a random door
-        while(currentDoorIndex == comeFromRoom)
+        while (currentDoorIndex == comeFromRoom)
         { //If the index is the door the player came from, pick a different door
             currentDoorIndex = Random.Range(0, currentRoomDoors.Length);
         }
@@ -67,7 +88,7 @@ public class GameManager : MonoBehaviour
         currentDoor.gameObject.SetActive(false); //Turn the door off
         newPos = nextRoom.transform.position; //Initialize the next position of the room
         nextDoor = null; //Intialize the next door
-        switch(currentDoorIndex) 
+        switch (currentDoorIndex)
         { //Depending on which door was picked, the switch sets the new position and door, as well as where the player is coming from
             case 0:
                 Debug.Log("Left Door Open");
@@ -101,7 +122,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.T) && !movingRooms) //To test the room generation
+        if (Input.GetKeyDown(KeyCode.T) && !movingRooms) //To test the room generation
         {
             moveToNextRoom();
         }
@@ -121,7 +142,7 @@ public class GameManager : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             currentDoor.gameObject.SetActive(true); //Turns on the doors so the room closes
             nextDoor.gameObject.SetActive(true);
@@ -144,6 +165,7 @@ public class GameManager : MonoBehaviour
         //THIS WILL RANDOMIZE THE DIFFERENT POSSIBILITIES AND OPTIONS FOR THE TIME LENGTH
         enemySpawner.gameObject.SetActive(true);
         remainingTime = 10;
+        enemiesNeeded = 3; // Reset count
         GambleManager.instance.ToggleShop();
         movingRooms = false;
     }
