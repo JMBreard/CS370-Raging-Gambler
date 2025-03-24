@@ -28,11 +28,11 @@ public class GameManager : MonoBehaviour
     Vector3 newPos;
 
     [SerializeField] TextMeshProUGUI timerText;
-    [SerializeField] float remainingTime;
+    [SerializeField] float remainingTime = 10;
     [SerializeField] TextMeshProUGUI remainingEnemies;
     public GameObject enemySpawner;
 
-    private int enemiesNeeded = 3;
+    [SerializeField] int enemiesNeeded = 3;
 
     private bool timeRoom;
     private bool enemyRoom;
@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
 
     public void EnemiesLeftUpdate()
     {
-        if(enemyRoom)
+        if (enemyRoom)
         {
             enemiesNeeded--;
             Debug.Log("Enemies remaining: " + enemiesNeeded);
@@ -78,14 +78,17 @@ public class GameManager : MonoBehaviour
 
     private void Win() // move to next room is the win condition
     {
-        Debug.Log("ENEMY ROOM WON");
+        // Debug.Log("ENEMY ROOM WON");
         enemySpawner.gameObject.SetActive(false);
         remainingEnemies.gameObject.SetActive(false);
         enemyRoom = false;
+        remainingTime = 0;
+        timerText.gameObject.SetActive(false);
+        timeRoom = false;
+        Increment();
         moveToNextRoom();
     }
 
-    //TODO- reset money once money system is made
     public void Restart()
     {
         // Reset time scale
@@ -97,12 +100,12 @@ public class GameManager : MonoBehaviour
     public void pickRoomCondition()
     {
         int roomCondition = Random.Range(1, 3);
-        switch(roomCondition)
+        switch (roomCondition)
         {
             case 1:
                 //TIME
                 timeRoom = true;
-                remainingTime = 10;
+                // remainingTime = 10;
                 roomType.text = "Survive for:";
                 int minutes = Mathf.FloorToInt(remainingTime / 60);
                 int seconds = Mathf.FloorToInt(remainingTime % 60);
@@ -111,7 +114,7 @@ public class GameManager : MonoBehaviour
             case 2:
                 //ENEMY
                 enemyRoom = true;
-                enemiesNeeded = 3; // Reset count
+                // enemiesNeeded = 3; // Reset count
                 roomType.text = "Defeat:";
                 winCondition.text = (enemiesNeeded) + " enemies";
                 break;
@@ -162,6 +165,12 @@ public class GameManager : MonoBehaviour
         nextDoor.gameObject.SetActive(false); //Turns off the next door
     }
 
+    private void Increment()
+    {
+        remainingTime += 5;
+        enemiesNeeded += 2;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.T) && !movingRooms) //To test the room generation
@@ -175,11 +184,12 @@ public class GameManager : MonoBehaviour
         else if (timeRoom && remainingTime < 1 && !movingRooms)
         {
             Debug.Log("TIME ROOM WON");
-            remainingTime = 0;
-            enemySpawner.gameObject.SetActive(false);
-            timerText.gameObject.SetActive(false);
-            timeRoom = false;
-            moveToNextRoom();
+            // remainingTime = 0;
+            // enemySpawner.gameObject.SetActive(false);
+            // timerText.gameObject.SetActive(false);
+            // timeRoom = false;
+            // moveToNextRoom();
+            Win();
         }
         int minutes = Mathf.FloorToInt(remainingTime / 60);
         int seconds = Mathf.FloorToInt(remainingTime % 60);
@@ -216,11 +226,11 @@ public class GameManager : MonoBehaviour
         //I NEED TO CREATE A SCREEN THAT SHOWS WHAT THE NEXT ROOM WILL BE BEFORE THE SHOP
         //THIS WILL RANDOMIZE THE DIFFERENT POSSIBILITIES AND OPTIONS FOR THE TIME LENGTH
         enemySpawner.gameObject.SetActive(true);
-        if(timeRoom)
+        if (timeRoom)
         {
             timerText.gameObject.SetActive(true);
         }
-        else if(enemyRoom)
+        else if (enemyRoom)
         {
             remainingEnemies.gameObject.SetActive(true);
             remainingEnemies.text = "Remaining: " + (enemiesNeeded);
