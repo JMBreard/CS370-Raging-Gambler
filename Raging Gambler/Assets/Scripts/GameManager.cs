@@ -135,6 +135,8 @@ public class GameManager : MonoBehaviour
     public void moveToNextRoom()
     {
         KillAll();
+        Increment();
+
         movingRooms = true;
         currentDoorIndex = Random.Range(0, currentRoomDoors.Length); // Picks a random door
         while (currentDoorIndex == comeFromRoom)
@@ -251,7 +253,6 @@ public class GameManager : MonoBehaviour
         }
         if (!firstRoom)
         {
-            Increment();
             pc.toggleShooting();
             GambleManager.instance.ToggleShop();
         }
