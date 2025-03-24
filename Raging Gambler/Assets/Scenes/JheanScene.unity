@@ -5329,12 +5329,15 @@ MonoBehaviour:
   - {fileID: 1087945185}
   - {fileID: 425618935}
   timerText: {fileID: 107706877}
-  remainingTime: 30
+  remainingTime: 3
   remainingEnemies: {fileID: 382504885}
   enemySpawner: {fileID: 1589405769}
+  enemiesNeeded: 1
   nextRoomUI: {fileID: 2096475146}
   roomType: {fileID: 350921349}
   winCondition: {fileID: 1951870584}
+  time_difficulty: 5
+  enemy_count_difficulty: 2
   player: {fileID: 1063661545}
   pc: {fileID: 1545220206}
 --- !u!4 &1260338508
