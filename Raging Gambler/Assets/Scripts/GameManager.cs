@@ -43,6 +43,9 @@ public class GameManager : MonoBehaviour
 
     private bool firstRoom = true;
 
+    public GameObject player;
+    public PlayerController pc;
+
     private void Awake()
     {
         Time.timeScale = 1.0f;
@@ -50,6 +53,7 @@ public class GameManager : MonoBehaviour
         pickRoomCondition();
         startRoom();
         firstRoom = false;
+        pc = (PlayerController) player.GetComponent("PlayerController");
     }
 
     public void GameOver()
@@ -58,6 +62,14 @@ public class GameManager : MonoBehaviour
         gameOverUI.SetActive(true);
         // Pause the game
         Time.timeScale = 0f;
+    }
+
+    public void KillAll()
+    {
+        foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            Destroy(enemy);
+        }
     }
 
     public void EnemiesLeftUpdate()
@@ -120,6 +132,7 @@ public class GameManager : MonoBehaviour
 
     public void moveToNextRoom()
     {
+        KillAll();
         movingRooms = true;
         currentDoorIndex = Random.Range(0, currentRoomDoors.Length); // Picks a random door
         while (currentDoorIndex == comeFromRoom)
@@ -191,6 +204,7 @@ public class GameManager : MonoBehaviour
         {
             pickRoomCondition();
             nextRoomUI.gameObject.SetActive(true);
+            pc.toggleShooting();
             currentDoor.gameObject.SetActive(true); //Turns on the doors so the room closes
             nextDoor.gameObject.SetActive(true);
             mainCamera.MoveToNewRoom(nextRoom.transform); //Moves the camera to the new room
@@ -227,6 +241,7 @@ public class GameManager : MonoBehaviour
         }
         if (!firstRoom)
         {
+            pc.toggleShooting();
             GambleManager.instance.ToggleShop();
         }
         movingRooms = false;
