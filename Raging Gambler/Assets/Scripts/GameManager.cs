@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
 
     Vector3 newPos;
 
+    public GameObject bossPrefab;
+    private GameObject currentBoss;
+
     private void Awake()
     {
         Time.timeScale = 1.0f;
@@ -119,5 +122,15 @@ public class GameManager : MonoBehaviour
             movingRooms = false;
 
         }
+    }
+
+    public void StartBossEncounter() {
+        currentBoss = Instantiate(bossPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        // Additional setup for the boss encounter
+    }
+
+    public void EndBossEncounter() {
+        Destroy(currentBoss);
+        // Transition to the next level or end game
     }
 }
