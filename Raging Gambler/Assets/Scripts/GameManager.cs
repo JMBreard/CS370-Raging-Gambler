@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
 
     Vector3 newPos;
 
+    public GameObject bossPrefab;
+    private GameObject currentBoss;
+
     private void Awake()
     {
         Time.timeScale = 1.0f;
@@ -102,22 +105,52 @@ public class GameManager : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if(collision != null && collision.gameObject != null && collision.gameObject.tag == "Player")
         {
-            currentDoor.gameObject.SetActive(true); //Turns on the doors so the room closes
-            nextDoor.gameObject.SetActive(true);
-            mainCamera.MoveToNewRoom(nextRoom.transform); //Moves the camera to the new room
-            currentRoom.transform.position = newPos; //Moves the old current room to the new room
-            GameObject oldCurrentRoom = currentRoom; //Swaps the current room and next room as the next room is the new current room
-            currentRoom = nextRoom;
-            nextRoom = oldCurrentRoom;
-            GameObject[] oldDoors = currentRoomDoors; //Swaps the door arrays between the current and next room
-            currentRoomDoors = nextRoomDoors;
-            nextRoomDoors = oldDoors;
+            // Check that doors are not null before accessing them
+            if (currentDoor != null)
+            {
+                currentDoor.gameObject.SetActive(true); //Turns on the doors so the room closes
+            }
+            
+            if (nextDoor != null)
+            {
+                nextDoor.gameObject.SetActive(true);
+            }
+            
+            if (mainCamera != null && nextRoom != null)
+            {
+                mainCamera.MoveToNewRoom(nextRoom.transform); //Moves the camera to the new room
+            }
+            
+            if (currentRoom != null && nextRoom != null)
+            {
+                currentRoom.transform.position = newPos; //Moves the old current room to the new room
+                GameObject oldCurrentRoom = currentRoom; //Swaps the current room and next room as the next room is the new current room
+                currentRoom = nextRoom;
+                nextRoom = oldCurrentRoom;
+            }
+            
+            if (currentRoomDoors != null && nextRoomDoors != null)
+            {
+                GameObject[] oldDoors = currentRoomDoors; //Swaps the door arrays between the current and next room
+                currentRoomDoors = nextRoomDoors;
+                nextRoomDoors = oldDoors;
+            }
+            
             newPos.x += 1.5f;
             this.transform.position = newPos;
             movingRooms = false;
-
         }
+    }
+
+    public void StartBossEncounter() {
+        currentBoss = Instantiate(bossPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        // Additional setup for the boss encounter
+    }
+
+    public void EndBossEncounter() {
+        Destroy(currentBoss);
+        // Transition to the next level or end game
     }
 }
