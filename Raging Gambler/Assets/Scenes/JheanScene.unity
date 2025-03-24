@@ -2388,6 +2388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 586548891}
+  pc: {fileID: 0}
 --- !u!1 &610746085
 GameObject:
   m_ObjectHideFlags: 0
@@ -4395,6 +4396,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1029621070}
   m_CullTransparentMesh: 1
+--- !u!1 &1063661545 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7231107617852847325, guid: 60cb10de44cc76744ba30bfe80167f3e, type: 3}
+  m_PrefabInstance: {fileID: 207865604912892496}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1065802394
 GameObject:
   m_ObjectHideFlags: 0
@@ -5329,6 +5335,8 @@ MonoBehaviour:
   nextRoomUI: {fileID: 2096475146}
   roomType: {fileID: 350921349}
   winCondition: {fileID: 1951870584}
+  player: {fileID: 1063661545}
+  pc: {fileID: 1545220206}
 --- !u!4 &1260338508
 Transform:
   m_ObjectHideFlags: 0
@@ -6158,7 +6166,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4101130255368531908, guid: 60cb10de44cc76744ba30bfe80167f3e, type: 3}
   m_PrefabInstance: {fileID: 207865604912892496}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1063661545}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9de0ae21bdc22c44bb1551692d9cb8b, type: 3}
@@ -6169,7 +6177,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5788281844516825369, guid: 60cb10de44cc76744ba30bfe80167f3e, type: 3}
   m_PrefabInstance: {fileID: 207865604912892496}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1063661545}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3504799fb07c1004ea5ce26e7016f228, type: 3}
@@ -7484,7 +7492,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1881365369}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1260338507}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: moveToShop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1881365369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8708,6 +8728,8 @@ GameObject:
   - component: {fileID: 2095148861}
   - component: {fileID: 2095148860}
   - component: {fileID: 2095148859}
+  - component: {fileID: 2095148862}
+  - component: {fileID: 2095148863}
   m_Layer: 5
   m_Name: Pause Button
   m_TagString: Untagged
@@ -8828,6 +8850,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2095148857}
   m_CullTransparentMesh: 1
+--- !u!114 &2095148862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095148857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e72d16ed0b4e2a94db433c45ec6f3881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 0}
+  pc: {fileID: 1545220206}
+--- !u!61 &2095148863
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095148857}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.27258492, y: 0.033966064}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 74.42345, y: 74.390366}
+  m_EdgeRadius: 0
 --- !u!1 &2096475146
 GameObject:
   m_ObjectHideFlags: 0
