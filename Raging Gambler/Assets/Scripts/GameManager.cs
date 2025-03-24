@@ -37,11 +37,19 @@ public class GameManager : MonoBehaviour
     private bool timeRoom;
     private bool enemyRoom;
 
+    [SerializeField] GameObject nextRoomUI;
+    [SerializeField] TextMeshProUGUI roomType;
+    [SerializeField] TextMeshProUGUI winCondition;
+
+    private bool firstRoom = true;
+
     private void Awake()
     {
         Time.timeScale = 1.0f;
         gameOverUI.SetActive(false);
         pickRoomCondition();
+        startRoom();
+        firstRoom = false;
     }
 
     public void GameOver()
@@ -95,14 +103,17 @@ public class GameManager : MonoBehaviour
                 //TIME
                 timeRoom = true;
                 remainingTime = 10;
-                timerText.gameObject.SetActive(true);
+                roomType.text = "Survive for:";
+                int minutes = Mathf.FloorToInt(remainingTime / 60);
+                int seconds = Mathf.FloorToInt(remainingTime % 60);
+                winCondition.text = string.Format("{0:00}:{1:00}", minutes, seconds);
                 break;
             case 2:
                 //ENEMY
                 enemyRoom = true;
                 enemiesNeeded = 3; // Reset count
-                remainingEnemies.gameObject.SetActive(true);
-                remainingEnemies.text = "Remaining: " + (enemiesNeeded);
+                roomType.text = "Defeat:";
+                winCondition.text = (enemiesNeeded) + " enemies";
                 break;
         }
     }
@@ -157,7 +168,7 @@ public class GameManager : MonoBehaviour
         {
             moveToNextRoom();
         }
-        if (timeRoom && remainingTime > 1)
+        if (timeRoom && !movingRooms && remainingTime > 1)
         {
             remainingTime -= Time.deltaTime;
         }
@@ -178,6 +189,8 @@ public class GameManager : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            pickRoomCondition();
+            nextRoomUI.gameObject.SetActive(true);
             currentDoor.gameObject.SetActive(true); //Turns on the doors so the room closes
             nextDoor.gameObject.SetActive(true);
             mainCamera.MoveToNewRoom(nextRoom.transform); //Moves the camera to the new room
@@ -193,13 +206,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void moveToShop()
+    {
+        nextRoomUI.gameObject.SetActive(false);
+        GambleManager.instance.ToggleShop();
+    }
     public void startRoom()
     {
         //I NEED TO CREATE A SCREEN THAT SHOWS WHAT THE NEXT ROOM WILL BE BEFORE THE SHOP
         //THIS WILL RANDOMIZE THE DIFFERENT POSSIBILITIES AND OPTIONS FOR THE TIME LENGTH
         enemySpawner.gameObject.SetActive(true);
-        pickRoomCondition();
-        GambleManager.instance.ToggleShop();
+        if(timeRoom)
+        {
+            timerText.gameObject.SetActive(true);
+        }
+        else if(enemyRoom)
+        {
+            remainingEnemies.gameObject.SetActive(true);
+            remainingEnemies.text = "Remaining: " + (enemiesNeeded);
+        }
+        if (!firstRoom)
+        {
+            GambleManager.instance.ToggleShop();
+        }
         movingRooms = false;
     }
 }
