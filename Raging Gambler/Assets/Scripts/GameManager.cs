@@ -43,6 +43,10 @@ public class GameManager : MonoBehaviour
 
     private bool firstRoom = true;
 
+    private int level_counter = 0;
+    [SerializeField] int time_difficulty = 5;
+    [SerializeField] int enemy_count_difficulty = 2;
+
     public GameObject player;
     public PlayerController pc;
 
@@ -53,7 +57,7 @@ public class GameManager : MonoBehaviour
         pickRoomCondition();
         startRoom();
         firstRoom = false;
-        pc = (PlayerController) player.GetComponent("PlayerController");
+        pc = (PlayerController)player.GetComponent("PlayerController");
     }
 
     public void GameOver()
@@ -66,7 +70,7 @@ public class GameManager : MonoBehaviour
 
     public void KillAll()
     {
-        foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
             Destroy(enemy);
         }
@@ -90,14 +94,9 @@ public class GameManager : MonoBehaviour
 
     private void Win() // move to next room is the win condition
     {
-        // Debug.Log("ENEMY ROOM WON");
         enemySpawner.gameObject.SetActive(false);
         remainingEnemies.gameObject.SetActive(false);
         enemyRoom = false;
-        remainingTime = 0;
-        timerText.gameObject.SetActive(false);
-        timeRoom = false;
-        Increment();
         moveToNextRoom();
     }
 
@@ -180,8 +179,9 @@ public class GameManager : MonoBehaviour
 
     private void Increment()
     {
-        remainingTime += 5;
-        enemiesNeeded += 2;
+        level_counter += 1;
+        remainingTime += time_difficulty * level_counter;
+        enemiesNeeded += enemy_count_difficulty * level_counter;
     }
 
     private void Update()
@@ -197,12 +197,12 @@ public class GameManager : MonoBehaviour
         else if (timeRoom && remainingTime < 1 && !movingRooms)
         {
             Debug.Log("TIME ROOM WON");
-            // remainingTime = 0;
-            // enemySpawner.gameObject.SetActive(false);
-            // timerText.gameObject.SetActive(false);
-            // timeRoom = false;
-            // moveToNextRoom();
-            Win();
+            remainingTime = 0;
+            enemySpawner.gameObject.SetActive(false);
+            timerText.gameObject.SetActive(false);
+            timeRoom = false;
+            moveToNextRoom();
+            // Win();
         }
         int minutes = Mathf.FloorToInt(remainingTime / 60);
         int seconds = Mathf.FloorToInt(remainingTime % 60);
@@ -251,6 +251,7 @@ public class GameManager : MonoBehaviour
         }
         if (!firstRoom)
         {
+            Increment();
             pc.toggleShooting();
             GambleManager.instance.ToggleShop();
         }
