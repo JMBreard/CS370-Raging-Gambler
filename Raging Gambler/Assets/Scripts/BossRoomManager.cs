@@ -31,7 +31,7 @@ public class BossRoomManager : MonoBehaviour
         // Find game manager if not assigned
         if (gameManager == null)
         {
-            gameManager = FindObjectOfType<GameManager>();
+            gameManager = FindFirstObjectByType<GameManager>();
         }
         
         // Initialize room state

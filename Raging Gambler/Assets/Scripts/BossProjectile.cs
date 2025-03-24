@@ -42,10 +42,10 @@ public class BossProjectile : MonoBehaviour
         }
         
         // Initial direction is set by boss when instantiating
-        if (rb.velocity.magnitude < 0.1f)
+        if (rb.linearVelocity.magnitude < 0.1f)
         {
             // Default movement if no velocity was set
-            rb.velocity = transform.up * speed;
+            rb.linearVelocity = transform.up * speed;
         }
         
         // Set lifetime
@@ -61,10 +61,10 @@ public class BossProjectile : MonoBehaviour
             Vector2 targetDirection = ((Vector2)playerTransform.position - rb.position).normalized;
             
             // Gradually rotate velocity towards player
-            rb.velocity = Vector2.Lerp(rb.velocity.normalized, targetDirection, trackingStrength * Time.deltaTime) * speed;
+            rb.linearVelocity = Vector2.Lerp(rb.linearVelocity.normalized, targetDirection, trackingStrength * Time.deltaTime) * speed;
             
             // Rotate sprite to match direction
-            float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg - 90f;
+            float angle = Mathf.Atan2(rb.linearVelocity.y, rb.linearVelocity.x) * Mathf.Rad2Deg - 90f;
             transform.rotation = Quaternion.Euler(0, 0, angle);
         }
         else if (rotateProjectile)

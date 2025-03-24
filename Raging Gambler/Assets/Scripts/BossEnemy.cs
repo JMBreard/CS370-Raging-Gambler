@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
 {
-    [Header("Boss Stats")]
+    // Boss Stats
     public int maxHealth = 300;
     private int currentHealth;
     public HealthBar healthBar;
     
-    [Header("Phase Settings")]
+    // Phase Settings
     public enum BossPhase { Phase1, Phase2, Phase3 }
     public BossPhase currentPhase = BossPhase.Phase1;
     public float phase2HealthThreshold = 0.6f; // 60% health
@@ -17,12 +17,12 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
     public Color phase2Color = new Color(1f, 0.5f, 0f); // Orange
     public Color phase3Color = new Color(1f, 0f, 1f); // Purple
     
-    [Header("Attack Prefabs")]
+    // Attack Prefabs
     public GameObject basicProjectilePrefab;
     public GameObject spreadProjectilePrefab;
     public GameObject minionPrefab;
-    
-    [Header("Attack Settings")]
+
+    // Attack Settings
     public float basicAttackCooldown = 2f;
     public float specialAttackCooldown = 5f;
     public int minionsPerSpawn = 2;
@@ -30,7 +30,7 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
     public int aoeProjectileCount = 8; // Number of projectiles in AoE pattern
     public float aoeRadius = 2f; // Radius of AoE effect
     
-    [Header("Gambling Integration")]
+    // Gambling Integration
     public int moneyRewardOnDeath = 200;
     public int moneyRewardPerPhase = 50;
     
@@ -47,14 +47,14 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = FindFirstObjectByType<GameManager>();
     }
 
     void Start()
     {
         // Find references
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        playerMoney = FindObjectOfType<PlayerMoney>();
+        playerMoney = FindFirstObjectByType<PlayerMoney>();
         
         // Initialize health and UI
         currentHealth = maxHealth;
@@ -113,14 +113,13 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
 
     private void UpdateHealthBar()
     {
-        if (healthBar != null)
+        if (healthBar == null) return;
+        
+        float healthPercentage = (float)currentHealth / maxHealth;
+        Transform barTransform = healthBar.transform.Find("Bar");
+        if (barTransform != null)
         {
-            float healthPercentage = (float)currentHealth / maxHealth;
-            Transform barTransform = healthBar.transform.Find("Bar");
-            if (barTransform != null)
-            {
-                barTransform.localScale = new Vector3(healthPercentage, barTransform.localScale.y);
-            }
+            barTransform.localScale = new Vector3(healthPercentage, barTransform.localScale.y);
         }
     }
 
@@ -133,6 +132,9 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
         
         // Wait for transition effect
         yield return new WaitForSeconds(2f);
+        
+        // Check if this object still exists
+        if (this == null || gameObject == null) yield break;
         
         // Update phase and appearance
         currentPhase = newPhase;
@@ -149,13 +151,17 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
 
     private IEnumerator PhaseTransitionEffect()
     {
+        if (spriteRenderer == null) yield break;
+        
         // Flash effect to indicate phase change
         Color originalColor = spriteRenderer.color;
         
         for (int i = 0; i < 5; i++)
         {
+            if (spriteRenderer == null) yield break;
             spriteRenderer.color = Color.white;
             yield return new WaitForSeconds(0.1f);
+            if (spriteRenderer == null) yield break;
             spriteRenderer.color = originalColor;
             yield return new WaitForSeconds(0.1f);
         }
@@ -163,6 +169,8 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
 
     private void UpdateAppearanceForPhase()
     {
+        if (spriteRenderer == null) return;
+        
         switch (currentPhase)
         {
             case BossPhase.Phase1:
@@ -209,16 +217,22 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
 
     private IEnumerator DeathEffect()
     {
+        if (spriteRenderer == null) yield break;
+        
         // Death animation effect
         for (float t = 1f; t > 0; t -= 0.05f)
         {
+            if (spriteRenderer == null || !gameObject) yield break;
             spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, t);
             transform.localScale *= 0.95f;
             yield return new WaitForSeconds(0.05f);
         }
         
         // Destroy after animation completes
-        Destroy(gameObject);
+        if (gameObject != null)
+        {
+            Destroy(gameObject);
+        }
     }
 
     #region Attack Patterns
@@ -227,6 +241,8 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
     {
         while (!isDead)
         {
+            if (gameObject == null) yield break;
+            
             if (!isTransitioning)
             {
                 switch (currentPhase)
@@ -261,24 +277,26 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
         
         while (!isDead)
         {
+            if (gameObject == null) yield break;
+            
             if (!isTransitioning)
             {
                 switch (currentPhase)
                 {
-                    case BossPhase.Phase1:
+                case BossPhase.Phase1:
                         SpreadAttack(3);
-                        break;
+                    break;
                         
-                    case BossPhase.Phase2:
+                case BossPhase.Phase2:
                         SpreadAttack(5);
                         TriggerAoEAttack();
-                        break;
+                    break;
                         
-                    case BossPhase.Phase3:
+                case BossPhase.Phase3:
                         SpreadAttack(8);
                         TriggerAoEAttack();
-                        SummonMinions();
-                        break;
+                    SummonMinions();
+                    break;
                 }
             }
             yield return new WaitForSeconds(specialAttackCooldown);
@@ -287,7 +305,7 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
 
     private void FireSingleProjectile()
     {
-        if (playerTransform == null || basicProjectilePrefab == null) return;
+        if (playerTransform == null || basicProjectilePrefab == null || !gameObject) return;
 
         Vector2 direction = ((Vector2)playerTransform.position - (Vector2)transform.position).normalized;
         
@@ -301,13 +319,13 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            rb.velocity = direction * projectileSpeed;
+            rb.linearVelocity = direction * projectileSpeed;
         }
     }
 
     private void SpreadAttack(int projectileCount)
     {
-        if (spreadProjectilePrefab == null) return;
+        if (spreadProjectilePrefab == null || !gameObject) return;
         
         float angleStep = 360f / projectileCount;
         float currentAngle = 0f;
@@ -330,7 +348,7 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
             Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                rb.velocity = direction * projectileSpeed;
+                rb.linearVelocity = direction * projectileSpeed;
             }
             
             currentAngle += angleStep;
@@ -339,7 +357,7 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
 
     private void TriggerAoEAttack()
     {
-        if (playerTransform == null || basicProjectilePrefab == null) return;
+        if (playerTransform == null || basicProjectilePrefab == null || !gameObject) return;
         
         // Using the projectile system to create an AoE effect
         for (int i = 0; i < aoeProjectileCount; i++)
@@ -360,7 +378,7 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
             if (rb != null)
             {
                 Vector2 direction = ((Vector2)spawnPosition - (Vector2)playerTransform.position).normalized;
-                rb.velocity = direction * projectileSpeed * 0.5f; // Slower spread for AoE effect
+                rb.linearVelocity = direction * projectileSpeed * 0.5f; // Slower spread for AoE effect
             }
             
             // Rotate projectile to face outward
@@ -371,7 +389,7 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
 
     private void SummonMinions()
     {
-        if (minionPrefab == null) return;
+        if (minionPrefab == null || !gameObject) return;
         
         for (int i = 0; i < minionsPerSpawn; i++)
         {

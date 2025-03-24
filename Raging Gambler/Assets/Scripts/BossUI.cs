@@ -47,7 +47,7 @@ public class BossUI : MonoBehaviour
         // Find boss if not assigned
         if (boss == null)
         {
-            boss = FindObjectOfType<BossEnemy>();
+            boss = FindFirstObjectByType<BossEnemy>();
         }
         
         // Register to phase change events

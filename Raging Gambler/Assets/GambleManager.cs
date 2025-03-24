@@ -100,7 +100,14 @@ public class GambleManager : MonoBehaviour
 
     public void ToggleShop() 
     {
-        shopUI.SetActive(!shopUI.activeSelf);
+        if (shopUI != null)
+        {
+            shopUI.SetActive(!shopUI.activeSelf);
+        }
+        else
+        {
+            Debug.LogWarning("Cannot toggle shop: shopUI reference is missing");
+        }
     }
 
     // private void OnGUI() {
