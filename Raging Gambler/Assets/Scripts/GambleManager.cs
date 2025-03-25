@@ -18,7 +18,7 @@ public class GambleManager : MonoBehaviour
     public GameObject shopUI;
     public Transform wagerContent;
     public GameObject wagerItem;
-    public EnemySpawner enemy;
+    public EnemySpawner enemySpawner;
     public PlayerController player;
     public HealthController health;
     public ProjectileMovement bullet;
@@ -84,19 +84,13 @@ public class GambleManager : MonoBehaviour
             // works
             // enemy is EnemySpawner instance
             case "Enemy: population buff":
-                enemy.increaseSpawnRate();
+                enemySpawner.increaseSpawnRate();
                 break;
 
-            // bugged: enemy health doesn't reset even after stopping/restarting scene
+            // works
             // enemy is EnemySpawner instance
             case "Enemy: health buff":
-                enemy.setEnemyHealthMultiplier(2);
-                HealthController normalEnemyHealth = NormalEnemyPrefab.GetComponent<HealthController>();
-                normalEnemyHealth.increaseMaxHealth();
-                HealthController curvedEnemyHealth = CurvedEnemyPrefab.GetComponent<HealthController>();
-                curvedEnemyHealth.increaseMaxHealth();
-                HealthController shooterEnemyHealth = ShooterEnemyPrefab.GetComponent<HealthController>();
-                shooterEnemyHealth.increaseMaxHealth();
+                enemySpawner.setEnemyHealthMultiplier(2);
                 break;
 
             // works

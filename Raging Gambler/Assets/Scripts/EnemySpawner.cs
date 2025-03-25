@@ -95,9 +95,11 @@ public class EnemySpawner : MonoBehaviour
         // Instantiate the selected enemy.
         GameObject enemy = Instantiate(selectedEnemy, spawnPosition, Quaternion.identity);
 
-        // Apply Multiplied Health to Enemy Prefab
+        // Apply health multiplier to the instaniated enemy's health controller
         HealthController hc = enemy.GetComponent<HealthController>();
-        hc.currentHealth *= enemyHealthMultiplier;
+        hc.maxHealth *= enemyHealthMultiplier;
+        hc.currentHealth = hc.maxHealth;
+
 
         // Assign the player's PlayerMoney reference to the HealthController on the new enemy.
         HealthController healthController = enemy.GetComponent<HealthController>();
