@@ -1165,7 +1165,7 @@ MonoBehaviour:
   shopUI: {fileID: 486094664}
   wagerContent: {fileID: 1385476422}
   wagerItem: {fileID: 5393312897184863794, guid: 6e980c5d6dcc4a94fb65d1333b94f770, type: 3}
-  enemy: {fileID: 1589405770}
+  enemySpawner: {fileID: 1589405770}
   player: {fileID: 1545220206}
   health: {fileID: 207865604912892497}
   bullet: {fileID: -3528085231807167959, guid: 94d1eb044f1f7ba4b9ccbc7e78483129, type: 3}
