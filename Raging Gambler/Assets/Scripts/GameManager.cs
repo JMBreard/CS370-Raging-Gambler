@@ -47,8 +47,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int time_difficulty = 5;
     [SerializeField] int enemy_count_difficulty = 2;
 
-    public GameObject player;
-    public PlayerController pc;
+    [SerializeField] public PlayerController pc;
 
     private void Awake()
     {
@@ -57,7 +56,7 @@ public class GameManager : MonoBehaviour
         pickRoomCondition();
         startRoom();
         firstRoom = false;
-        pc = (PlayerController)player.GetComponent("PlayerController");
+        pc = (PlayerController) GameObject.FindWithTag("Player").GetComponent("PlayerController");
     }
 
     public void GameOver()

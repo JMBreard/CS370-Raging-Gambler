@@ -21,6 +21,7 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
 
     void Start()
     {
+        gameManager = (GameManager) GameObject.Find("Game Manager").GetComponent("GameManager");
         currentHealth = maxHealth;
 
         // Check if healthbar is assigned and only call Setup for the player
