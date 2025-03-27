@@ -18,10 +18,14 @@ public class GambleManager : MonoBehaviour
     public GameObject shopUI;
     public Transform wagerContent;
     public GameObject wagerItem;
-    public EnemySpawner enemy;
+    public EnemySpawner enemySpawner;
     public PlayerController player;
     public HealthController health;
     public ProjectileMovement bullet;
+
+    public GameObject NormalEnemyPrefab;
+    public GameObject CurvedEnemyPrefab;
+    public GameObject ShooterEnemyPrefab;
 
     private void Awake() 
     {
@@ -77,18 +81,44 @@ public class GambleManager : MonoBehaviour
 
     public void ApplyWager(Wagers wager) {
         switch(wager.name) {
-            case "Enemy: health buff":
-                enemy.increaseHealth();
-                break;
+            // works
+            // enemy is EnemySpawner instance
             case "Enemy: population buff":
-                enemy.increaseSpawnRate();
+                enemySpawner.increaseSpawnRate();
                 break;
+
+            // works
+            // enemy is EnemySpawner instance
+            case "Enemy: health buff":
+                enemySpawner.setEnemyHealthMultiplier(2);
+                break;
+
+            // works
+            // player is PlayerController instance
+            case "Player: reload debuff":
+                player.increaseReloadTime();
+                break;
+            
+            // works
+            // player is PlayerController instance
+            case "Player: ammo count debuff":
+                player.decreaseMaxAmmoCount();
+                break;
+
+            // works
+            // health is HealthController instance
             case "Player: health debuff":
                 health.reduceMaxHealth();
                 break;
+
+            // works
+            // player is PlayerController instance
             case "Player: speed debuff":
                 player.reduceSpeed();
                 break;
+
+            // bugged, bullet time doesn't reset after restart
+            // bullet is ProjectileMovement instance
             case "Player: range debuff":
                 bullet.reduceBulletTime();
                 break;

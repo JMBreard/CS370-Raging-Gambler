@@ -107,4 +107,14 @@ public class PlayerController : MonoBehaviour
         _speed -= 2f;
         Debug.Log("Current Speed: " + _speed);
     }
+
+    public void increaseReloadTime() {
+        _reloadTime += 1;
+        Debug.Log("Current reload time: " + _reloadTime);
+    }
+
+    public void decreaseMaxAmmoCount() {
+        _ammoCount -= 2;
+        Debug.Log("Current max ammo count:" + _ammoCount);
+    }
 }
