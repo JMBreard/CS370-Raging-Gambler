@@ -5485,7 +5485,7 @@ MonoBehaviour:
   - {fileID: 1087945185}
   - {fileID: 425618935}
   timerText: {fileID: 429431636}
-  remainingTime: 10
+  remainingTime: 5
   remainingEnemies: {fileID: 1837252447}
   enemySpawner: {fileID: 1589405769}
   enemiesNeeded: 3
@@ -5493,7 +5493,7 @@ MonoBehaviour:
   roomType: {fileID: 1083433304}
   winCondition: {fileID: 545868396}
   time_difficulty: 5
-  enemy_count_difficulty: 2
+  enemy_count_difficulty: 1
   pc: {fileID: 1545220206}
 --- !u!4 &1260338508
 Transform:
