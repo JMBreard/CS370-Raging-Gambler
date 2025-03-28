@@ -28,11 +28,11 @@ public class GameManager : MonoBehaviour
     Vector3 newPos;
 
     [SerializeField] TextMeshProUGUI timerText;
-    [SerializeField] float remainingTime = 10;
+    [SerializeField] float remainingTime;
     [SerializeField] TextMeshProUGUI remainingEnemies;
     public GameObject enemySpawner;
 
-    [SerializeField] int enemiesNeeded = 3;
+    [SerializeField] int enemiesNeeded;
 
     private bool timeRoom;
     private bool enemyRoom;
@@ -44,8 +44,8 @@ public class GameManager : MonoBehaviour
     private bool firstRoom = true;
 
     private int level_counter = 0;
-    [SerializeField] int time_difficulty = 5;
-    [SerializeField] int enemy_count_difficulty = 2;
+    [SerializeField] int time_difficulty;
+    [SerializeField] int enemy_count_difficulty;
 
     [SerializeField] public PlayerController pc;
 

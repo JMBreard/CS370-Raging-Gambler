@@ -4,7 +4,7 @@ public class HealthBar : MonoBehaviour
 {
 
     private HealthController healthController;
-
+    public GameObject HealthBarPrefab; // Assign your prefab in the Inspector
 
     public void Setup(HealthController healthController)
     {
@@ -24,5 +24,4 @@ public class HealthBar : MonoBehaviour
         Transform healthBarTransform = transform.Find("Bar");
         healthBarTransform.localScale = new Vector3(healthPercentage, 0.5f);
     }
-
 }

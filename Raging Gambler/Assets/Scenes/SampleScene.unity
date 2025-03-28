@@ -9400,6 +9400,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1565869210}
     - target: {fileID: 5788281844516825369, guid: 60cb10de44cc76744ba30bfe80167f3e, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1260338507}
+    - target: {fileID: 5788281844516825369, guid: 60cb10de44cc76744ba30bfe80167f3e, type: 3}
       propertyPath: playerMoney
       value: 
       objectReference: {fileID: 1029621072}
