@@ -9460,6 +9460,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1598102413}
     - target: {fileID: 5788281844516825369, guid: 60cb10de44cc76744ba30bfe80167f3e, type: 3}
+      propertyPath: maxHealth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5788281844516825369, guid: 60cb10de44cc76744ba30bfe80167f3e, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1260338507}
@@ -9469,7 +9473,7 @@ PrefabInstance:
       objectReference: {fileID: 1029621072}
     - target: {fileID: 5788281844516825369, guid: 60cb10de44cc76744ba30bfe80167f3e, type: 3}
       propertyPath: currentHealth
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7231107617852847325, guid: 60cb10de44cc76744ba30bfe80167f3e, type: 3}
       propertyPath: m_Name

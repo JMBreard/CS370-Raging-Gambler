@@ -1,10 +1,16 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     public float speed = 2f;
     protected Transform player; 
-    protected Rigidbody2D rb;      
+    protected Rigidbody2D rb;
+
+    private bool contact = false; // Tracks whether enemy is contacting player
+    private float dmgTimeInterval = 1.0f; // Deal dmg every time interval (in secs)
+    private float dmgTimer = 0.0f; // Tracks contact time
+    private Coroutine dmgCoroutine;
 
     protected virtual void Start()
     {
@@ -29,10 +35,37 @@ public class Enemy : MonoBehaviour
         {
             // Use the IDamagable interface to damage the player.
             ProjectileMovement.IDamagable playerHealth = collision.gameObject.GetComponent<ProjectileMovement.IDamagable>();
-            if (playerHealth != null)
+
+            contact = true;
+            if (playerHealth != null && contact == true)
+            {
+                dmgCoroutine = StartCoroutine(SustainedDamage(playerHealth));
+            }
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            if (dmgCoroutine != null)
+            {
+                StopCoroutine(dmgCoroutine);
+                contact = false;
+            }
+        }
+    }
+
+    private IEnumerator SustainedDamage(ProjectileMovement.IDamagable playerHealth)
+    {
+        while(contact == true)
+        {
+            if (Time.time >= dmgTimer)
             {
                 playerHealth.Damage();
+                dmgTimer = Time.time + dmgTimeInterval;
             }
+            yield return null;
         }
     }
 }
