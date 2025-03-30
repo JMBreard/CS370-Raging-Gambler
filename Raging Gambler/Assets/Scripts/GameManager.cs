@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] currentRoomDoors; //An array of all of the doors in current room
     public GameObject[] nextRoomDoors; //An array for all of the doors in the next room
-
+    public ObsctacleSpawner obsctacleSpawner; // Have obstacles move with the room 
     private int moveRoomX = 23; //How much to move a room in the X axis
     private int moveRoomY = 10; //How much to move a room in the Y axis
 
@@ -75,6 +75,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ObstacleWipe()
+    {
+            foreach (GameObject obstacle in GameObject.FindGameObjectsWithTag("Obstacle"))
+        {
+            Destroy(obstacle);
+        }
+    }
+
     public void EnemiesLeftUpdate()
     {
         if (enemyRoom)
@@ -82,7 +90,7 @@ public class GameManager : MonoBehaviour
             enemiesNeeded--;
             Debug.Log("Enemies remaining: " + enemiesNeeded);
 
-            remainingEnemies.text = "Remaining: " + (enemiesNeeded);
+            remainingEnemies.text = "Remaining: " + enemiesNeeded;
 
             if (enemiesNeeded == 0)
             {
@@ -153,24 +161,28 @@ public class GameManager : MonoBehaviour
                 newPos.x -= moveRoomX; //Moves the next room to the left
                 nextDoor = nextRoomDoors[1]; //Sets the door from the next room
                 comeFromRoom = 1; //Sets what direction the player came from
+                obsctacleSpawner.NewRoomObstacles( newPos ); // Makes obstacles in new room
                 break;
             case 1:
                 Debug.Log("Right Door Open");
                 newPos.x += moveRoomX; //Moves the next room to the right
                 nextDoor = nextRoomDoors[0];
                 comeFromRoom = 0;
+                obsctacleSpawner.NewRoomObstacles( newPos ); // Makes obstacles in new room
                 break;
             case 2:
                 Debug.Log("Top Door Open");
                 newPos.y += moveRoomY; //Moves the next room up
                 nextDoor = nextRoomDoors[3];
                 comeFromRoom = 3;
+                obsctacleSpawner.NewRoomObstacles( newPos ); // Makes obstacles in new room
                 break;
             case 3:
                 Debug.Log("Bottom Door Open");
                 newPos.y -= moveRoomY; //Moves the next room down
                 nextDoor = nextRoomDoors[2];
                 comeFromRoom = 2;
+                obsctacleSpawner.NewRoomObstacles( newPos ); // Makes obstacles in new room
                 break;
         }
         nextRoom.transform.position = newPos; //Sets the transformation of the next room to whatever direction was picked

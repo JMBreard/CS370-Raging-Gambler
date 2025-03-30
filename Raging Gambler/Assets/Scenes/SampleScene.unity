@@ -5592,11 +5592,12 @@ MonoBehaviour:
   - {fileID: 1902312401}
   - {fileID: 1087945185}
   - {fileID: 425618935}
+  obsctacleSpawner: {fileID: 1583508307}
   timerText: {fileID: 429431636}
   remainingTime: 5
   remainingEnemies: {fileID: 1837252447}
   enemySpawner: {fileID: 1589405769}
-  enemiesNeeded: 3
+  enemiesNeeded: 1
   nextRoomUI: {fileID: 1623653709}
   roomType: {fileID: 1083433304}
   winCondition: {fileID: 545868396}
@@ -6738,7 +6739,6 @@ MonoBehaviour:
   xRange: 3
   yRange: 3
   obstaclePrefab: {fileID: 2037352425}
-  minDist: 3
 --- !u!4 &1583508308
 Transform:
   m_ObjectHideFlags: 0
