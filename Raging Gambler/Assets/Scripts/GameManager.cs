@@ -1,6 +1,7 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] currentRoomDoors; //An array of all of the doors in current room
     public GameObject[] nextRoomDoors; //An array for all of the doors in the next room
     public ObsctacleSpawner obsctacleSpawner; // Have obstacles move with the room 
+
     private int moveRoomX = 23; //How much to move a room in the X axis
     private int moveRoomY = 10; //How much to move a room in the Y axis
 
@@ -48,6 +50,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] int enemy_count_difficulty;
 
     [SerializeField] public PlayerController pc;
+
+    private bool mouseToggle;
 
     private void Awake()
     {
@@ -220,6 +224,17 @@ public class GameManager : MonoBehaviour
         int minutes = Mathf.FloorToInt(remainingTime / 60);
         int seconds = Mathf.FloorToInt(remainingTime % 60);
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+        if(isMouseOverUIIgnore() && !mouseToggle)
+        {
+            mouseToggle = true;
+            pc.toggleShooting();
+        }
+        if(!isMouseOverUIIgnore() && mouseToggle && Time.timeScale != 0)
+        {
+            mouseToggle = false;
+            pc.toggleShooting();
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -228,6 +243,7 @@ public class GameManager : MonoBehaviour
             pickRoomCondition();
             nextRoomUI.gameObject.SetActive(true);
             pc.toggleShooting();
+            pc.toggleMovement();
             currentDoor.gameObject.SetActive(true); //Turns on the doors so the room closes
             nextDoor.gameObject.SetActive(true);
             mainCamera.MoveToNewRoom(nextRoom.transform); //Moves the camera to the new room
@@ -240,6 +256,7 @@ public class GameManager : MonoBehaviour
             nextRoomDoors = oldDoors;
             newPos.x += 1.5f;
             this.transform.position = newPos;
+            newPos.x -= 1.5f;
         }
     }
 
@@ -265,8 +282,27 @@ public class GameManager : MonoBehaviour
         if (!firstRoom)
         {
             pc.toggleShooting();
+            pc.toggleMovement();
             GambleManager.instance.ToggleShop();
         }
         movingRooms = false;
+    }
+
+    private bool isMouseOverUIIgnore()
+    {
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+        pointerEventData.position = Input.mousePosition;
+
+        List<RaycastResult> raycastResultList = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData, raycastResultList);
+        for (int i = 0; i < raycastResultList.Count; i++)
+        {
+            if (raycastResultList[i].gameObject.GetComponent<Ignore>() == null)
+            {
+                raycastResultList.RemoveAt(i);
+                i--;
+            }
+        }
+        return raycastResultList.Count > 0;
     }
 }

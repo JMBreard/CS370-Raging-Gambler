@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEditor.Rendering.Universal;
 
 public class GambleManager : MonoBehaviour
 {
