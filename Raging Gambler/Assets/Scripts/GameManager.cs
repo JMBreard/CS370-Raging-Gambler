@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] currentRoomDoors; //An array of all of the doors in current room
     public GameObject[] nextRoomDoors; //An array for all of the doors in the next room
 
-    private int moveRoomX = 23; //How much to move a room in the X axis
+    private float moveRoomX = 17.57f; //How much to move a room in the X axis
     private int moveRoomY = 10; //How much to move a room in the Y axis
 
     private int comeFromRoom = 3; //Initially sets the room the player comes from as the bottom door
@@ -243,6 +243,7 @@ public class GameManager : MonoBehaviour
             nextRoomDoors = oldDoors;
             newPos.x += 1.5f;
             this.transform.position = newPos;
+            newPos.x -= 1.5f;
         }
     }
 
