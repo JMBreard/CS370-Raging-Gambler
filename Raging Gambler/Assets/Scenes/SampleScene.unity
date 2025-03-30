@@ -5600,6 +5600,7 @@ MonoBehaviour:
   nextRoomUI: {fileID: 1623653709}
   roomType: {fileID: 1083433304}
   winCondition: {fileID: 545868396}
+  level_counter: 0
   time_difficulty: 5
   enemy_count_difficulty: 1
   pc: {fileID: 1545220206}
@@ -8243,12 +8244,24 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 97431099250403947, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1260338507}
+    - target: {fileID: 97431099250403947, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+      propertyPath: playerMoney
+      value: 
+      objectReference: {fileID: 1029621072}
     - target: {fileID: 5053553304485931349, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
       propertyPath: m_Constraints
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5746704200580065444, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
       propertyPath: healthbar
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5746704200580065444, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+      propertyPath: gameManager
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5746704200580065444, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}

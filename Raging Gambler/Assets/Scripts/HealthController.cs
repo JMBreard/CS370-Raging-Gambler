@@ -83,7 +83,7 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
         // When the enemy dies, reward the player with money
         if (playerMoney != null)
         {
-            playerMoney.addMoney(10);
+            playerMoney.addMoney(gameManager.level_counter * 5);
         }
         if (CompareTag("Player"))
         {
@@ -110,5 +110,11 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
     public void increaseMaxHealth() {
         maxHealth += 1;
         Debug.Log("max health: " + maxHealth);
+    }
+
+    public void Steal()
+    {
+        int num = playerMoney.money;
+        playerMoney.subtractMoney( gameManager.level_counter * 2 );
     }
 }

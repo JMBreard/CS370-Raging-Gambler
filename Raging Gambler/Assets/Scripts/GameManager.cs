@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 
     private bool firstRoom = true;
 
-    private int level_counter = 0;
+    public int level_counter = 0;
     [SerializeField] int time_difficulty;
     [SerializeField] int enemy_count_difficulty;
 

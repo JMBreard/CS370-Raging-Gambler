@@ -83,10 +83,7 @@ public class EnemySpawner : MonoBehaviour
                 break;
             }
             randomValue -= enemyData.spawnChance;
-        }
-
-        
-
+        }    
 
         // Determine spawn position relative to the player.
         Vector2 randomDirection = Random.insideUnitCircle.normalized;

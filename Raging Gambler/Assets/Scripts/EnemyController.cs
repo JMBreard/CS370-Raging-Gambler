@@ -12,6 +12,9 @@ public class Enemy : MonoBehaviour
     private float dmgTimer = 0.0f; // Tracks contact time
     private Coroutine dmgCoroutine;
 
+    private string enemyType; // Enemy type corresponds with trait action
+
+
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -35,10 +38,14 @@ public class Enemy : MonoBehaviour
         {
             // Use the IDamagable interface to damage the player.
             ProjectileMovement.IDamagable playerHealth = collision.gameObject.GetComponent<ProjectileMovement.IDamagable>();
+            HealthController playerMoney = collision.gameObject.GetComponent<HealthController>();
 
+            enemyType = gameObject.name;
             contact = true;
+
             if (playerHealth != null && contact == true)
             {
+                Trait(enemyType, playerHealth, playerMoney);
                 dmgCoroutine = StartCoroutine(SustainedDamage(playerHealth));
             }
         }
@@ -66,6 +73,18 @@ public class Enemy : MonoBehaviour
                 dmgTimer = Time.time + dmgTimeInterval;
             }
             yield return null;
+        }
+    }
+
+    private void Trait(string enemyTtype, ProjectileMovement.IDamagable playerHealth, HealthController playerMoney)
+    {
+        if (enemyType.Contains("Fast"))
+        {
+            playerMoney.Steal();
+        }
+        if (enemyType.Contains("Shooter"))
+        {
+            // Another trait
         }
     }
 }
