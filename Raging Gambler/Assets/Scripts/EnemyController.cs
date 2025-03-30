@@ -76,7 +76,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void Trait(string enemyTtype, ProjectileMovement.IDamagable playerHealth, HealthController playerMoney)
+    private void Trait(string enemyType, ProjectileMovement.IDamagable playerHealth, HealthController playerMoney)
     {
         if (enemyType.Contains("Fast"))
         {
