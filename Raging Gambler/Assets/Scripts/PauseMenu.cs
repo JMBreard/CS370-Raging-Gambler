@@ -10,16 +10,6 @@ public class PauseMenu : MonoBehaviour
     bool gamePaused = false;
     [SerializeField] GameObject pauseMenu;
 
-    [SerializeField] PlayerController pc;
-
-    bool onPause = false;
-
-
-    private void Awake()
-    {
-        pc = (PlayerController)GameObject.FindWithTag("Player").GetComponent("PlayerController");
-    }
-
     /*
     void Update()
     {
@@ -48,8 +38,6 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         Time.timeScale = 1;
-        pc.toggleShooting();
-        onPause = false;
         gamePaused = false;
         pauseMenu.SetActive(false);
     }
@@ -65,24 +53,5 @@ public class PauseMenu : MonoBehaviour
     {
         SceneManager.LoadScene("Title Scene");
     }
-
-   /* private void Update()
-    {
-        if(isMouseOverUI() && !onPause && !gamePaused)
-        {
-            onPause = true;
-            pc.toggleShooting();
-        }
-        else if(!isMouseOverUI() && onPause && !gamePaused)
-        {
-            onPause = false;
-            pc.toggleShooting();
-        }
-    }
-
-    private bool isMouseOverUI()
-    {
-        return EventSystem.current.IsPointerOverGameObject();
-    }*/
-
+    
 }

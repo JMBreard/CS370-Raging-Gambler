@@ -5596,7 +5596,7 @@ MonoBehaviour:
   remainingTime: 5
   remainingEnemies: {fileID: 1837252447}
   enemySpawner: {fileID: 1589405769}
-  enemiesNeeded: 3
+  enemiesNeeded: 1
   nextRoomUI: {fileID: 1623653709}
   roomType: {fileID: 1083433304}
   winCondition: {fileID: 545868396}
@@ -8871,6 +8871,7 @@ GameObject:
   - component: {fileID: 2095148861}
   - component: {fileID: 2095148860}
   - component: {fileID: 2095148859}
+  - component: {fileID: 2095148862}
   m_Layer: 5
   m_Name: Pause Button
   m_TagString: Untagged
@@ -8991,6 +8992,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2095148857}
   m_CullTransparentMesh: 1
+--- !u!114 &2095148862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095148857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0abc138947aed1438a8114c6cc48edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2110850217
 GameObject:
   m_ObjectHideFlags: 0

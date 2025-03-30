@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private bool _reloading = false;
 
     private bool canShoot = true;
+    private bool canMove = true;
 
 
     void Awake() 
@@ -33,6 +34,11 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Shooting Switched");
         canShoot = !canShoot;
+    }
+
+    public void toggleMovement()
+    {
+        canMove = !canMove;
     }
 
     // OnEnable is called if the player is active when the scene loads (or is reloaded in GameManager.Restart())
@@ -57,8 +63,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        rb.MovePosition(rb.position + movement * _speed * Time.fixedDeltaTime);
+        if(canMove)
+        {
+            Vector2 movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            rb.MovePosition(rb.position + movement * _speed * Time.fixedDeltaTime);
+        }
         //rb.MovePosition(rb.position + (direction * speed * Time.deltaTime));
     }
 
