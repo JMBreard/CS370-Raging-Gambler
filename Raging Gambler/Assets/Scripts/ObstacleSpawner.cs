@@ -10,7 +10,7 @@ public class ObsctacleSpawner : MonoBehaviour
     public float xRange = 100f;
 
     // yRange the range in the y axis that the object can be placed
-    public float yRange = 30f;
+    public float yRange = 25f;
 
     private int num; 
 
