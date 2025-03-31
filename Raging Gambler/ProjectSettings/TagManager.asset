@@ -18,7 +18,7 @@ TagManager:
   - Enemy
   - Player
   - Player Bullet
-  - 
+  - floor
   - 
   - 
   - 
@@ -41,8 +41,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: floor
+    uniqueID: 3660151387
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   m_RenderingLayers:
   - Default
+  - Layer 1
