@@ -6746,8 +6746,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 272fa601009ea8e43a60e7795af6bdfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xRange: 3
-  yRange: 3
+  xRange: 6
+  yRange: 4
+  min: 3
+  max: 10
   obstaclePrefab: {fileID: 2037352425}
 --- !u!4 &1583508308
 Transform:
