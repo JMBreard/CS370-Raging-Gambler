@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour
 
     private bool mouseToggle;
 
+    public PlayerMoney playerMoney;
+
     private void Awake()
     {
         Time.timeScale = 1.0f;
@@ -109,6 +111,10 @@ public class GameManager : MonoBehaviour
         remainingEnemies.gameObject.SetActive(false);
         enemyRoom = false;
         moveToNextRoom();
+
+        // if a gamble is picked, add wager money from gamble to player's money
+        playerMoney = FindAnyObjectByType<PlayerMoney>();
+        playerMoney.addMoney(100);
     }
 
     public void Restart()

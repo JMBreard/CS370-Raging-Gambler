@@ -55,7 +55,7 @@ public class GambleManager : MonoBehaviour
                     child.gameObject.GetComponent<TMP_Text>().text = "Stake: $" + wager.cost.ToString();
                 } else if (child.gameObject.name == "Reward")
                 {
-                    child.gameObject.GetComponent<TMP_Text>().text = "Win: $" + wager.cost.ToString();
+                    child.gameObject.GetComponent<TMP_Text>().text = "Win: $" + wager.reward.ToString();
                 } else if (child.gameObject.name == "Image")
                 {
                     child.gameObject.GetComponent<Image>().sprite = wager.image;
