@@ -118,7 +118,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     public void increaseSpawnRate() {
-        spawnRate -= 1f;
+        spawnRate -= 0.5f;
         Debug.Log("Spawn rate: " + spawnRate);
     }
     

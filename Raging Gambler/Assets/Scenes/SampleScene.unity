@@ -1236,7 +1236,7 @@ MonoBehaviour:
   playerMoney: {fileID: 1029621072}
   wagers:
   - name: 'Enemy: population buff'
-    cost: 40
+    cost: 50
     reward: 100
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     itemRef: {fileID: 0}
@@ -1245,7 +1245,7 @@ MonoBehaviour:
     reward: 200
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     itemRef: {fileID: 0}
-  - name: 'Player: reloud debuff'
+  - name: 'Player: reload debuff'
     cost: 50
     reward: 100
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -1257,7 +1257,7 @@ MonoBehaviour:
     itemRef: {fileID: 0}
   - name: 'Player: health debuff'
     cost: 60
-    reward: 100
+    reward: 120
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     itemRef: {fileID: 0}
   - name: 'Player: speed debuff'
@@ -2400,15 +2400,15 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.00090415915
-    y: 0.003215434
-    width: 0.9981917
-    height: 0.99356914
+    x: 0.0009090909
+    y: 0
+    width: 0.9981818
+    height: 0.99817187
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5.15
+  orthographic size: 4.55
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
