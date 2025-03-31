@@ -7,12 +7,16 @@ public class ObsctacleSpawner : MonoBehaviour
 {
 
     // xRange the range in the x axis that the object can be placed
-    public float xRange = 100f;
+    public float xRange;
 
     // yRange the range in the y axis that the object can be placed
-    public float yRange = 25f;
+    public float yRange;
 
-    private int num; 
+    public int min;
+
+    public int max;
+
+    private int num;
 
     public GameObject obstaclePrefab;
 
@@ -23,10 +27,11 @@ public class ObsctacleSpawner : MonoBehaviour
 
     void SpawnObstacles()
     {
-        num = Random.Range(1, 8);
+        num = Random.Range(min, max);
 
-        for (int i = 0; i < num; i++) {
-            
+        for (int i = 0; i < num; i++)
+        {
+
             // Creates vector location for object
             Vector2 randomPosition;
 
@@ -42,15 +47,16 @@ public class ObsctacleSpawner : MonoBehaviour
 
     public void NewRoomObstacles(Vector3 newPos)
     {
-        num = Random.Range(1, 8);
+        num = Random.Range(min, max);
 
-        for (int i = 0; i < num; i++) {
-            
+        for (int i = 0; i < num; i++)
+        {
+
             // Creates vector location for object
             Vector2 randomPosition = new Vector2(newPos.x, newPos.y);
 
-            float xPosition = Random.Range( -xRange, xRange );
-            float yPosition = Random.Range( -yRange, yRange );
+            float xPosition = Random.Range(-xRange, xRange);
+            float yPosition = Random.Range(-yRange, yRange);
             randomPosition.x += xPosition;
             randomPosition.y += yPosition;
 
