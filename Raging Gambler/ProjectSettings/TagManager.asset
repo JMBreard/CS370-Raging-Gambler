@@ -47,6 +47,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Scan Lines
+    uniqueID: 3823726757
+    locked: 0
   m_RenderingLayers:
   - Default
   - Layer 1
