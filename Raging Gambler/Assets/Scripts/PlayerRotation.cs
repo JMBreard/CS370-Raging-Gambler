@@ -19,10 +19,10 @@ public class PlayerRotation : MonoBehaviour
         // Gets position of cursor
         Vector3 cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         // Gets direction facing the cursor
-        Vector2 forwardDirection = cursorPosition - transform.position;
+        Vector2 rightDirection = cursorPosition - transform.position;
 
         // Get the angle of the direction the cursor is facing
-        float angle = Vector2.SignedAngle(Vector2.up, forwardDirection);
+        float angle = Vector2.SignedAngle(Vector2.right, rightDirection);
         // Sets the players rotation to face the cursor
         transform.eulerAngles = new Vector3(0, 0, angle);
     }
