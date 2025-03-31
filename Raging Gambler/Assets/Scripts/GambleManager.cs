@@ -26,6 +26,8 @@ public class GambleManager : MonoBehaviour
     public GameObject CurvedEnemyPrefab;
     public GameObject ShooterEnemyPrefab;
 
+    public int[] WagerCounts = new int[7];
+
     private void Awake() 
     {
         if (instance == null)
@@ -84,42 +86,49 @@ public class GambleManager : MonoBehaviour
             // enemy is EnemySpawner instance
             case "Enemy: population buff":
                 enemySpawner.increaseSpawnRate();
+                WagerCounts[0] += 1;
                 break;
 
             // works
             // enemy is EnemySpawner instance
             case "Enemy: health buff":
                 enemySpawner.setEnemyHealthMultiplier(2);
+                WagerCounts[1] += 1;
                 break;
 
             // works
             // player is PlayerController instance
             case "Player: reload debuff":
                 player.increaseReloadTime();
+                WagerCounts[2] += 1;
                 break;
             
             // works
             // player is PlayerController instance
             case "Player: ammo count debuff":
                 player.decreaseMaxAmmoCount();
+                WagerCounts[3] += 1;
                 break;
 
             // works
             // health is HealthController instance
             case "Player: health debuff":
                 health.reduceMaxHealth();
+                WagerCounts[4] += 1;
                 break;
 
             // works
             // player is PlayerController instance
             case "Player: speed debuff":
                 player.reduceSpeed();
+                WagerCounts[5] += 1;
                 break;
 
             // bugged, bullet time doesn't reset after restart
             // bullet is ProjectileMovement instance
             case "Player: range debuff":
                 bullet.reduceBulletTime();
+                WagerCounts[6] += 1;
                 break;
             default:
                 Debug.Log("no debuff available");

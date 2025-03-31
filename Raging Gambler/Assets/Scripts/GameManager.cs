@@ -55,6 +55,8 @@ public class GameManager : MonoBehaviour
 
     public PlayerMoney playerMoney;
 
+    public GambleManager gambleManager;
+
     private void Awake()
     {
         Time.timeScale = 1.0f;
@@ -114,7 +116,16 @@ public class GameManager : MonoBehaviour
 
         // if a gamble is picked, add wager money from gamble to player's money
         playerMoney = FindAnyObjectByType<PlayerMoney>();
-        playerMoney.addMoney(100);
+        gambleManager = FindAnyObjectByType<GambleManager>();
+        int incrementMoney = 0, wagerIndex = 0;
+        foreach (Wagers wager in gambleManager.wagers) {
+            incrementMoney += wager.reward * gambleManager.WagerCounts[wagerIndex];
+            wagerIndex++;
+        }
+        for (int i = 0; i < gambleManager.WagerCounts.Length; i++) gambleManager.WagerCounts[i] = 0;
+        Debug.Log(gambleManager.WagerCounts);
+        playerMoney.addMoney(incrementMoney);
+        
     }
 
     public void Restart()
