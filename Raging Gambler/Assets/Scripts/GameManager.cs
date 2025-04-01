@@ -113,18 +113,6 @@ public class GameManager : MonoBehaviour
         remainingEnemies.gameObject.SetActive(false);
         enemyRoom = false;
         moveToNextRoom();
-
-        // if a gamble is picked, add wager money from gamble to player's money
-        playerMoney = FindAnyObjectByType<PlayerMoney>();
-        gambleManager = FindAnyObjectByType<GambleManager>();
-        int incrementMoney = 0, wagerIndex = 0;
-        foreach (Wagers wager in gambleManager.wagers) {
-            incrementMoney += wager.reward * gambleManager.WagerCounts[wagerIndex];
-            wagerIndex++;
-        }
-        for (int i = 0; i < gambleManager.WagerCounts.Length; i++) gambleManager.WagerCounts[i] = 0;
-        Debug.Log(gambleManager.WagerCounts);
-        playerMoney.addMoney(incrementMoney);
         
     }
 
@@ -209,6 +197,18 @@ public class GameManager : MonoBehaviour
         nextRoom.transform.position = newPos; //Sets the transformation of the next room to whatever direction was picked
         nextRoom.gameObject.SetActive(true); //Turns on the next room
         nextDoor.gameObject.SetActive(false); //Turns off the next door
+
+        // if a gamble is picked, add wager money from gamble to player's money
+        playerMoney = FindAnyObjectByType<PlayerMoney>();
+        gambleManager = FindAnyObjectByType<GambleManager>();
+        int incrementMoney = 0, wagerIndex = 0;
+        foreach (Wagers wager in gambleManager.wagers) {
+            incrementMoney += wager.reward * gambleManager.WagerCounts[wagerIndex];
+            wagerIndex++;
+        }
+        for (int i = 0; i < gambleManager.WagerCounts.Length; i++) gambleManager.WagerCounts[i] = 0;
+        Debug.Log(gambleManager.WagerCounts);
+        playerMoney.addMoney(incrementMoney);
     }
 
     private void Increment()
