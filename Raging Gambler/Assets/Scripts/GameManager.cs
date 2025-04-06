@@ -4,6 +4,35 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
+// Add the missing class reference as a nested class to fix dependencies
+[System.Serializable]
+public class Wagers {
+    public string name;
+    public int cost;
+    public int reward;
+    public Sprite image;
+    [HideInInspector] public GameObject itemRef;
+}
+
+public class Ignore : MonoBehaviour
+{
+    // Empty marker class
+}
+
+// Add minimal GambleManager for references
+public class GambleManager : MonoBehaviour
+{
+    public static GambleManager instance;
+    public Wagers[] wagers;
+    public int[] WagerCounts = new int[7];
+    
+    public void ToggleShop() 
+    {
+        // Stub implementation
+        Debug.Log("Toggle shop called");
+    }
+}
+
 public class GameManager : MonoBehaviour
 {
     public GameObject gameOverUI;
@@ -121,6 +150,12 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void EndBossEncounter()
+    {
+        // Handle the end of boss encounter
+        Win();
     }
 
     public void pickRoomCondition()
