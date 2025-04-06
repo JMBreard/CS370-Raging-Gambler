@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
     public GameObject[] nextRoomDoors; //An array for all of the doors in the next room
     public ObsctacleSpawner obsctacleSpawner; // Have obstacles move with the room 
 
-    private float moveRoomX = 18.40594F; //How much to move a room in the X axis
-    private int moveRoomY = 10; //How much to move a room in the Y axis
+    private float moveRoomX = 16; //How much to move a room in the X axis
+    private int moveRoomY = 9; //How much to move a room in the Y axis
 
     private int comeFromRoom = 3; //Initially sets the room the player comes from as the bottom door
     private int currentDoorIndex;
@@ -113,7 +113,6 @@ public class GameManager : MonoBehaviour
         remainingEnemies.gameObject.SetActive(false);
         enemyRoom = false;
         moveToNextRoom();
-        
     }
 
     public void Restart()
