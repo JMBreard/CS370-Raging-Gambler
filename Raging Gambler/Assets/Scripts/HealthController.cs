@@ -16,11 +16,13 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
 
     public event EventHandler OnHealthChanged;
 
+    public GameManager gameManager;
+
 
     void Start()
     {
+        gameManager = (GameManager) GameObject.Find("Game Manager").GetComponent("GameManager");
         currentHealth = maxHealth;
-
 
         // Check if healthbar is assigned and only call Setup for the player
         if (healthbar != null)
@@ -49,6 +51,7 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
         Debug.Log("Current health: " + currentHealth);
     }
 
+
     public void TakeDamage(int amount)
     {
         if (isDead)
@@ -71,14 +74,16 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
     void Die()
     {
         if (isDead)
+        {
             return; // Already dead, prevent multiple executions
+        }
 
         isDead = true;
 
         // When the enemy dies, reward the player with money
         if (playerMoney != null)
         {
-            playerMoney.addMoney(10);
+            playerMoney.addMoney(gameManager.level_counter * 5);
         }
         if (CompareTag("Player"))
         {
@@ -91,12 +96,25 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
         {
             // Enemy (or other damageable) death handling (destroy the game object)
             Destroy(gameObject);
+            gameManager.EnemiesLeftUpdate(); // Update remaining enemies for win condition
 
         }
     }
 
-    public void reduceMaxHealth() {
+    public void reduceMaxHealth()
+    {
         maxHealth -= 1;
         Debug.Log("max health: " + maxHealth);
+    }
+
+    public void increaseMaxHealth() {
+        maxHealth += 1;
+        Debug.Log("max health: " + maxHealth);
+    }
+
+    public void Steal()
+    {
+        int num = playerMoney.money;
+        playerMoney.subtractMoney( gameManager.level_counter * 2 );
     }
 }

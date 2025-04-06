@@ -21,10 +21,24 @@ public class PlayerController : MonoBehaviour
     private bool _canFire = true;
     private bool _reloading = false;
 
+    private bool canShoot = true;
+    private bool canMove = true;
 
-     void Awake() 
+
+    void Awake() 
     {
         _input = new PlayerInputActions();
+    }
+
+    public void toggleShooting()
+    {
+        Debug.Log("Shooting Switched");
+        canShoot = !canShoot;
+    }
+
+    public void toggleMovement()
+    {
+        canMove = !canMove;
     }
 
     // OnEnable is called if the player is active when the scene loads (or is reloaded in GameManager.Restart())
@@ -49,8 +63,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        rb.MovePosition(rb.position + movement * _speed * Time.fixedDeltaTime);
+        if(canMove)
+        {
+            Vector2 movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            rb.MovePosition(rb.position + movement * _speed * Time.fixedDeltaTime);
+        }
         //rb.MovePosition(rb.position + (direction * speed * Time.deltaTime));
     }
 
@@ -66,7 +83,7 @@ public class PlayerController : MonoBehaviour
 
     private void Fire()
     {
-        if (_currentAmmoCount > 0 && _canFire)
+        if (_currentAmmoCount > 0 && _canFire && canShoot)
         {
             _currentAmmoCount--;
             // Gets a bullet from the bullet pool
@@ -77,7 +94,7 @@ public class PlayerController : MonoBehaviour
             bullet.transform.rotation = this.gameObject.transform.GetChild(0).rotation;
         }
 
-        if (_currentAmmoCount == 0 && _reloading == false)
+        if (_currentAmmoCount == 0 && _reloading == false && canShoot)
         {
             StartCoroutine(Reload());
         }
@@ -98,5 +115,15 @@ public class PlayerController : MonoBehaviour
     public void reduceSpeed() {
         _speed -= 2f;
         Debug.Log("Current Speed: " + _speed);
+    }
+
+    public void increaseReloadTime() {
+        _reloadTime += 1;
+        Debug.Log("Current reload time: " + _reloadTime);
+    }
+
+    public void decreaseMaxAmmoCount() {
+        _ammoCount -= 2;
+        Debug.Log("Current max ammo count:" + _ammoCount);
     }
 }

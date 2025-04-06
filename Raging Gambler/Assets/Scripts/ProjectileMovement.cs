@@ -20,7 +20,7 @@ public class ProjectileMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.up * _speed * Time.deltaTime);
+        transform.Translate(Vector3.right * _speed * Time.deltaTime);
     }
 
     private void Hide()
@@ -47,7 +47,7 @@ public class ProjectileMovement : MonoBehaviour
 
         IDamagable hit = other.GetComponent<IDamagable>();
 
-        if (!other.gameObject.CompareTag("Player") && hit != null)
+        if (hit != null)
         {
             hit.Damage();
             Hide();
