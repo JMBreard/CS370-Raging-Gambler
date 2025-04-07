@@ -90,7 +90,7 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
             // Player death handling (disable the player)
             FindFirstObjectByType<GameManager>().GameOver(); // GameOver() is in GameManager.cs
             gameObject.SetActive(false);
-            playerMoney.subtractMoney(playerMoney.money / 2);
+            //playerMoney.subtractMoney(playerMoney.money / 2);
         }
         else
         {
@@ -114,7 +114,6 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
 
     public void Steal()
     {
-        int num = playerMoney.money;
         playerMoney.subtractMoney( gameManager.level_counter * 2 );
     }
 }

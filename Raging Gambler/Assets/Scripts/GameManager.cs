@@ -57,6 +57,10 @@ public class GameManager : MonoBehaviour
 
     public GambleManager gambleManager;
 
+    public ScoreManager scoreManager;
+    public TextMeshProUGUI gameOverScore;
+    public TMP_InputField userName;
+
     private void Awake()
     {
         Time.timeScale = 1.0f;
@@ -65,12 +69,15 @@ public class GameManager : MonoBehaviour
         startRoom();
         firstRoom = false;
         pc = (PlayerController) GameObject.FindWithTag("Player").GetComponent("PlayerController");
+        scoreManager = (ScoreManager) GameObject.Find("Score Manager").GetComponent("ScoreManager");
     }
 
     public void GameOver()
     {
+        gameOverScore.text = "Final Score: " + playerMoney.money;
+        KillAll();
         // Activate Game Over UI
-        gameOverUI.SetActive(true);
+        gameOverUI.SetActive(true);  
         // Pause the game
         Time.timeScale = 0f;
     }
@@ -119,8 +126,9 @@ public class GameManager : MonoBehaviour
     {
         // Reset time scale
         Time.timeScale = 1f;
+        scoreManager.addEntry(playerMoney.money, userName.text);
         // Reload the current scene
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("Leaderboard Title Screen");
     }
 
     public void pickRoomCondition()

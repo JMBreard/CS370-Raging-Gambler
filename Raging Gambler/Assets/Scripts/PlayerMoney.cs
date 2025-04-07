@@ -22,14 +22,9 @@ public class PlayerMoney : MonoBehaviour
         this.healthController = healthController;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void addMoney(int moneyToAdd)
     {
+        Debug.Log("Money Added " +  moneyToAdd);
         money += moneyToAdd;
         UpdateMoneyText();
     }
