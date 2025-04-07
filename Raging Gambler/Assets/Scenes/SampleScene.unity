@@ -5490,6 +5490,10 @@ MonoBehaviour:
   pc: {fileID: 4181689661808436628}
   playerMoney: {fileID: 1029621072}
   gambleManager: {fileID: 307431532}
+  scoreManager: {fileID: 0}
+  gameOverScore: {fileID: 0}
+  userName: {fileID: 0}
+  leaderBoardDebug: 1
 --- !u!4 &1260338508
 Transform:
   m_ObjectHideFlags: 0
