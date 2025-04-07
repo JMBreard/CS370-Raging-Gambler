@@ -5,7 +5,7 @@ public class TitleScreen : MonoBehaviour
 {
     public void moveToTutorialRoom()
     {
-        SceneManager.LoadSceneAsync("Leaderboard Scene");
+        SceneManager.LoadSceneAsync("SampleScene");
     }
     
     public void exitGame()
