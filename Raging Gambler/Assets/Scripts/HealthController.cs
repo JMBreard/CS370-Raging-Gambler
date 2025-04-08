@@ -5,10 +5,10 @@ using UnityEngine;
 public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
 {
     [Header("Health Settings")]
-    public int maxHealth = 3;
+    public int maxHealth;
     public int currentHealth;
 
-    private bool isDead = false;
+    public bool isDead = false;
 
     public HealthBar healthbar;
 
@@ -21,7 +21,7 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
 
     void Start()
     {
-        gameManager = (GameManager) GameObject.Find("Game Manager").GetComponent("GameManager");
+        gameManager = (GameManager)GameObject.Find("Game Manager").GetComponent("GameManager");
         currentHealth = maxHealth;
 
         // Check if healthbar is assigned and only call Setup for the player
@@ -94,10 +94,16 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
         }
         else
         {
-            // Enemy (or other damageable) death handling (destroy the game object)
-            Destroy(gameObject);
-            gameManager.EnemiesLeftUpdate(); // Update remaining enemies for win condition
-
+            if (CompareTag("Obstacle"))
+            {
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                // Enemy (or other damageable) death handling (destroy the game object)
+                Destroy(gameObject);
+                gameManager.EnemiesLeftUpdate(); // Update remaining enemies for win condition
+            }
         }
     }
 
@@ -107,13 +113,14 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
         Debug.Log("max health: " + maxHealth);
     }
 
-    public void increaseMaxHealth() {
+    public void increaseMaxHealth()
+    {
         maxHealth += 1;
         Debug.Log("max health: " + maxHealth);
     }
 
     public void Steal()
     {
-        playerMoney.subtractMoney( gameManager.level_counter * 2 );
+        playerMoney.subtractMoney(gameManager.level_counter * 2);
     }
 }

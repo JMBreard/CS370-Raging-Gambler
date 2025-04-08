@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading;
 using System.Globalization;
 
@@ -19,51 +20,88 @@ public class ObsctacleSpawner : MonoBehaviour
     private int num;
 
     public GameObject obstaclePrefab;
+    private List<GameObject> obstaclePool = new List<GameObject>();
 
     void Start()
     {
+        // Create the maximum possible number of obstacles
+        for (int i = 0; i < max; i++)
+        {
+            GameObject obstacle = Instantiate(obstaclePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            obstacle.SetActive(false);
+            obstaclePool.Add(obstacle);
+        }
         SpawnObstacles();
     }
 
     void SpawnObstacles()
     {
+        // Deactivate all obstacles first
+        foreach (GameObject obstacle in obstaclePool)
+        {
+            obstacle.SetActive(false);
+        }
+
         num = Random.Range(min, max);
 
         for (int i = 0; i < num; i++)
         {
 
-            // Creates vector location for object
-            Vector2 randomPosition;
+            if (i < obstaclePool.Count)
+            {
+                // Creates vector location for object
+                Vector2 randomPosition;
 
-            float xPosition = Random.Range(-xRange, xRange);
-            float yPosition = Random.Range(-yRange, yRange);
-            randomPosition = new Vector2(xPosition, yPosition);
+                float xPosition = Random.Range(-xRange, xRange);
+                float yPosition = Random.Range(-yRange, yRange);
+                randomPosition = new Vector2(xPosition, yPosition);
 
-            // Creates obstacle in frame     
-            Instantiate(obstaclePrefab, randomPosition, Quaternion.identity);
+                obstaclePool[i].transform.position = randomPosition;
+                obstaclePool[i].SetActive(true);
+            }
+        }
+    }
 
+    public void ResetObstaclesHealth()
+    {
+        foreach (GameObject obstacle in obstaclePool)
+        {
+            if (obstacle != null && obstacle.activeSelf)
+            {
+                HealthController healthController = obstacle.GetComponent<HealthController>();
+                if (healthController != null)
+                {
+                    healthController.currentHealth = healthController.maxHealth;
+                    healthController.isDead = false; // Make sure to set isDead back to false
+                }
+            }
         }
     }
 
     public void NewRoomObstacles(Vector3 newPos)
     {
-        num = Random.Range(min, max);
+        // Deactivate all obstacles first
+        foreach (GameObject obstacle in obstaclePool)
+        {
+            obstacle.SetActive(false);
+        }
 
         for (int i = 0; i < num; i++)
         {
+            if (i < obstaclePool.Count)
+            {
+                // Creates vector location for object
+                Vector2 randomPosition = new Vector2(newPos.x, newPos.y);
 
-            // Creates vector location for object
-            Vector2 randomPosition = new Vector2(newPos.x, newPos.y);
+                float xPosition = Random.Range(-xRange, xRange);
+                float yPosition = Random.Range(-yRange, yRange);
+                randomPosition.x += xPosition;
+                randomPosition.y += yPosition;
 
-            float xPosition = Random.Range(-xRange, xRange);
-            float yPosition = Random.Range(-yRange, yRange);
-            randomPosition.x += xPosition;
-            randomPosition.y += yPosition;
-
-            // Creates obstacle in frame     
-            Instantiate(obstaclePrefab, randomPosition, Quaternion.identity);
-
+                obstaclePool[i].transform.position = randomPosition;
+                obstaclePool[i].SetActive(true);
+            }
         }
+        ResetObstaclesHealth();
     }
-
 }
