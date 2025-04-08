@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public Animator animator;
     [SerializeField] private float _speed = 4f;
     private Rigidbody2D rb;
     private Vector2 direction;
@@ -67,9 +68,24 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             rb.MovePosition(rb.position + movement * _speed * Time.fixedDeltaTime);
+
+            if (movement.sqrMagnitude > 0.01f)
+            {
+            // Player is moving: set "Speed" to 1
+            animator.SetFloat("Speed", 1f);
+            }
+            else
+            {
+            // Player is idle: set "Speed" to 0
+            animator.SetFloat("Speed", 0f);
+            }
         }
-        //rb.MovePosition(rb.position + (direction * speed * Time.deltaTime));
     }
+
+    
+
+
+
 
     private void Fire_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
