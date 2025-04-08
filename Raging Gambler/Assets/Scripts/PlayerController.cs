@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    public Animator weaponAnimator;
     [SerializeField] private float _speed = 4f;
     private Rigidbody2D rb;
     private Vector2 direction;
@@ -90,6 +91,7 @@ public class PlayerController : MonoBehaviour
     private void Fire_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         Fire();
+        weaponAnimator.SetTrigger("Shoot");
     }
 
     private void Reload_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)

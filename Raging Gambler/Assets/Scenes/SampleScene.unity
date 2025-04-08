@@ -1212,6 +1212,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3842005688937467308, guid: c09a449156b3da740a14de8f95683d22, type: 3}
+      propertyPath: healthbar
+      value: 
+      objectReference: {fileID: 1598102413}
+    - target: {fileID: 3842005688937467308, guid: c09a449156b3da740a14de8f95683d22, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1260338507}
+    - target: {fileID: 3842005688937467308, guid: c09a449156b3da740a14de8f95683d22, type: 3}
+      propertyPath: playerMoney
+      value: 
+      objectReference: {fileID: 1029621072}
     - target: {fileID: 4580015748671396516, guid: c09a449156b3da740a14de8f95683d22, type: 3}
       propertyPath: m_Name
       value: Player
