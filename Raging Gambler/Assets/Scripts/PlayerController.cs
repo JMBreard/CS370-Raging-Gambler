@@ -117,8 +117,18 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Current Speed: " + _speed);
     }
 
+    public void increaseSpeed() {
+        _speed += 1f;
+        Debug.Log("Current Speed: " + _speed);
+    }
+
     public void increaseReloadTime() {
         _reloadTime += 1;
+        Debug.Log("Current reload time: " + _reloadTime);
+    }
+
+    public void decreaseReloadTime() {
+        _reloadTime -= 1;
         Debug.Log("Current reload time: " + _reloadTime);
     }
 

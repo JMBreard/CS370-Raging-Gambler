@@ -112,6 +112,17 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
         Debug.Log("max health: " + maxHealth);
     }
 
+    public void increaseCurrentHealth()
+    {
+        if (currentHealth >= maxHealth)
+        {
+            Debug.Log("Current health is already at max.");
+            return; 
+        }
+        currentHealth += 1;
+        Debug.Log("current health: " + currentHealth);
+    }
+
     public void Steal()
     {
         playerMoney.subtractMoney( gameManager.level_counter * 2 );
