@@ -21,6 +21,10 @@ public class Enemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player").transform;
+        if (gameManager == null)
+        {
+            gameManager = FindAnyObjectByType<GameManager>();
+        }
     }
 
     // Set to virtual to allow override in child classes.
@@ -81,10 +85,10 @@ public class Enemy : MonoBehaviour
     public int CriticalHit()
     {
         // critChance is a % (between 0 and 100)
-        int critChance = UnityEngine.Random.Range(1, 101);
+        int critChance = UnityEngine.Random.Range(1, 101) * gameManager.level_counter;
         int num = UnityEngine.Random.Range(1, 101);
         int multiplier = 1; // Default to one for now
-        if (num <= critChance)
+        if (num <= 100)
         {
             return gameManager.level_counter * multiplier; // Deals damage proportional to the level
         }
