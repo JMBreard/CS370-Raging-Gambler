@@ -1275,7 +1275,7 @@ MonoBehaviour:
   wagerItem: {fileID: 5393312897184863794, guid: 6e980c5d6dcc4a94fb65d1333b94f770, type: 3}
   enemySpawner: {fileID: 1589405770}
   player: {fileID: 4181689661808436628}
-  health: {fileID: 5960064411260314441}
+  health: {fileID: 0}
   bullet: {fileID: -3528085231807167959, guid: 94d1eb044f1f7ba4b9ccbc7e78483129, type: 3}
   NormalEnemyPrefab: {fileID: 7138375181999766197, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
   CurvedEnemyPrefab: {fileID: 6875664626074797119, guid: ac1c3a84d26a97c45bf1a72dbb5b00af, type: 3}
@@ -2197,6 +2197,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 457423855}
   m_CullTransparentMesh: 1
+--- !u!114 &470573912 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5746704200580065444, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+  m_PrefabInstance: {fileID: 1911569546}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3504799fb07c1004ea5ce26e7016f228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &486094664
 GameObject:
   m_ObjectHideFlags: 0
@@ -6605,9 +6616,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xRange: 5
-  yRange: 2
+  yRange: 3
   min: 3
-  max: 3
+  max: 8
   obstaclePrefab: {fileID: 2037352425}
 --- !u!4 &1583508308
 Transform:
@@ -8115,6 +8126,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 97431099250403947, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+      propertyPath: health
+      value: 
+      objectReference: {fileID: 470573912}
+    - target: {fileID: 97431099250403947, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+      propertyPath: critChance
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 97431099250403947, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1260338507}
@@ -8453,6 +8472,7 @@ GameObject:
   - component: {fileID: 2037352427}
   - component: {fileID: 2037352426}
   - component: {fileID: 2037352428}
+  - component: {fileID: 2037352429}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Obstacle
@@ -8566,6 +8586,24 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &2037352429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037352425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3504799fb07c1004ea5ce26e7016f228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 5
+  currentHealth: 5
+  isDead: 0
+  healthbar: {fileID: 0}
+  playerMoney: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!1001 &2042174163
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9425,17 +9463,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9de0ae21bdc22c44bb1551692d9cb8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5960064411260314441 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2406038504304666473, guid: 47d12507a0f02a04c986c49199099deb, type: 3}
-  m_PrefabInstance: {fileID: 6092942478002770773}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3504799fb07c1004ea5ce26e7016f228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &6092942478002770773
