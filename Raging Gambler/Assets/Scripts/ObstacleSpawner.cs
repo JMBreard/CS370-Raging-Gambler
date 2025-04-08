@@ -24,7 +24,7 @@ public class ObsctacleSpawner : MonoBehaviour
 
     void Start()
     {
-        // Create the maximum possible number of obstacles
+        // Create pool of obstacles
         for (int i = 0; i < max; i++)
         {
             GameObject obstacle = Instantiate(obstaclePrefab, new Vector3(0, 0, 0), Quaternion.identity);
@@ -36,7 +36,7 @@ public class ObsctacleSpawner : MonoBehaviour
 
     void SpawnObstacles()
     {
-        // Deactivate all obstacles first
+        // Deactivate all obstacles 
         foreach (GameObject obstacle in obstaclePool)
         {
             obstacle.SetActive(false);
@@ -72,7 +72,7 @@ public class ObsctacleSpawner : MonoBehaviour
                 if (healthController != null)
                 {
                     healthController.currentHealth = healthController.maxHealth;
-                    healthController.isDead = false; // Make sure to set isDead back to false
+                    healthController.isDead = false;
                 }
             }
         }
