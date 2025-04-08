@@ -40,35 +40,41 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
     private PlayerMoney playerMoney;
     private GameManager gameManager;
     
+    // Movement settings
+    public float moveSpeed = 1.5f;
+    public float minDistanceFromPlayer = 5f;
+    public float maxDistanceFromPlayer = 12f;
+    
     // State tracking
     private bool isTransitioning = false;
     private bool isDead = false;
+    private bool hasCompletedSpawnEffect = false;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         gameManager = FindFirstObjectByType<GameManager>();
+        
+        // Start with boss invisible for spawn effect
+        if (spriteRenderer != null)
+        {
+            Color startColor = spriteRenderer.color;
+            startColor.a = 0;
+            spriteRenderer.color = startColor;
+        }
     }
 
     void Start()
     {
         // Find references
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         playerMoney = FindFirstObjectByType<PlayerMoney>();
         
         // Initialize health and UI
         currentHealth = maxHealth;
-        if (healthBar != null)
-        {
-            healthBar.gameObject.SetActive(true);
-        }
         
-        // Set initial appearance
-        UpdateAppearanceForPhase();
-        
-        // Start attack patterns
-        StartCoroutine(BasicAttackRoutine());
-        StartCoroutine(SpecialAttackRoutine());
+        // Start spawn effect
+        StartCoroutine(SpawnEffect());
     }
 
     // Implement IDamagable interface
@@ -306,6 +312,9 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
     private void FireSingleProjectile()
     {
         if (playerTransform == null || basicProjectilePrefab == null || !gameObject) return;
+        
+        // Debug to see if this method is being called
+        Debug.Log("Boss firing projectile at player");
 
         Vector2 direction = ((Vector2)playerTransform.position - (Vector2)transform.position).normalized;
         
@@ -315,11 +324,21 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
         projectile.transform.rotation = Quaternion.Euler(0, 0, angle);
         
-        // Set projectile velocity manually if it doesn't have ProjectileMovement script
+        // Set projectile movement explicitly
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
             rb.linearVelocity = direction * projectileSpeed;
+        }
+        else
+        {
+            // If no Rigidbody2D, try to use ProjectileMovement component
+            ProjectileMovement pm = projectile.GetComponent<ProjectileMovement>();
+            if (pm != null)
+            {
+                // Manually ensure the projectile faces the player
+                projectile.transform.right = direction;
+            }
         }
     }
 
@@ -405,9 +424,79 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
             if (healthController != null && playerMoney != null)
             {
                 healthController.playerMoney = playerMoney;
+                // Make minions weaker (die in 2 shots)
+                healthController.maxHealth = 2;
+                healthController.currentHealth = 2;
+                // Mark as boss minion for special damage calculations
+                healthController.isBossMinion = true;
             }
         }
     }
 
     #endregion
+
+    // Add spawn effect
+    private IEnumerator SpawnEffect()
+    {
+        // Scale from zero
+        transform.localScale = Vector3.zero;
+        
+        // Fade in over time
+        for (float t = 0; t < 1.0f; t += Time.deltaTime)
+        {
+            if (spriteRenderer != null)
+            {
+                Color c = spriteRenderer.color;
+                c.a = t;
+                spriteRenderer.color = c;
+            }
+            
+            // Grow to full size
+            float scale = Mathf.Lerp(0, 2f, t);
+            transform.localScale = Vector3.one * scale;
+            
+            yield return null;
+        }
+        
+        // Ensure final values are set correctly
+        if (spriteRenderer != null)
+        {
+            Color c = spriteRenderer.color;
+            c.a = 1;
+            spriteRenderer.color = c;
+        }
+        
+        // Set initial appearance
+        UpdateAppearanceForPhase();
+        
+        // Start attack patterns
+        StartCoroutine(BasicAttackRoutine());
+        StartCoroutine(SpecialAttackRoutine());
+        
+        hasCompletedSpawnEffect = true;
+    }
+
+    private void Update()
+    {
+        if (!hasCompletedSpawnEffect || isDead || isTransitioning) return;
+        
+        // Move towards player if too far, away if too close
+        if (playerTransform != null)
+        {
+            float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
+            
+            if (distanceToPlayer > maxDistanceFromPlayer)
+            {
+                // Move towards player if too far
+                Vector2 direction = (playerTransform.position - transform.position).normalized;
+                transform.position += (Vector3)direction * moveSpeed * Time.deltaTime;
+            }
+            else if (distanceToPlayer < minDistanceFromPlayer)
+            {
+                // Move away from player if too close
+                Vector2 direction = (transform.position - playerTransform.position).normalized;
+                transform.position += (Vector3)direction * moveSpeed * Time.deltaTime;
+            }
+        }
+    }
 }

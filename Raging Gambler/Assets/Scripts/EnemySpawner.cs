@@ -40,10 +40,39 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
+        ResetSpawner();
+    }
+
+    private void OnEnable()
+    {
+        // Always reset spawn timer on enable, regardless of level
+        ResetSpawner();
+    }
+
+    private void ResetSpawner()
+    {
         if (spawnOnStart)
         {
             isSpawning = true;
-            spawnTimer = 0f;
+            
+            // Force a longer initial delay to give players time to prepare
+            spawnTimer = -3f; // Negative value creates 3 second delay for first spawn
+            
+            // Find player reference if missing
+            if (playerTransform == null)
+            {
+                GameObject player = GameObject.FindWithTag("Player");
+                if (player != null)
+                {
+                    playerTransform = player.transform;
+                }
+            }
+            
+            // Find player money reference if missing
+            if (playerMoney == null)
+            {
+                playerMoney = FindFirstObjectByType<PlayerMoney>();
+            }
         }
     }
 

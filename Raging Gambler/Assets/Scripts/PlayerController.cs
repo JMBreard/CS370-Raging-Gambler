@@ -21,8 +21,8 @@ public class PlayerController : MonoBehaviour
     private bool _canFire = true;
     private bool _reloading = false;
 
-    private bool canShoot = true;
-    private bool canMove = true;
+    public bool canShoot = true;
+    public bool canMove = true;
 
 
     void Awake() 
@@ -46,6 +46,12 @@ public class PlayerController : MonoBehaviour
     {    
         rb = GetComponent<Rigidbody2D>();
 
+        // Make sure _input is initialized
+        if (_input == null)
+        {
+            _input = new PlayerInputActions();
+        }
+
         _input.Player.Enable();
 
         _input.Player.Fire.performed += Fire_performed;
@@ -56,9 +62,25 @@ public class PlayerController : MonoBehaviour
     // Disable input events in OnDisable to avoid callbacks on destroyed objects
     void OnDisable()
     {
-        _input.Player.Fire.performed -= Fire_performed;
-        _input.Player.Reload.performed -= Reload_performed;
-        _input.Player.Disable();
+        // Cancel any running coroutines
+        StopAllCoroutines();
+        
+        // Make sure _input exists before trying to access it
+        if (_input != null)
+        {
+            try
+            {
+                // These operations might fail during scene transitions or object destruction
+                _input.Player.Fire.performed -= Fire_performed;
+                _input.Player.Reload.performed -= Reload_performed;
+                _input.Player.Disable();
+            }
+            catch (System.Exception e)
+            {
+                // Log error but don't crash
+                Debug.LogWarning("Error during OnDisable: " + e.Message);
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -86,12 +108,30 @@ public class PlayerController : MonoBehaviour
         if (_currentAmmoCount > 0 && _canFire && canShoot)
         {
             _currentAmmoCount--;
-            // Gets a bullet from the bullet pool
-            GameObject bullet = PoolManager.Instance.RequestBullet();
-            // Sets the position of the bullet to infront of player
-            bullet.transform.position = _bulletSpawn.transform.position;
-            // Sets rotation of bullet moving forward from player
-            bullet.transform.rotation = this.gameObject.transform.GetChild(0).rotation;
+            
+            // Add null check for PoolManager
+            if (PoolManager.Instance != null)
+            {
+                // Gets a bullet from the bullet pool
+                GameObject bullet = PoolManager.Instance.RequestBullet();
+                
+                // Makes sure bullet was returned from the pool
+                if (bullet != null && _bulletSpawn != null)
+                {
+                    // Sets the position of the bullet to infront of player
+                    bullet.transform.position = _bulletSpawn.transform.position;
+                    // Sets rotation of bullet moving forward from player
+                    bullet.transform.rotation = this.gameObject.transform.GetChild(0).rotation;
+                }
+                else
+                {
+                    Debug.LogWarning("Bullet or _bulletSpawn is null");
+                }
+            }
+            else
+            {
+                Debug.LogWarning("PoolManager.Instance is null");
+            }
         }
 
         if (_currentAmmoCount == 0 && _reloading == false && canShoot)

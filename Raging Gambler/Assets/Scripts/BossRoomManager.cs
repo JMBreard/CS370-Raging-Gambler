@@ -57,21 +57,49 @@ public class BossRoomManager : MonoBehaviour
             SetDoorsActive(false);
         }
         
+        // Create UI first
+        GameObject uiObject = Instantiate(bossUIPrefab, GameObject.Find("Canvas").transform);
+        bossUI = uiObject.GetComponent<BossUI>();
+        
         // Short delay for drama
         yield return new WaitForSeconds(1.5f);
         
-        // Spawn boss
-        GameObject bossObject = Instantiate(bossPrefab, bossSpawnPoint.position, Quaternion.identity);
+        // Find player for random spawning
+        Transform playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
+        
+        // Calculate random spawn position around player (similar to EnemySpawner)
+        Vector3 spawnPosition;
+        if (playerTransform != null)
+        {
+            float spawnDistance = 10f; // Distance from player
+            Vector2 randomDirection = Random.insideUnitCircle.normalized;
+            spawnPosition = playerTransform.position + (Vector3)(randomDirection * spawnDistance);
+        }
+        else
+        {
+            // Fallback to spawn point if available, or use default position
+            spawnPosition = bossSpawnPoint != null ? bossSpawnPoint.position : transform.position;
+        }
+        
+        // Spawn boss at random position
+        GameObject bossObject = Instantiate(bossPrefab, spawnPosition, Quaternion.identity);
         currentBoss = bossObject.GetComponent<BossEnemy>();
         
-        // Scale boss based on level
-        ScaleBossDifficulty();
-        
-        // Create UI
-        GameObject uiObject = Instantiate(bossUIPrefab, GameObject.Find("Canvas").transform);
-        bossUI = uiObject.GetComponent<BossUI>();
-        bossUI.boss = currentBoss;
-        bossUI.Show();
+        // Assign the boss's health bar reference
+        if (currentBoss != null)
+        {
+            // Connect UI to boss
+            bossUI.boss = currentBoss;
+            
+            // Connect boss to UI
+            currentBoss.healthBar = uiObject.GetComponentInChildren<HealthBar>();
+            
+            // Show UI with animation
+            bossUI.Show();
+            
+            // Scale boss based on level
+            ScaleBossDifficulty();
+        }
         
         // Register for boss defeated event
         StartCoroutine(MonitorBossHealth());
@@ -151,6 +179,12 @@ public class BossRoomManager : MonoBehaviour
         // If boss wasn't already defeated
         if (!bossDefeated && currentLevel % bossLevelInterval == 0)
         {
+            // Use the current level from Game Manager if available
+            if (gameManager != null)
+            {
+                currentLevel = gameManager.level_counter;
+            }
+            
             InitiateEncounter(currentLevel);
         }
     }

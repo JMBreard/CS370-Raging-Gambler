@@ -1298,6 +1298,7 @@ MonoBehaviour:
   NormalEnemyPrefab: {fileID: 0}
   CurvedEnemyPrefab: {fileID: 0}
   ShooterEnemyPrefab: {fileID: 0}
+  WagerCounts: 00000000000000000000000000000000000000000000000000000000
 --- !u!4 &307431533
 Transform:
   m_ObjectHideFlags: 0
@@ -2414,7 +2415,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 586548891}
-  pc: {fileID: 0}
 --- !u!1 &610746085
 GameObject:
   m_ObjectHideFlags: 0
@@ -5071,6 +5071,79 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1132713644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1132713646}
+  - component: {fileID: 1132713645}
+  - component: {fileID: 1132713647}
+  m_Layer: 0
+  m_Name: Boss Room Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1132713645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132713644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff1d7e4e65e9740e7a5243e20e7bb4b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 1260338507}
+  bossUIPrefab: {fileID: 385120928}
+  doors: []
+  bossPrefab: {fileID: 2339699603789601151, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
+  bossSpawnPoint: {fileID: 0}
+  bossLevelInterval: 10
+  bossReward: 200
+  doorClosedDuration: 30
+  doorsLockedDuringFight: 1
+  victoryGatePrefab: {fileID: 0}
+  victoryGateSpawnPoint: {fileID: 0}
+--- !u!4 &1132713646
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132713644}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.776956, y: 2.3957047, z: -0.08016823}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1132713647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132713644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb6d5e03d6d2f4a379b3ebcf9750df0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossRoomManager: {fileID: 0}
+  hasTriggered: 0
+  gameManager: {fileID: 0}
+  roomRadius: 15
+  lastDebugTime: 0
 --- !u!1 &1174656221
 GameObject:
   m_ObjectHideFlags: 0
@@ -5349,6 +5422,7 @@ MonoBehaviour:
   - {fileID: 1902312401}
   - {fileID: 1087945185}
   - {fileID: 425618935}
+  obsctacleSpawner: {fileID: 0}
   timerText: {fileID: 107706877}
   remainingTime: 3
   remainingEnemies: {fileID: 382504885}
@@ -5357,9 +5431,12 @@ MonoBehaviour:
   nextRoomUI: {fileID: 2096475146}
   roomType: {fileID: 350921349}
   winCondition: {fileID: 1951870584}
+  level_counter: 9
   time_difficulty: 5
   enemy_count_difficulty: 1
   pc: {fileID: 1545220206}
+  playerMoney: {fileID: 0}
+  gambleManager: {fileID: 0}
 --- !u!4 &1260338508
 Transform:
   m_ObjectHideFlags: 0
@@ -6237,8 +6314,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xRange: 3
   yRange: 3
+  min: 0
+  max: 0
   obstaclePrefab: {fileID: 2037352425}
-  minDist: 3
 --- !u!4 &1583508308
 Transform:
   m_ObjectHideFlags: 0
@@ -8716,7 +8794,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 0}
-  pc: {fileID: 1545220206}
 --- !u!61 &2095148863
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9346,6 +9423,91 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60cb10de44cc76744ba30bfe80167f3e, type: 3}
+--- !u!1001 &3821437284420561141
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1401267697122287067, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4ebfe52f38d395f4d842ba6cc6e23c7b, type: 3}
+    - target: {fileID: 1401267697122287067, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
+      propertyPath: m_Color.b
+      value: 0.023584902
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401267697122287067, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
+      propertyPath: m_Color.g
+      value: 0.023584902
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401267697122287067, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2339699603789601151, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
+      propertyPath: m_Name
+      value: Boss Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312836347479584890, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 385120932}
+    - target: {fileID: 3312836347479584890, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
+      propertyPath: basicProjectilePrefab
+      value: 
+      objectReference: {fileID: 5021625741144939026, guid: e7bf551dbc15fe244a066a570fcc25cb, type: 3}
+    - target: {fileID: 3312836347479584890, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
+      propertyPath: spreadProjectilePrefab
+      value: 
+      objectReference: {fileID: 4755224513079665542, guid: 94d1eb044f1f7ba4b9ccbc7e78483129, type: 3}
+    - target: {fileID: 4880011805920904675, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.776956
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880011805920904675, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.3957047
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880011805920904675, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.08016823
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880011805920904675, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880011805920904675, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880011805920904675, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880011805920904675, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880011805920904675, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880011805920904675, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880011805920904675, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9fe2bd5ba681f4291b6c5cfb45b0c632, type: 3}
 --- !u!1001 &4886431383667954398
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9473,3 +9635,5 @@ SceneRoots:
   - {fileID: 1457816602}
   - {fileID: 1065802398}
   - {fileID: 1260338508}
+  - {fileID: 1132713646}
+  - {fileID: 3821437284420561141}

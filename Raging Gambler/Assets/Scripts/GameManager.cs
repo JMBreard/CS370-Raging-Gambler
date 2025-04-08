@@ -57,6 +57,8 @@ public class GameManager : MonoBehaviour
 
     public GambleManager gambleManager;
 
+    private bool timerActive = false;
+
     private void Awake()
     {
         Time.timeScale = 1.0f;
@@ -71,6 +73,22 @@ public class GameManager : MonoBehaviour
     {
         // Activate Game Over UI
         gameOverUI.SetActive(true);
+        
+        // Disable player movement and shooting, but don't deactivate the player
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            PlayerController pc = player.GetComponent<PlayerController>();
+            if (pc != null)
+            {
+                // Disable player movement and shooting
+                if (pc.canMove)
+                    pc.toggleMovement();
+                if (pc.canShoot)
+                    pc.toggleShooting();
+            }
+        }
+        
         // Pause the game
         Time.timeScale = 0f;
     }
@@ -158,62 +176,147 @@ public class GameManager : MonoBehaviour
         KillAll();
         Increment();
 
+        // Add null checks for room-related objects
+        if (currentRoomDoors == null || currentRoomDoors.Length == 0)
+        {
+            Debug.LogError("currentRoomDoors is null or empty!");
+            return;
+        }
+
+        if (nextRoom == null)
+        {
+            Debug.LogError("nextRoom is null!");
+            return;
+        }
+
+        // Ensure player is active before moving rooms
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player == null)
+        {
+            Debug.LogError("Player is null when moving to next room! Attempting to recover...");
+            // Try to recover the player if possible
+            player = GameObject.FindWithTag("Player");
+            if (player != null)
+            {
+                player.SetActive(true);
+            }
+            else
+            {
+                Debug.LogError("Player recovery failed! Cannot proceed with room transition.");
+                return;
+            }
+        }
+
         movingRooms = true;
         currentDoorIndex = Random.Range(0, currentRoomDoors.Length); // Picks a random door
         while (currentDoorIndex == comeFromRoom)
         { //If the index is the door the player came from, pick a different door
             currentDoorIndex = Random.Range(0, currentRoomDoors.Length);
         }
+        
         currentDoor = currentRoomDoors[currentDoorIndex]; //Get the door object
+        if (currentDoor == null)
+        {
+            Debug.LogError("currentDoor is null at index: " + currentDoorIndex);
+            return;
+        }
+        
         currentDoor.gameObject.SetActive(false); //Turn the door off
         newPos = nextRoom.transform.position; //Initialize the next position of the room
         nextDoor = null; //Intialize the next door
+        
+        if (nextRoomDoors == null || nextRoomDoors.Length == 0)
+        {
+            Debug.LogError("nextRoomDoors is null or empty!");
+            return;
+        }
+        
         switch (currentDoorIndex)
         { //Depending on which door was picked, the switch sets the new position and door, as well as where the player is coming from
             case 0:
                 Debug.Log("Left Door Open");
                 newPos.x -= moveRoomX; //Moves the next room to the left
-                nextDoor = nextRoomDoors[1]; //Sets the door from the next room
+                if (nextRoomDoors.Length > 1)
+                    nextDoor = nextRoomDoors[1]; //Sets the door from the next room
                 comeFromRoom = 1; //Sets what direction the player came from
-                obsctacleSpawner.NewRoomObstacles( newPos ); // Makes obstacles in new room
+                if (obsctacleSpawner != null)
+                    obsctacleSpawner.NewRoomObstacles( newPos ); // Makes obstacles in new room
                 break;
             case 1:
                 Debug.Log("Right Door Open");
                 newPos.x += moveRoomX; //Moves the next room to the right
-                nextDoor = nextRoomDoors[0];
+                if (nextRoomDoors.Length > 0)
+                    nextDoor = nextRoomDoors[0];
                 comeFromRoom = 0;
-                obsctacleSpawner.NewRoomObstacles( newPos ); // Makes obstacles in new room
+                if (obsctacleSpawner != null)
+                    obsctacleSpawner.NewRoomObstacles( newPos ); // Makes obstacles in new room
                 break;
             case 2:
                 Debug.Log("Top Door Open");
                 newPos.y += moveRoomY; //Moves the next room up
-                nextDoor = nextRoomDoors[3];
+                if (nextRoomDoors.Length > 3)
+                    nextDoor = nextRoomDoors[3];
                 comeFromRoom = 3;
-                obsctacleSpawner.NewRoomObstacles( newPos ); // Makes obstacles in new room
+                if (obsctacleSpawner != null)
+                    obsctacleSpawner.NewRoomObstacles( newPos ); // Makes obstacles in new room
                 break;
             case 3:
                 Debug.Log("Bottom Door Open");
                 newPos.y -= moveRoomY; //Moves the next room down
-                nextDoor = nextRoomDoors[2];
+                if (nextRoomDoors.Length > 2)
+                    nextDoor = nextRoomDoors[2];
                 comeFromRoom = 2;
-                obsctacleSpawner.NewRoomObstacles( newPos ); // Makes obstacles in new room
+                if (obsctacleSpawner != null)
+                    obsctacleSpawner.NewRoomObstacles( newPos ); // Makes obstacles in new room
                 break;
         }
         nextRoom.transform.position = newPos; //Sets the transformation of the next room to whatever direction was picked
         nextRoom.gameObject.SetActive(true); //Turns on the next room
-        nextDoor.gameObject.SetActive(false); //Turns off the next door
+        
+        // Add null check for nextDoor
+        if (nextDoor != null)
+            nextDoor.gameObject.SetActive(false); //Turns off the next door
+        else
+            Debug.LogWarning("nextDoor is null! Unable to deactivate it.");
 
-        // if a gamble is picked, add wager money from gamble to player's money
+        // If a gamble is picked, add wager money from gamble to player's money
         playerMoney = FindAnyObjectByType<PlayerMoney>();
         gambleManager = FindAnyObjectByType<GambleManager>();
-        int incrementMoney = 0, wagerIndex = 0;
-        foreach (Wagers wager in gambleManager.wagers) {
-            incrementMoney += wager.reward * gambleManager.WagerCounts[wagerIndex];
-            wagerIndex++;
+
+        if (gambleManager != null && playerMoney != null) 
+        {
+            int incrementMoney = 0, wagerIndex = 0;
+            
+            if (gambleManager.wagers != null)
+            {
+                foreach (Wagers wager in gambleManager.wagers) 
+                {
+                    if (wager != null && gambleManager.WagerCounts != null && wagerIndex < gambleManager.WagerCounts.Length)
+                    {
+                        incrementMoney += wager.reward * gambleManager.WagerCounts[wagerIndex];
+                        wagerIndex++;
+                    }
+                }
+                
+                if (gambleManager.WagerCounts != null)
+                {
+                    for (int i = 0; i < gambleManager.WagerCounts.Length; i++) 
+                        gambleManager.WagerCounts[i] = 0;
+                    
+                    Debug.Log(gambleManager.WagerCounts);
+                }
+                
+                playerMoney.addMoney(incrementMoney);
+            }
+            else
+            {
+                Debug.LogWarning("GameManager: gambleManager.wagers is null");
+            }
         }
-        for (int i = 0; i < gambleManager.WagerCounts.Length; i++) gambleManager.WagerCounts[i] = 0;
-        Debug.Log(gambleManager.WagerCounts);
-        playerMoney.addMoney(incrementMoney);
+        else
+        {
+            Debug.LogWarning("GameManager: gambleManager or playerMoney is null");
+        }
     }
 
     private void Increment()
@@ -221,19 +324,40 @@ public class GameManager : MonoBehaviour
         level_counter += 1;
         remainingTime += time_difficulty * level_counter;
         enemiesNeeded += enemy_count_difficulty * level_counter;
+        
+        // Check if this is a boss level and notify BossRoomManager
+        if (level_counter % 10 == 0) // Every 10 levels
+        {
+            Debug.Log("BOSS LEVEL: " + level_counter);
+            // Find BossRoomManager and trigger boss encounter
+            BossRoomManager bossManager = FindFirstObjectByType<BossRoomManager>();
+            if (bossManager != null)
+            {
+                Debug.Log("Boss manager found - initiating encounter");
+                bossManager.InitiateEncounter(level_counter);
+            }
+            else
+            {
+                Debug.LogWarning("No BossRoomManager found in the scene! Can't spawn boss.");
+            }
+        }
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.T) && !movingRooms) //To test the room generation
         {
+            KillAll(); // Explicitly kill all enemies before moving rooms
+            ObstacleWipe(); // Also clear obstacles
             moveToNextRoom();
         }
-        if (timeRoom && !movingRooms && remainingTime > 1)
+        
+        // Only decrement timer if it's active (after enemies spawn)
+        if (timeRoom && !movingRooms && remainingTime > 1 && timerActive)
         {
             remainingTime -= Time.deltaTime;
         }
-        else if (timeRoom && remainingTime < 1 && !movingRooms)
+        else if (timeRoom && remainingTime < 1 && !movingRooms && timerActive)
         {
             Debug.Log("TIME ROOM WON");
             remainingTime = 0;
@@ -241,8 +365,8 @@ public class GameManager : MonoBehaviour
             timerText.gameObject.SetActive(false);
             timeRoom = false;
             moveToNextRoom();
-            // Win();
         }
+        
         int minutes = Mathf.FloorToInt(remainingTime / 60);
         int seconds = Mathf.FloorToInt(remainingTime % 60);
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
@@ -291,7 +415,19 @@ public class GameManager : MonoBehaviour
     {
         //I NEED TO CREATE A SCREEN THAT SHOWS WHAT THE NEXT ROOM WILL BE BEFORE THE SHOP
         //THIS WILL RANDOMIZE THE DIFFERENT POSSIBILITIES AND OPTIONS FOR THE TIME LENGTH
-        enemySpawner.gameObject.SetActive(true);
+        
+        // Reset timer active flag
+        timerActive = false;
+        
+        // First make sure enemy spawner is disabled
+        if (enemySpawner != null)
+        {
+            enemySpawner.gameObject.SetActive(false);
+        }
+        
+        // Delay enemy spawning to give player time to choose wagers
+        StartCoroutine(DelayedEnemySpawn(5f)); // 5 second delay
+        
         if (timeRoom)
         {
             timerText.gameObject.SetActive(true);
@@ -308,6 +444,22 @@ public class GameManager : MonoBehaviour
             GambleManager.instance.ToggleShop();
         }
         movingRooms = false;
+    }
+
+    // Add the coroutine for delayed enemy spawning
+    private System.Collections.IEnumerator DelayedEnemySpawn(float delay)
+    {
+        // Wait for the designated delay
+        yield return new UnityEngine.WaitForSeconds(delay);
+        
+        // Then activate the enemy spawner
+        if (enemySpawner != null)
+        {
+            enemySpawner.gameObject.SetActive(true);
+            
+            // Start the timer only now when enemies are about to spawn
+            timerActive = true;
+        }
     }
 
     private bool isMouseOverUIIgnore()

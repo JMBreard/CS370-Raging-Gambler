@@ -5,8 +5,8 @@ using UnityEngine;
 public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
 {
     [Header("Health Settings")]
-    public int maxHealth = 3;
-    public int currentHealth;
+    [SerializeField] public int maxHealth = 10;
+    [SerializeField] public int currentHealth;
 
     private bool isDead = false;
 
@@ -14,14 +14,16 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
 
     public PlayerMoney playerMoney;
 
-    public event EventHandler OnHealthChanged;
+    public event System.EventHandler OnHealthChanged;
 
     public GameManager gameManager;
 
+    // Flag to identify boss minions
+    public bool isBossMinion = false;
 
     void Start()
     {
-        gameManager = (GameManager) GameObject.Find("Game Manager").GetComponent("GameManager");
+        gameManager = FindFirstObjectByType<GameManager>();
         currentHealth = maxHealth;
 
         // Check if healthbar is assigned and only call Setup for the player
@@ -47,8 +49,15 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
     // This method will be called when damage is dealt via the interface.
     public void Damage()
     {
+        // For boss minions, take fixed damage regardless of damage reduction from wagers
+        if (isBossMinion)
+        {
+            // Guarantee boss minions die in 2 hits max
+            TakeDamage(Mathf.Max(currentHealth / 2, 1));
+            return;
+        }
+        
         TakeDamage(1);
-        Debug.Log("Current health: " + currentHealth);
     }
 
 
@@ -71,12 +80,10 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
         }
     }
 
-    void Die()
+    public void Die()
     {
         if (isDead)
-        {
-            return; // Already dead, prevent multiple executions
-        }
+            return;
 
         isDead = true;
 
@@ -87,17 +94,32 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
         }
         if (CompareTag("Player"))
         {
-            // Player death handling (disable the player)
-            FindFirstObjectByType<GameManager>().GameOver(); // GameOver() is in GameManager.cs
-            gameObject.SetActive(false);
-            playerMoney.subtractMoney(playerMoney.money / 2);
+            // Player death handling (only deactivate if game is truly over)
+            GameManager gm = FindFirstObjectByType<GameManager>();
+            if (gm != null)
+            {
+                gm.GameOver(); // GameOver() is in GameManager.cs
+                // Only disable player if game is truly over
+                // Don't disable the player as it causes issues with room transitions
+                // Instead, just halt player movement/actions via the GameOver state
+                
+                // Don't deactivate: gameObject.SetActive(false);
+                
+                // Still subtract money
+                if (playerMoney != null)
+                {
+                    playerMoney.subtractMoney(playerMoney.money / 2);
+                }
+            }
         }
         else
         {
             // Enemy (or other damageable) death handling (destroy the game object)
             Destroy(gameObject);
-            gameManager.EnemiesLeftUpdate(); // Update remaining enemies for win condition
-
+            if (gameManager != null)
+            {
+                gameManager.EnemiesLeftUpdate(); // Update remaining enemies for win condition
+            }
         }
     }
 
