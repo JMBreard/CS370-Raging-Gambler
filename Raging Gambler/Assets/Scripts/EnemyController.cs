@@ -84,10 +84,9 @@ public class Enemy : MonoBehaviour
 
     public int CriticalHit()
     {
-        // critChance is a % (between 0 and 100)
-        int min = gameManager.level_counter * 2;
-        int critChance = UnityEngine.Random.Range(min, 101);
-        if (min >= 33)
+        // critChance scales up to 33% at level 17.
+        int critChance = gameManager.level_counter * 2;
+        if (critChance > 33)
         {
             critChance = 33;
         }
