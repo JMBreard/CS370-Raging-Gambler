@@ -85,10 +85,15 @@ public class Enemy : MonoBehaviour
     public int CriticalHit()
     {
         // critChance is a % (between 0 and 100)
-        int critChance = UnityEngine.Random.Range(1, 101) * gameManager.level_counter;
+        int min = gameManager.level_counter * 2;
+        int critChance = UnityEngine.Random.Range(min, 101);
+        if (min >= 33)
+        {
+            critChance = 33;
+        }
         int num = UnityEngine.Random.Range(1, 101);
-        int multiplier = 1; // Default to one for now
-        if (num <= 100)
+        int multiplier = 1; // Default to one for now: don't know if it needs to be less or more
+        if (num <= critChance)
         {
             return gameManager.level_counter * multiplier; // Deals damage proportional to the level
         }
