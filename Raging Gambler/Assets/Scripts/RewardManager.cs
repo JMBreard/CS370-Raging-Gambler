@@ -66,47 +66,52 @@ public class RewardManager : MonoBehaviour
 
     public void ApplyReward(Rewards reward) {
         switch(reward.name) {
-            // 
+            // works
             case "+1 Player Health":
                 health.increaseCurrentHealth();
                 break;
             
-            // 
+            // works
             case "+1 Max Health":
                 health.increaseMaxHealth();
                 break;
-
-            // 
-            case "Increased Speed":
-                player.increaseSpeed();
+            
+            // works
+            case "+1 Ammo Count":
+                player.increaseMaxAmmoCount();
                 break;
 
-            // 
-            case "Decreased Reload Time":
+            // works
+            case "-1 Reload Time":
                 player.decreaseReloadTime();
                 break;
 
-            //
-            case "Increased DPS":
+            // works
+            case "+1 Speed":
                 player.increaseSpeed();
                 break;
 
-            //
+            // bugged, increases the enemy dps instead of player dps
+            case "Increased DPS":
+                health.increaseDamage();
+                break;
+
+            // need to implement
             case "Decrease Time (5s)":
                 player.increaseSpeed();
                 break;
             
-            //
+            // need to implement
             case "Decrease Time (10s)":
                 player.increaseSpeed();
                 break;
             
-            //
+            // need to implement
             case "Decrease Time (15s)":
                 player.increaseSpeed();
                 break;
 
-            //
+            // need to implement
             case "Decrease Time (20s)":
                 player.increaseSpeed();
                 break;

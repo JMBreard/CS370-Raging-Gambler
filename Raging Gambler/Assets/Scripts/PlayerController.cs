@@ -112,24 +112,29 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("Ready to fire....");
     }
 
+    public void increaseSpeed() {
+        _speed += 1f;
+        Debug.Log("Current Speed: " + _speed);
+    }
+    
     public void reduceSpeed() {
         _speed -= 2f;
         Debug.Log("Current Speed: " + _speed);
     }
 
-    public void increaseSpeed() {
-        _speed += 1f;
-        Debug.Log("Current Speed: " + _speed);
-    }
-
     public void increaseReloadTime() {
-        _reloadTime += 1;
+        _reloadTime += 1f;
         Debug.Log("Current reload time: " + _reloadTime);
     }
 
     public void decreaseReloadTime() {
-        _reloadTime -= 1;
+        _reloadTime -= 0.5f;
         Debug.Log("Current reload time: " + _reloadTime);
+    }
+
+    public void increaseMaxAmmoCount() {
+        _ammoCount += 1;
+        Debug.Log("Current max ammo count:" + _ammoCount);
     }
 
     public void decreaseMaxAmmoCount() {

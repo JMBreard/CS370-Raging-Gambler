@@ -2646,14 +2646,14 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0.0009090909
-    y: 0.0031201248
+    y: 0
     width: 0.9981818
-    height: 0.99219966
+    height: 0.99999994
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5.3
+  orthographic size: 5.35
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3665,11 +3665,15 @@ MonoBehaviour:
     cost: 1
     image: {fileID: 0}
     itemRef: {fileID: 0}
-  - name: Increased Speed
+  - name: +1 Ammo Count
     cost: 1
     image: {fileID: 0}
     itemRef: {fileID: 0}
-  - name: Decreased Reload Time
+  - name: -1 Reload Time
+    cost: 1
+    image: {fileID: 0}
+    itemRef: {fileID: 0}
+  - name: +1 Speed
     cost: 1
     image: {fileID: 0}
     itemRef: {fileID: 0}
