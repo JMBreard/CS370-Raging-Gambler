@@ -364,6 +364,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 5429565316317461585}
   offsetMultiplier: 1
+  bulletSpawn: {fileID: 8829291021138301810}
+  bulletSpawnYOffsetWhenFlipped: 1
 --- !u!1 &8439304357849240891
 GameObject:
   m_ObjectHideFlags: 0

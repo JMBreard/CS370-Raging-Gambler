@@ -96,7 +96,7 @@ public class GunController : MonoBehaviour
             {
                 bulletSpawn.localPosition = new Vector3(
                     bulletSpawnInitialLocalPosition.x,
-                    bulletSpawnInitialLocalPosition.y - bulletSpawnYOffsetWhenFlipped,
+                    bulletSpawnInitialLocalPosition.y - bulletSpawnYOffsetWhenFlipped ,
                     bulletSpawnInitialLocalPosition.z);
             }
         }
