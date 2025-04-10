@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour
         if (!leaderBoardDebug)
         {
             scoreManager.addEntry(playerMoney.money, userName.text);
-            SceneManager.LoadScene("Leaderboard Title Screen");
+            SceneManager.LoadScene("Title Scene");
         }
         else
         {
