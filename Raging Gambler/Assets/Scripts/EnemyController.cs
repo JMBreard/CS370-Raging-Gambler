@@ -4,21 +4,27 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float speed = 2f;
-    protected Transform player; 
+    public GameManager gameManager;
+    protected Transform player;
     protected Rigidbody2D rb;
 
     private bool contact = false; // Tracks whether enemy is contacting player
     private float dmgTimeInterval = 1.0f; // Deal dmg every time interval (in secs)
     private float dmgTimer = 0.0f; // Tracks contact time
     private Coroutine dmgCoroutine;
-
     private string enemyType; // Enemy type corresponds with trait action
+    public HealthController currentHealth;
+
 
 
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player").transform;
+        if (gameManager == null)
+        {
+            gameManager = FindAnyObjectByType<GameManager>();
+        }
     }
 
     // Set to virtual to allow override in child classes.
@@ -45,7 +51,7 @@ public class Enemy : MonoBehaviour
 
             if (playerHealth != null && contact == true)
             {
-                Trait(enemyType, playerHealth, playerMoney);
+                Trait(enemyType, playerMoney);
                 dmgCoroutine = StartCoroutine(SustainedDamage(playerHealth));
             }
         }
@@ -53,7 +59,7 @@ public class Enemy : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             if (dmgCoroutine != null)
             {
@@ -65,7 +71,7 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator SustainedDamage(ProjectileMovement.IDamagable playerHealth)
     {
-        while(contact == true)
+        while (contact == true)
         {
             if (Time.time >= dmgTimer)
             {
@@ -76,7 +82,24 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void Trait(string enemyType, ProjectileMovement.IDamagable playerHealth, HealthController playerMoney)
+    public int CriticalHit()
+    {
+        // critChance scales up to 33% at level 17.
+        int critChance = gameManager.level_counter * 2;
+        if (critChance > 33)
+        {
+            critChance = 33;
+        }
+        int num = UnityEngine.Random.Range(1, 101);
+        int multiplier = 1; // Default to one for now: don't know if it needs to be less or more
+        if (num <= critChance)
+        {
+            return gameManager.level_counter * multiplier; // Deals damage proportional to the level
+        }
+        return 0; // Deals no damage
+    }
+
+    private void Trait(string enemyType, HealthController playerMoney)
     {
         if (enemyType.Contains("Fast"))
         {
@@ -84,7 +107,8 @@ public class Enemy : MonoBehaviour
         }
         if (enemyType.Contains("Shooter"))
         {
-            // Another trait
+            int damage = CriticalHit();
+            playerMoney.TakeDamage(damage);
         }
     }
 }

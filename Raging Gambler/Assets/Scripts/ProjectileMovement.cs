@@ -38,6 +38,7 @@ public class ProjectileMovement : MonoBehaviour
     {
         int Health { get; set; }
         void Damage();
+        void TakeDamage(int amount);
     }
 
     // Will call Damage() and hide the projectile
@@ -53,12 +54,14 @@ public class ProjectileMovement : MonoBehaviour
             Hide();
         }
 
-        else if (other.CompareTag("Obstacle")) {
-            Hide(); 
+        else if (other.CompareTag("Obstacle"))
+        {
+            Hide();
         }
     }
 
-    public void reduceBulletTime() {
+    public void reduceBulletTime()
+    {
         // bulletTime -= 0.25f;
         // _speed -= 2.5f;
         Debug.Log("Bullet time: " + _speed);

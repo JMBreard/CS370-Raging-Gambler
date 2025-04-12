@@ -17,7 +17,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private EnemySpawnData[] enemySpawnData;
 
     [Tooltip("Enemy Health Multiplier (to be altered with wager)")]
-    [SerializeField]public int enemyHealthMultiplier = 1;
+    [SerializeField] public int enemyHealthMultiplier = 1;
 
     [Tooltip("Time between enemy spawns")]
     [SerializeField] private float spawnRate = 2f;
@@ -69,7 +69,7 @@ public class EnemySpawner : MonoBehaviour
             totalWeight += enemyData.spawnChance;
         }
 
-    
+
         // Generate a random value between 0 and totalWeight.
         float randomValue = Random.Range(0f, totalWeight);
 
@@ -83,7 +83,7 @@ public class EnemySpawner : MonoBehaviour
                 break;
             }
             randomValue -= enemyData.spawnChance;
-        }    
+        }
 
         // Determine spawn position relative to the player.
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
@@ -117,12 +117,14 @@ public class EnemySpawner : MonoBehaviour
         isSpawning = false;
     }
 
-    public void increaseSpawnRate() {
+    public void increaseSpawnRate()
+    {
         spawnRate -= 0.5f;
         Debug.Log("Spawn rate: " + spawnRate);
     }
-    
-    public void setEnemyHealthMultiplier(int newMultiplier) {
+
+    public void setEnemyHealthMultiplier(int newMultiplier)
+    {
         enemyHealthMultiplier = newMultiplier;
         Debug.Log("Current enemy health multiplier: " + enemyHealthMultiplier);
     }

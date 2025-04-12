@@ -5799,7 +5799,7 @@ MonoBehaviour:
   scoreManager: {fileID: 0}
   gameOverScore: {fileID: 1359689302}
   userName: {fileID: 305732510}
-  debug: 1
+  leaderBoardDebug: 0
 --- !u!4 &1260338508
 Transform:
   m_ObjectHideFlags: 0

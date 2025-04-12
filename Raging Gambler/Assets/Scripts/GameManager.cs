@@ -70,8 +70,8 @@ public class GameManager : MonoBehaviour
         pickRoomCondition();
         startRoom();
         firstRoom = false;
-        pc = (PlayerController) GameObject.FindWithTag("Player").GetComponent("PlayerController");
-        if(!leaderBoardDebug)
+        pc = (PlayerController)GameObject.FindWithTag("Player").GetComponent("PlayerController");
+        if (!leaderBoardDebug)
         {
             scoreManager = (ScoreManager)GameObject.Find("Score Manager").GetComponent("ScoreManager");
         }
@@ -79,13 +79,13 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        if(!leaderBoardDebug)
+        if (!leaderBoardDebug)
         {
             gameOverScore.text = "Final Score: " + playerMoney.money;
         }
         KillAll();
         // Activate Game Over UI
-        gameOverUI.SetActive(true);  
+        gameOverUI.SetActive(true);
         // Pause the game
         Time.timeScale = 0f;
     }
@@ -95,14 +95,6 @@ public class GameManager : MonoBehaviour
         foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
             Destroy(enemy);
-        }
-    }
-
-    public void ObstacleWipe()
-    {
-            foreach (GameObject obstacle in GameObject.FindGameObjectsWithTag("Obstacle"))
-        {
-            Destroy(obstacle);
         }
     }
 
@@ -134,16 +126,16 @@ public class GameManager : MonoBehaviour
     {
         // Reset time scale
         Time.timeScale = 1f;
-        if(!leaderBoardDebug)
+        if (!leaderBoardDebug)
         {
             scoreManager.addEntry(playerMoney.money, userName.text);
-            SceneManager.LoadScene("Leaderboard Title Screen");
+            SceneManager.LoadScene("Title Scene");
         }
         else
         {
             SceneManager.LoadScene("Title Scene");
         }
-        
+
     }
 
     public void pickRoomCondition()
@@ -192,39 +184,38 @@ public class GameManager : MonoBehaviour
                 newPos.x -= moveRoomX; //Moves the next room to the left
                 nextDoor = nextRoomDoors[1]; //Sets the door from the next room
                 comeFromRoom = 1; //Sets what direction the player came from
-                obsctacleSpawner.NewRoomObstacles( newPos ); // Makes obstacles in new room
                 break;
             case 1:
                 Debug.Log("Right Door Open");
                 newPos.x += moveRoomX; //Moves the next room to the right
                 nextDoor = nextRoomDoors[0];
                 comeFromRoom = 0;
-                obsctacleSpawner.NewRoomObstacles( newPos ); // Makes obstacles in new room
                 break;
             case 2:
                 Debug.Log("Top Door Open");
                 newPos.y += moveRoomY; //Moves the next room up
                 nextDoor = nextRoomDoors[3];
                 comeFromRoom = 3;
-                obsctacleSpawner.NewRoomObstacles( newPos ); // Makes obstacles in new room
                 break;
             case 3:
                 Debug.Log("Bottom Door Open");
                 newPos.y -= moveRoomY; //Moves the next room down
                 nextDoor = nextRoomDoors[2];
                 comeFromRoom = 2;
-                obsctacleSpawner.NewRoomObstacles( newPos ); // Makes obstacles in new room
                 break;
         }
         nextRoom.transform.position = newPos; //Sets the transformation of the next room to whatever direction was picked
         nextRoom.gameObject.SetActive(true); //Turns on the next room
         nextDoor.gameObject.SetActive(false); //Turns off the next door
 
+        obsctacleSpawner.NewRoomObstacles(newPos); // Makes obstacles in new room
+
         // if a gamble is picked, add wager money from gamble to player's money
         playerMoney = FindAnyObjectByType<PlayerMoney>();
         gambleManager = FindAnyObjectByType<GambleManager>();
         int incrementMoney = 0, wagerIndex = 0;
-        foreach (Wagers wager in gambleManager.wagers) {
+        foreach (Wagers wager in gambleManager.wagers)
+        {
             incrementMoney += wager.reward * gambleManager.WagerCounts[wagerIndex];
             wagerIndex++;
         }
@@ -264,12 +255,12 @@ public class GameManager : MonoBehaviour
         int seconds = Mathf.FloorToInt(remainingTime % 60);
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
-        if(isMouseOverUIIgnore() && !mouseToggle)
+        if (isMouseOverUIIgnore() && !mouseToggle)
         {
             mouseToggle = true;
             pc.toggleShooting();
         }
-        if(!isMouseOverUIIgnore() && mouseToggle && Time.timeScale != 0)
+        if (!isMouseOverUIIgnore() && mouseToggle && Time.timeScale != 0)
         {
             mouseToggle = false;
             pc.toggleShooting();
