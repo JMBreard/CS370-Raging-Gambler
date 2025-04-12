@@ -17,6 +17,6 @@ public class TitleScreen : MonoBehaviour
 
     public void startGame()
     {
-        SceneManager.LoadSceneAsync("SampleScene");
+        SceneManager.LoadSceneAsync("JakeScene"); //changed from sample scene
     }
 }

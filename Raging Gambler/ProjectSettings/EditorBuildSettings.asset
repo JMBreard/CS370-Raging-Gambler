@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Title Scene.unity
     guid: 62f6244f4ca6b6443a08eabebcaa2e8c
   - enabled: 1
+    path: Assets/Scenes/JakeScene.unity
+    guid: 2108dc41ba057a44da501ea2777f8ac2
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
