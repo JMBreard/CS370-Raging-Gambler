@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
     public GameObject[] nextRoomDoors; //An array for all of the doors in the next room
     public ObsctacleSpawner obsctacleSpawner; // Have obstacles move with the room 
 
-    private float moveRoomX = 16; //How much to move a room in the X axis
-    private int moveRoomY = 9; //How much to move a room in the Y axis
+    private float moveRoomX = 17; //How much to move a room in the X axis
+    private int moveRoomY = 10; //How much to move a room in the Y axis
 
     private int comeFromRoom = 3; //Initially sets the room the player comes from as the bottom door
     private int currentDoorIndex;
@@ -62,6 +62,9 @@ public class GameManager : MonoBehaviour
     public TMP_InputField userName;
 
     [SerializeField] public bool leaderBoardDebug;
+
+    bool gamePaused = false;
+    public GameObject pauseMenu;
 
     private void Awake()
     {
@@ -233,10 +236,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T) && !movingRooms) //To test the room generation
-        {
-            moveToNextRoom();
-        }
         if (timeRoom && !movingRooms && remainingTime > 1)
         {
             remainingTime -= Time.deltaTime;
@@ -264,6 +263,18 @@ public class GameManager : MonoBehaviour
         {
             mouseToggle = false;
             pc.toggleShooting();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape) && gamePaused == false)
+        {
+            Time.timeScale = 0;
+            gamePaused = true;
+            pauseMenu.SetActive(true);
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && gamePaused == true)
+        {
+            Time.timeScale = 1;
+            gamePaused = false;
+            pauseMenu.SetActive(false);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

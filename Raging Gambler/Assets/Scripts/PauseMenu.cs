@@ -10,29 +10,22 @@ public class PauseMenu : MonoBehaviour
     bool gamePaused = false;
     [SerializeField] GameObject pauseMenu;
 
-    /*
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && gamePaused == false)
-        {
-            Time.timeScale = 0;
-            gamePaused = true;
-            pauseMenu.SetActive(true);
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape) && gamePaused == true)
-        {
-            Time.timeScale = 1;
-            gamePaused = false;
-            pauseMenu.SetActive(false);
-        }
-    }
-    */
+
 
     public void Pause()
     {
-        pauseMenu.SetActive(true);
-        gamePaused = true;
-        Time.timeScale = 0;
+        if(!gamePaused)
+        {
+            pauseMenu.SetActive(true);
+            gamePaused = true;
+            Time.timeScale = 0;
+        }
+        else
+        {
+            pauseMenu.SetActive(false);
+            gamePaused = false;
+            Time.timeScale = 1;
+        }
     }
 
     public void Resume()
