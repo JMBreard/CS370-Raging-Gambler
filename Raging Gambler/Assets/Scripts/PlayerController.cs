@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int _ammoCount = 10;
     private int _currentAmmoCount;
     [SerializeField] private float _reloadTime = 3.0f;
+    [SerializeField] public TextMeshProUGUI ammoText;
     private bool _canFire = true;
     private bool _reloading = false;
 
@@ -30,6 +32,19 @@ public class PlayerController : MonoBehaviour
     void Awake() 
     {
         _input = new PlayerInputActions();
+        ammoText.text = "Ammo: " + _currentAmmoCount;
+    }
+
+    private void Update()
+    {
+        if (!_reloading)
+        {
+            ammoText.text = "Ammo: " + _currentAmmoCount;
+        }
+        else
+        {
+            ammoText.text = "Ammo: Reloading...";
+        }
     }
 
     public void toggleShooting()

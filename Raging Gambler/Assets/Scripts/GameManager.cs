@@ -131,6 +131,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         if (!leaderBoardDebug)
         {
+            if (userName.text == "")
+            {
+                userName.text = "Player " + scoreManager.playerCount;
+                scoreManager.playerCount++;
+            }
             scoreManager.addEntry(playerMoney.money, userName.text);
             SceneManager.LoadScene("Title Scene");
         }
