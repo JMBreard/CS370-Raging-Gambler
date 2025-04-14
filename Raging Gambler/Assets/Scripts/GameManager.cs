@@ -66,12 +66,21 @@ public class GameManager : MonoBehaviour
     bool gamePaused = false;
     public GameObject pauseMenu;
     [SerializeField] public bool tutorial;
+    public GameObject tutorialStart;
+    public GameObject tutorialGameOverScreen;
+    public TextMeshProUGUI tutorialScore;
+    private bool menuShowing = false;
 
     private void Awake()
     {
         if(tutorial)
         {
-            StartTutorial();
+            tutorialStart.gameObject.SetActive(true);
+            pc.toggleShooting();
+            pc.toggleMovement();
+            level_counter = 1;
+            Time.timeScale = 0f;
+            menuShowing = true;
             return;
         }
         Time.timeScale = 1.0f;
@@ -85,16 +94,26 @@ public class GameManager : MonoBehaviour
             scoreManager = (ScoreManager)GameObject.Find("Score Manager").GetComponent("ScoreManager");
         }
     }
-    private void StartTutorial()
+    public void StartTutorial()
     {
         Time.timeScale = 1.0f;
+        menuShowing = false;
         gameOverUI.SetActive(false);
+        tutorialStart.gameObject.SetActive(false);
+        enemySpawner.SetActive(true);
         pc = (PlayerController)GameObject.FindWithTag("Player").GetComponent("PlayerController");
+        pc.toggleShooting();
+        pc.toggleMovement();
     }
 
     public void GameOver()
     {
-        if (!leaderBoardDebug || !tutorial)
+        if(tutorial)
+        {
+            tutorialGameOver();
+            return;
+        }
+        if (!leaderBoardDebug)
         {
             gameOverScore.text = "Final Score: " + playerMoney.money;
         }
@@ -102,6 +121,14 @@ public class GameManager : MonoBehaviour
         // Activate Game Over UI
         gameOverUI.SetActive(true);
         // Pause the game
+        Time.timeScale = 0f;
+    }
+
+    public void tutorialGameOver()
+    {
+        tutorialScore.text = "Final Score: " + playerMoney.money;
+        KillAll();
+        tutorialGameOverScreen.SetActive(true);
         Time.timeScale = 0f;
     }
 
@@ -139,9 +166,14 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
+        SceneManager.LoadScene("Tutorial Scene");
+    }
+
+    public void Exit()
+    {
         // Reset time scale
         Time.timeScale = 1f;
-        if (!leaderBoardDebug)
+        if (!leaderBoardDebug && !tutorial)
         {
             if (userName.text == "")
             {
@@ -273,13 +305,12 @@ public class GameManager : MonoBehaviour
             int seconds = Mathf.FloorToInt(remainingTime % 60);
             timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         }
-        
-        if (isMouseOverUIIgnore() && !mouseToggle)
+        if (!menuShowing && isMouseOverUIIgnore() && !mouseToggle)
         {
             mouseToggle = true;
             pc.toggleShooting();
         }
-        if (!isMouseOverUIIgnore() && mouseToggle && Time.timeScale != 0)
+        if (!menuShowing && !isMouseOverUIIgnore() && mouseToggle && Time.timeScale != 0)
         {
             mouseToggle = false;
             pc.toggleShooting();
