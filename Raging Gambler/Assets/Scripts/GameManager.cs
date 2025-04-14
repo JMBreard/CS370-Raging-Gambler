@@ -65,9 +65,15 @@ public class GameManager : MonoBehaviour
 
     bool gamePaused = false;
     public GameObject pauseMenu;
+    [SerializeField] public bool tutorial;
 
     private void Awake()
     {
+        if(tutorial)
+        {
+            StartTutorial();
+            return;
+        }
         Time.timeScale = 1.0f;
         gameOverUI.SetActive(false);
         pickRoomCondition();
@@ -79,10 +85,16 @@ public class GameManager : MonoBehaviour
             scoreManager = (ScoreManager)GameObject.Find("Score Manager").GetComponent("ScoreManager");
         }
     }
+    private void StartTutorial()
+    {
+        Time.timeScale = 1.0f;
+        gameOverUI.SetActive(false);
+        pc = (PlayerController)GameObject.FindWithTag("Player").GetComponent("PlayerController");
+    }
 
     public void GameOver()
     {
-        if (!leaderBoardDebug)
+        if (!leaderBoardDebug || !tutorial)
         {
             gameOverScore.text = "Final Score: " + playerMoney.money;
         }
@@ -255,10 +267,13 @@ public class GameManager : MonoBehaviour
             moveToNextRoom();
             // Win();
         }
-        int minutes = Mathf.FloorToInt(remainingTime / 60);
-        int seconds = Mathf.FloorToInt(remainingTime % 60);
-        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-
+        if(!tutorial)
+        {
+            int minutes = Mathf.FloorToInt(remainingTime / 60);
+            int seconds = Mathf.FloorToInt(remainingTime % 60);
+            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
+        
         if (isMouseOverUIIgnore() && !mouseToggle)
         {
             mouseToggle = true;
@@ -313,9 +328,11 @@ public class GameManager : MonoBehaviour
     }
     public void startRoom()
     {
-        //I NEED TO CREATE A SCREEN THAT SHOWS WHAT THE NEXT ROOM WILL BE BEFORE THE SHOP
-        //THIS WILL RANDOMIZE THE DIFFERENT POSSIBILITIES AND OPTIONS FOR THE TIME LENGTH
         enemySpawner.gameObject.SetActive(true);
+        if(tutorial)
+        {
+            return;
+        }
         if (timeRoom)
         {
             timerText.gameObject.SetActive(true);
