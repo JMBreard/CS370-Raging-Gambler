@@ -16,6 +16,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
     public List<scoreEntry> scoreList = new List<scoreEntry>();
+    public int playerCount = 1;
     
     void Start()
     {
