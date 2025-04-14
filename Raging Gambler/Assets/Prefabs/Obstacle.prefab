@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 148525451321673050}
   - component: {fileID: 642278633772734441}
-  - component: {fileID: 5472116701284145620}
   - component: {fileID: 8323078354699052460}
+  - component: {fileID: 1621449296991609249}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Obstacle
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.13, y: 1.7268485, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 905325264479340282, guid: 5759c11901f428d438fbf3f4f4373fb7, type: 3}
-  m_Color: {r: 0.7062664, g: 0, b: 1, a: 1}
+  m_Color: {r: 0.94837904, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -89,8 +89,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &5472116701284145620
-CircleCollider2D:
+--- !u!114 &8323078354699052460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3920973833086846585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3504799fb07c1004ea5ce26e7016f228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 5
+  currentHealth: 5
+  isDead: 0
+  healthbar: {fileID: 0}
+  playerMoney: {fileID: 0}
+  gameManager: {fileID: 0}
+--- !u!60 &1621449296991609249
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -124,22 +142,21 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.12
---- !u!114 &8323078354699052460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3920973833086846585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3504799fb07c1004ea5ce26e7016f228, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 5
-  currentHealth: 5
-  isDead: 0
-  healthbar: {fileID: 0}
-  playerMoney: {fileID: 0}
-  gameManager: {fileID: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.21, y: 0.44}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.044320405, y: 0.040525284}
+      - {x: -0.088761814, y: 0.0076630134}
+      - {x: -0.0844886, y: -0.19926092}
+      - {x: 0.05349385, y: -0.19948857}
+      - {x: 0.059075527, y: 0.0076332837}
+      - {x: 0.0075708316, y: 0.040525366}
+  m_UseDelaunayMesh: 0
