@@ -6,7 +6,7 @@ public class TitleScreen : MonoBehaviour
     public void moveToTutorialRoom()
     {
         Debug.Log("Tutorial Started!");
-        //MAKE TUTORIAL SCENE
+        
     }
     
     public void exitGame()

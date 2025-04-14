@@ -1,6 +1,6 @@
 using UnityEngine;
-using TMPro;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,29 +20,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int _ammoCount = 10;
     private int _currentAmmoCount;
     [SerializeField] private float _reloadTime = 3.0f;
-    [SerializeField] public TextMeshProUGUI ammoText;
     private bool _canFire = true;
     private bool _reloading = false;
 
     private bool canShoot = true;
     private bool canMove = true;
 
-    private void Update()
-    {
-        if(!_reloading)
-        {
-            ammoText.text = "Ammo: " + _currentAmmoCount;
-        }
-        else
-        {
-            ammoText.text = "Ammo: Reloading...";
-        }
-        
-    }
+
     void Awake() 
     {
         _input = new PlayerInputActions();
-        ammoText.text = "Ammo: " + _currentAmmoCount;
     }
 
     public void toggleShooting()
@@ -95,6 +82,11 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    
+
+
+
 
     private void Fire_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {

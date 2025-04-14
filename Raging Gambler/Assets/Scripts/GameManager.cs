@@ -131,11 +131,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         if (!leaderBoardDebug)
         {
-            if(userName.text == "")
-            {
-                userName.text = "Player " + scoreManager.playerCount;
-                scoreManager.playerCount++;
-            }
             scoreManager.addEntry(playerMoney.money, userName.text);
             SceneManager.LoadScene("Title Scene");
         }
@@ -313,6 +308,8 @@ public class GameManager : MonoBehaviour
     }
     public void startRoom()
     {
+        //I NEED TO CREATE A SCREEN THAT SHOWS WHAT THE NEXT ROOM WILL BE BEFORE THE SHOP
+        //THIS WILL RANDOMIZE THE DIFFERENT POSSIBILITIES AND OPTIONS FOR THE TIME LENGTH
         enemySpawner.gameObject.SetActive(true);
         if (timeRoom)
         {
