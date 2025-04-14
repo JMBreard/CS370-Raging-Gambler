@@ -114,12 +114,14 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
         }
         else
         {
-            // Enemy (or other damageable) death handling (destroy the game object)
-            Destroy(gameObject);
-            if (gameManager != null)
+            // Enemy (or other damageable) death handling
+            if (gameManager != null && !isBossMinion) // Skip EnemiesLeftUpdate for boss minions
             {
                 gameManager.EnemiesLeftUpdate(); // Update remaining enemies for win condition
             }
+            
+            // Destroy the game object
+            Destroy(gameObject);
         }
     }
 

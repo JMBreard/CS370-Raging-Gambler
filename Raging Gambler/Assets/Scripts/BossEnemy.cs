@@ -4,7 +4,7 @@ using UnityEngine;
 public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
 {
     // Boss Stats
-    public int maxHealth = 300;
+    public int maxHealth = 1000;
     private int currentHealth;
     public HealthBar healthBar;
     
@@ -42,18 +42,27 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
     
     // Movement settings
     public float moveSpeed = 1.5f;
-    public float minDistanceFromPlayer = 5f;
-    public float maxDistanceFromPlayer = 12f;
+    public float minDistanceFromPlayer = 2f;
+    public float maxDistanceFromPlayer = 6f;
     
     // State tracking
     private bool isTransitioning = false;
     private bool isDead = false;
     private bool hasCompletedSpawnEffect = false;
+    private bool properlySpawned = false; // Add this flag to control boss behavior
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         gameManager = FindFirstObjectByType<GameManager>();
+        
+        // Disable physics/gravity on awake
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.gravityScale = 0; // Make sure gravity doesn't affect the boss
+            rb.simulated = false; // Start with physics disabled
+        }
         
         // Start with boss invisible for spawn effect
         if (spriteRenderer != null)
@@ -62,10 +71,21 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
             startColor.a = 0;
             spriteRenderer.color = startColor;
         }
+        
+        // IMPORTANT: Disable this boss if it was placed in the scene directly
+        // Only bosses spawned by GameManager should be active
+        if (gameManager == null || !IsProperBossLevel())
+        {
+            Debug.Log("Disabling scene-placed boss: Not a boss level or no GameManager found");
+            DisableBoss();
+        }
     }
 
     void Start()
     {
+        // Log for debugging
+        Debug.Log("BossEnemy Start method called");
+        
         // Find references
         playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         playerMoney = FindFirstObjectByType<PlayerMoney>();
@@ -73,6 +93,10 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
         // Initialize health and UI
         currentHealth = maxHealth;
         
+        // Debug logs to track initialization
+        if (playerTransform == null)
+            Debug.LogWarning("Boss couldn't find player transform");
+            
         // Start spawn effect
         StartCoroutine(SpawnEffect());
     }
@@ -121,11 +145,16 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
     {
         if (healthBar == null) return;
         
-        float healthPercentage = (float)currentHealth / maxHealth;
-        Transform barTransform = healthBar.transform.Find("Bar");
-        if (barTransform != null)
-        {
-            barTransform.localScale = new Vector3(healthPercentage, barTransform.localScale.y);
+        try {
+            float healthPercentage = (float)currentHealth / maxHealth;
+            Transform barTransform = healthBar.transform.Find("Bar");
+            if (barTransform != null)
+            {
+                barTransform.localScale = new Vector3(healthPercentage, barTransform.localScale.y);
+            }
+        }
+        catch (System.Exception e) {
+            Debug.LogError("Error updating health bar: " + e.Message);
         }
     }
 
@@ -214,10 +243,10 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
         // Visual effect
         StartCoroutine(DeathEffect());
         
-        // Notify GameManager
+        // Notify GameManager using the specific boss defeated method
         if (gameManager != null)
         {
-            gameManager.EndBossEncounter();
+            gameManager.BossDefeated();
         }
     }
 
@@ -245,77 +274,70 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
 
     private IEnumerator BasicAttackRoutine()
     {
+        Debug.Log("Boss basic attack routine started");
+        
         while (!isDead)
         {
-            if (gameObject == null) yield break;
-            
-            if (!isTransitioning)
-            {
-                switch (currentPhase)
-                {
-                    case BossPhase.Phase1:
-                        FireSingleProjectile();
-                        break;
-                        
-                    case BossPhase.Phase2:
-                        FireSingleProjectile();
-                        yield return new WaitForSeconds(0.3f);
-                        FireSingleProjectile();
-                        break;
-                        
-                    case BossPhase.Phase3:
-                        FireSingleProjectile();
-                        yield return new WaitForSeconds(0.2f);
-                        FireSingleProjectile();
-                        yield return new WaitForSeconds(0.2f);
-                        FireSingleProjectile();
-                        break;
-                }
-            }
             yield return new WaitForSeconds(basicAttackCooldown);
+            
+            if (!ShouldProcess()) continue;
+            
+            FireProjectileAtPlayer();
         }
     }
 
     private IEnumerator SpecialAttackRoutine()
     {
         // Initial delay before first special attack
-        yield return new WaitForSeconds(specialAttackCooldown);
+        yield return new WaitForSeconds(specialAttackCooldown + 3f);
+        
+        Debug.Log("Boss special attack routine started");
         
         while (!isDead)
         {
             if (gameObject == null) yield break;
             
-            if (!isTransitioning)
+            // Only use special attack if spawn effect is complete and not transitioning
+            if (hasCompletedSpawnEffect && !isTransitioning)
             {
-                switch (currentPhase)
+                try
                 {
-                case BossPhase.Phase1:
-                        SpreadAttack(3);
-                    break;
-                        
-                case BossPhase.Phase2:
-                        SpreadAttack(5);
-                        TriggerAoEAttack();
-                    break;
-                        
-                case BossPhase.Phase3:
-                        SpreadAttack(8);
-                        TriggerAoEAttack();
-                    SummonMinions();
-                    break;
+                    switch (currentPhase)
+                    {
+                    case BossPhase.Phase1:
+                            Debug.Log("Boss using Phase 1 special attack");
+                            SpreadAttack(3);
+                        break;
+                            
+                    case BossPhase.Phase2:
+                            Debug.Log("Boss using Phase 2 special attack");
+                            SpreadAttack(5);
+                            TriggerAoEAttack();
+                        break;
+                            
+                    case BossPhase.Phase3:
+                            Debug.Log("Boss using Phase 3 special attack");
+                            SpreadAttack(8);
+                            TriggerAoEAttack();
+                            SummonMinions();
+                        break;
+                    }
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError("Error in boss special attack: " + e.Message);
                 }
             }
             yield return new WaitForSeconds(specialAttackCooldown);
         }
     }
 
-    private void FireSingleProjectile()
+    private void FireProjectileAtPlayer()
     {
-        if (playerTransform == null || basicProjectilePrefab == null || !gameObject) return;
+        if (!ShouldProcess() || playerTransform == null) return;
         
-        // Debug to see if this method is being called
-        Debug.Log("Boss firing projectile at player");
-
+        Debug.Log("Boss firing projectiles at the player");
+        
         Vector2 direction = ((Vector2)playerTransform.position - (Vector2)transform.position).normalized;
         
         GameObject projectile = Instantiate(basicProjectilePrefab, transform.position, Quaternion.identity);
@@ -408,7 +430,12 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
 
     private void SummonMinions()
     {
-        if (minionPrefab == null || !gameObject) return;
+        if (minionPrefab == null || !gameObject) {
+            Debug.LogError("Can't summon minions - minionPrefab is null or boss is destroyed");
+            return;
+        }
+        
+        Debug.Log("Boss summoning " + minionsPerSpawn + " minions");
         
         for (int i = 0; i < minionsPerSpawn; i++)
         {
@@ -429,6 +456,8 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
                 healthController.currentHealth = 2;
                 // Mark as boss minion for special damage calculations
                 healthController.isBossMinion = true;
+                
+                Debug.Log("Minion created at " + spawnPosition);
             }
         }
     }
@@ -438,8 +467,17 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
     // Add spawn effect
     private IEnumerator SpawnEffect()
     {
+        Debug.Log("Boss spawn effect starting");
+        
         // Scale from zero
         transform.localScale = Vector3.zero;
+        
+        // Disable any Rigidbody2D physics during spawn
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.simulated = false;
+        }
         
         // Fade in over time
         for (float t = 0; t < 1.0f; t += Time.deltaTime)
@@ -466,6 +504,13 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
             spriteRenderer.color = c;
         }
         
+        // Re-enable physics after spawn is complete
+        if (rb != null)
+        {
+            rb.simulated = true;
+            rb.gravityScale = 0; // Make sure gravity doesn't affect the boss
+        }
+        
         // Set initial appearance
         UpdateAppearanceForPhase();
         
@@ -474,29 +519,136 @@ public class BossEnemy : MonoBehaviour, ProjectileMovement.IDamagable
         StartCoroutine(SpecialAttackRoutine());
         
         hasCompletedSpawnEffect = true;
+        Debug.Log("Boss spawn effect complete");
     }
 
     private void Update()
     {
-        if (!hasCompletedSpawnEffect || isDead || isTransitioning) return;
+        if (!ShouldProcess() || !hasCompletedSpawnEffect || isDead || isTransitioning) return;
         
-        // Move towards player if too far, away if too close
+        // Simple direct movement toward player (like normal enemies)
         if (playerTransform != null)
         {
-            float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
-            
-            if (distanceToPlayer > maxDistanceFromPlayer)
-            {
-                // Move towards player if too far
-                Vector2 direction = (playerTransform.position - transform.position).normalized;
-                transform.position += (Vector3)direction * moveSpeed * Time.deltaTime;
-            }
-            else if (distanceToPlayer < minDistanceFromPlayer)
-            {
-                // Move away from player if too close
-                Vector2 direction = (transform.position - playerTransform.position).normalized;
-                transform.position += (Vector3)direction * moveSpeed * Time.deltaTime;
-            }
+            Vector2 direction = (playerTransform.position - transform.position).normalized;
+            transform.position += (Vector3)direction * moveSpeed * Time.deltaTime;
         }
+    }
+
+    // Check if this is a proper boss level (level divisible by 10)
+    private bool IsProperBossLevel()
+    {
+        if (gameManager == null) return false;
+        return gameManager.level_counter > 0 && gameManager.level_counter % 10 == 0;
+    }
+    
+    // Disable boss visuals and components if not properly spawned
+    private void DisableBoss()
+    {
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.enabled = false;
+        }
+        
+        Collider2D[] colliders = GetComponents<Collider2D>();
+        foreach (Collider2D collider in colliders)
+        {
+            collider.enabled = false;
+        }
+        
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.Sleep();
+            rb.simulated = false;
+        }
+        
+        // Prevent this from starting attack routines
+        enabled = false;
+    }
+    
+    public void SetProperlySpawned()
+    {
+        properlySpawned = true;
+        enabled = true;
+        
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.enabled = true;
+        }
+        
+        Collider2D[] colliders = GetComponents<Collider2D>();
+        foreach (Collider2D collider in colliders)
+        {
+            collider.enabled = true;
+        }
+        
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.simulated = true;
+        }
+        
+        // Resize the boss
+        transform.localScale = new Vector3(3, 3, 3);
+        
+        // Initialize boss
+        InitializeBoss();
+    }
+    
+    private void InitializeBoss()
+    {
+        // Find references
+        playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
+        playerMoney = FindFirstObjectByType<PlayerMoney>();
+        currentHealth = maxHealth;
+        
+        // Tag as enemy for compatibility
+        gameObject.tag = "Enemy";
+        
+        // Setup healthbar if assigned
+        if (healthBar != null)
+        {
+            healthBar.gameObject.SetActive(true);
+        }
+        
+        // Start attack routines
+        StartCoroutine(BasicAttackRoutine());
+        StartCoroutine(SpecialAttackRoutine());
+        
+        // Start periodic minion spawning throughout the fight
+        StartCoroutine(PeriodicMinionSpawning());
+    }
+
+    // Add a regular minion spawning routine (like SimpleBoss has)
+    private IEnumerator PeriodicMinionSpawning()
+    {
+        // Initial delay before first minion spawn
+        yield return new WaitForSeconds(5f);
+        
+        Debug.Log("Boss periodic minion spawning started");
+        
+        // Set how often minions spawn
+        float minionSpawnInterval = 30f; // Increased from 15f to spawn minions less frequently
+        
+        while (!isDead)
+        {
+            if (!ShouldProcess()) 
+            {
+                yield return new WaitForSeconds(1f);
+                continue;
+            }
+            
+            // Spawn minions periodically throughout the fight
+            SummonMinions();
+            
+            // Wait before spawning more
+            yield return new WaitForSeconds(minionSpawnInterval);
+        }
+    }
+
+    // IMPORTANT: Add this check to all methods that generate attacks or move the boss
+    private bool ShouldProcess()
+    {
+        return properlySpawned && !isDead && enabled;
     }
 }

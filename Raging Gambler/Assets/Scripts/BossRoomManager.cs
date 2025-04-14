@@ -1,28 +1,29 @@
 using System.Collections;
 using UnityEngine;
 
+/*
+ * DEPRECATED: This component is kept for compatibility with existing scenes.
+ * Boss functionality has been moved to GameManager for simplicity.
+ * The boss prefab reference is still used, but the spawning logic has been moved.
+ */
 public class BossRoomManager : MonoBehaviour
 {
     [Header("References")]
     public GameManager gameManager;
-    public GameObject bossUIPrefab;
     public GameObject[] doors; // All doors in the boss room
     
     [Header("Boss Settings")]
-    public GameObject bossPrefab;
-    public Transform bossSpawnPoint;
+    public GameObject bossPrefab; // Assign a prefab with IDamagable component
     public int bossLevelInterval = 10; // Every X levels, spawn a boss
     public int bossReward = 200; // Money reward for defeating the boss
     
     [Header("Room Settings")]
     public float doorClosedDuration = 30f; // How long doors stay closed
     public bool doorsLockedDuringFight = true;
-    public GameObject victoryGatePrefab; // Gate to next level that appears on victory
-    public Transform victoryGateSpawnPoint;
     
     // State tracking
-    private BossEnemy currentBoss;
-    private BossUI bossUI;
+    private GameObject bossObject;
+    private ProjectileMovement.IDamagable bossDamagable;
     private int currentLevel = 1;
     private bool bossDefeated = false;
     
@@ -38,13 +39,17 @@ public class BossRoomManager : MonoBehaviour
         SetDoorsActive(true);
     }
     
+    // Called by GameManager to check if boss should spawn
     public void InitiateEncounter(int level)
     {
+        Debug.Log("Checking boss encounter for level " + level);
         currentLevel = level;
         
-        // Only spawn boss on specified intervals
-        if (level % bossLevelInterval == 0)
+        // Only spawn boss on specified intervals AND ensure level is actually at or above the interval
+        // Prevent boss from spawning at level 0
+        if (level % bossLevelInterval == 0 && level >= bossLevelInterval)
         {
+            Debug.Log("Starting boss encounter at level " + level);
             StartCoroutine(BossEncounterSequence());
         }
     }
@@ -57,49 +62,51 @@ public class BossRoomManager : MonoBehaviour
             SetDoorsActive(false);
         }
         
-        // Create UI first
-        GameObject uiObject = Instantiate(bossUIPrefab, GameObject.Find("Canvas").transform);
-        bossUI = uiObject.GetComponent<BossUI>();
-        
         // Short delay for drama
         yield return new WaitForSeconds(1.5f);
         
         // Find player for random spawning
         Transform playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         
-        // Calculate random spawn position around player (similar to EnemySpawner)
+        if (playerTransform == null)
+        {
+            Debug.LogError("Player not found when spawning boss");
+            yield break;
+        }
+        
+        // Calculate random spawn position around player
         Vector3 spawnPosition;
-        if (playerTransform != null)
-        {
-            float spawnDistance = 10f; // Distance from player
-            Vector2 randomDirection = Random.insideUnitCircle.normalized;
-            spawnPosition = playerTransform.position + (Vector3)(randomDirection * spawnDistance);
-        }
-        else
-        {
-            // Fallback to spawn point if available, or use default position
-            spawnPosition = bossSpawnPoint != null ? bossSpawnPoint.position : transform.position;
-        }
+        float spawnDistance = 10f; // Distance from player
+        Vector2 randomDirection = Random.insideUnitCircle.normalized;
+        spawnPosition = playerTransform.position + (Vector3)(randomDirection * spawnDistance);
         
         // Spawn boss at random position
-        GameObject bossObject = Instantiate(bossPrefab, spawnPosition, Quaternion.identity);
-        currentBoss = bossObject.GetComponent<BossEnemy>();
+        bossObject = Instantiate(bossPrefab, spawnPosition, Quaternion.identity);
         
-        // Assign the boss's health bar reference
-        if (currentBoss != null)
+        if (bossObject == null)
         {
-            // Connect UI to boss
-            bossUI.boss = currentBoss;
-            
-            // Connect boss to UI
-            currentBoss.healthBar = uiObject.GetComponentInChildren<HealthBar>();
-            
-            // Show UI with animation
-            bossUI.Show();
-            
-            // Scale boss based on level
-            ScaleBossDifficulty();
+            Debug.LogError("Failed to instantiate boss");
+            yield break;
         }
+        
+        bossDamagable = bossObject.GetComponent<ProjectileMovement.IDamagable>();
+        
+        if (bossDamagable == null)
+        {
+            Debug.LogError("Boss prefab doesn't implement IDamagable interface");
+            Destroy(bossObject);
+            yield break;
+        }
+        
+        // Mark this boss as properly spawned
+        SimpleBoss simpleBoss = bossObject.GetComponent<SimpleBoss>();
+        if (simpleBoss != null)
+        {
+            simpleBoss.SetProperlySpawned();
+        }
+        
+        // Set boss properties based on level
+        ScaleBossDifficulty();
         
         // Register for boss defeated event
         StartCoroutine(MonitorBossHealth());
@@ -108,37 +115,25 @@ public class BossRoomManager : MonoBehaviour
     private IEnumerator MonitorBossHealth()
     {
         // Wait until boss is defeated or null
-        while (currentBoss != null && currentBoss.Health > 0)
+        while (bossObject != null && bossDamagable != null && bossDamagable.Health > 0)
         {
             yield return new WaitForSeconds(0.5f);
+            
+            // Check if reference is still valid
+            if (bossObject == null)
+                break;
         }
         
         // If boss was defeated (not just destroyed)
-        if (currentBoss == null || currentBoss.Health <= 0)
-        {
-            OnBossDefeated();
-        }
+        OnBossDefeated();
     }
     
     private void OnBossDefeated()
     {
         bossDefeated = true;
         
-        // Hide boss UI
-        if (bossUI != null)
-        {
-            bossUI.Hide();
-            Destroy(bossUI.gameObject, 1f);
-        }
-        
         // Unlock doors
         SetDoorsActive(true);
-        
-        // Spawn gate to next level
-        if (victoryGatePrefab != null && victoryGateSpawnPoint != null)
-        {
-            Instantiate(victoryGatePrefab, victoryGateSpawnPoint.position, Quaternion.identity);
-        }
         
         // Notify game manager
         if (gameManager != null)
@@ -150,16 +145,18 @@ public class BossRoomManager : MonoBehaviour
     
     private void ScaleBossDifficulty()
     {
-        if (currentBoss == null) return;
+        if (bossDamagable == null) return;
         
         // Scale boss stats based on level
-        int bossStage = currentLevel / bossLevelInterval;
+        int bossStage = Mathf.Max(1, currentLevel / bossLevelInterval);
         
-        // Health scaling
-        currentBoss.maxHealth = Mathf.RoundToInt(currentBoss.maxHealth * (1 + 0.5f * bossStage));
-        
-        // Reward scaling
-        currentBoss.moneyRewardOnDeath = bossReward * (1 + bossStage / 2);
+        // Attempt to scale boss health based on level
+        // For MonoBehaviour, use SendMessage to call a method for scaling
+        MonoBehaviour bossMono = bossObject.GetComponent<MonoBehaviour>();
+        if (bossMono != null)
+        {
+            bossMono.SendMessage("ScaleBoss", bossStage, SendMessageOptions.DontRequireReceiver);
+        }
     }
     
     private void SetDoorsActive(bool active)
@@ -177,7 +174,7 @@ public class BossRoomManager : MonoBehaviour
     public void OnPlayerEnterRoom()
     {
         // If boss wasn't already defeated
-        if (!bossDefeated && currentLevel % bossLevelInterval == 0)
+        if (!bossDefeated)
         {
             // Use the current level from Game Manager if available
             if (gameManager != null)
@@ -185,7 +182,11 @@ public class BossRoomManager : MonoBehaviour
                 currentLevel = gameManager.level_counter;
             }
             
-            InitiateEncounter(currentLevel);
+            // Only initiate encounter if we're at the right level (multiple of interval and >= interval)
+            if (currentLevel % bossLevelInterval == 0 && currentLevel >= bossLevelInterval)
+            {
+                InitiateEncounter(currentLevel);
+            }
         }
     }
 } 

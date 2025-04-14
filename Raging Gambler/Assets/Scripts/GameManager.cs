@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
 
     private bool timeRoom;
     private bool enemyRoom;
+    private bool bossRoom; // Added flag for boss rooms
 
     [SerializeField] GameObject nextRoomUI;
     [SerializeField] TextMeshProUGUI roomType;
@@ -123,6 +124,12 @@ public class GameManager : MonoBehaviour
                 Win();
             }
         }
+        else if (bossRoom) // Handle boss room separately
+        {
+            // Win condition only if the actual boss is defeated
+            // The boss should notify GameManager directly when it dies, not through this method
+            // This method is being called by all enemies, including minions, which we want to ignore
+        }
     }
 
     private void Win() // move to next room is the win condition
@@ -130,6 +137,7 @@ public class GameManager : MonoBehaviour
         enemySpawner.gameObject.SetActive(false);
         remainingEnemies.gameObject.SetActive(false);
         enemyRoom = false;
+        bossRoom = false; // Reset boss room flag when completing a room
         moveToNextRoom();
     }
 
@@ -149,12 +157,32 @@ public class GameManager : MonoBehaviour
 
     public void pickRoomCondition()
     {
+        Debug.Log("Picking room condition for level: " + level_counter);
+        
+        // Check if this is a boss level (every 10 levels)
+        if (level_counter > 0 && level_counter % 10 == 0)
+        {
+            // Set as boss room
+            bossRoom = true;
+            enemyRoom = false;
+            timeRoom = false;
+            
+            roomType.text = "Defeat:";
+            winCondition.text = "Boss";
+            
+            Debug.Log("Setting up BOSS ROOM for level " + level_counter);
+            return;
+        }
+
+        // For non-boss levels, use regular room selection
+        bossRoom = false;
         int roomCondition = Random.Range(1, 3);
         switch (roomCondition)
         {
             case 1:
                 //TIME
                 timeRoom = true;
+                enemyRoom = false;
                 // remainingTime = 10;
                 roomType.text = "Survive for:";
                 int minutes = Mathf.FloorToInt(remainingTime / 60);
@@ -164,6 +192,7 @@ public class GameManager : MonoBehaviour
             case 2:
                 //ENEMY
                 enemyRoom = true;
+                timeRoom = false;
                 // enemiesNeeded = 3; // Reset count
                 roomType.text = "Defeat:";
                 winCondition.text = (enemiesNeeded) + " enemies";
@@ -325,21 +354,11 @@ public class GameManager : MonoBehaviour
         remainingTime += time_difficulty * level_counter;
         enemiesNeeded += enemy_count_difficulty * level_counter;
         
-        // Check if this is a boss level and notify BossRoomManager
+        // No need to trigger BossRoomManager anymore as boss rooms are handled directly
+        // in the pickRoomCondition method
         if (level_counter % 10 == 0) // Every 10 levels
         {
             Debug.Log("BOSS LEVEL: " + level_counter);
-            // Find BossRoomManager and trigger boss encounter
-            BossRoomManager bossManager = FindFirstObjectByType<BossRoomManager>();
-            if (bossManager != null)
-            {
-                Debug.Log("Boss manager found - initiating encounter");
-                bossManager.InitiateEncounter(level_counter);
-            }
-            else
-            {
-                Debug.LogWarning("No BossRoomManager found in the scene! Can't spawn boss.");
-            }
         }
     }
 
@@ -425,18 +444,32 @@ public class GameManager : MonoBehaviour
             enemySpawner.gameObject.SetActive(false);
         }
         
-        // Delay enemy spawning to give player time to choose wagers
-        StartCoroutine(DelayedEnemySpawn(5f)); // 5 second delay
+        // Special handling for boss rooms
+        if (bossRoom)
+        {
+            // For boss rooms, we don't need a timer or enemy counter
+            remainingEnemies.gameObject.SetActive(false);
+            timerText.gameObject.SetActive(false);
+            
+            // Spawn a single boss enemy after delay
+            StartCoroutine(DelayedBossSpawn(5f));
+        }
+        else
+        {
+            // Delay enemy spawning to give player time to choose wagers
+            StartCoroutine(DelayedEnemySpawn(5f)); // 5 second delay
+            
+            if (timeRoom)
+            {
+                timerText.gameObject.SetActive(true);
+            }
+            else if (enemyRoom)
+            {
+                remainingEnemies.gameObject.SetActive(true);
+                remainingEnemies.text = "Remaining: " + (enemiesNeeded);
+            }
+        }
         
-        if (timeRoom)
-        {
-            timerText.gameObject.SetActive(true);
-        }
-        else if (enemyRoom)
-        {
-            remainingEnemies.gameObject.SetActive(true);
-            remainingEnemies.text = "Remaining: " + (enemiesNeeded);
-        }
         if (!firstRoom)
         {
             pc.toggleShooting();
@@ -444,6 +477,81 @@ public class GameManager : MonoBehaviour
             GambleManager.instance.ToggleShop();
         }
         movingRooms = false;
+    }
+
+    // Add the coroutine for boss spawning
+    private System.Collections.IEnumerator DelayedBossSpawn(float delay)
+    {
+        // Wait for the designated delay
+        yield return new WaitForSeconds(delay);
+        
+        Debug.Log("Spawning boss for level " + level_counter);
+        
+        // Spawn a boss directly, without using BossRoomManager
+        Transform playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
+        
+        if (playerTransform != null)
+        {
+            // Calculate spawn position
+            Vector3 spawnPosition;
+            float spawnDistance = 5f; 
+            Vector2 randomDirection = Random.insideUnitCircle.normalized;
+            spawnPosition = playerTransform.position + (Vector3)(randomDirection * spawnDistance);
+            
+            // Find an existing boss prefab - first look in any BossRoomManager
+            GameObject bossPrefab = null;
+            BossRoomManager bossManager = FindFirstObjectByType<BossRoomManager>();
+            if (bossManager != null && bossManager.bossPrefab != null)
+            {
+                bossPrefab = bossManager.bossPrefab;
+                Debug.Log("Found boss prefab from BossRoomManager");
+            }
+            
+            // If no prefab found, try to load it from a path
+            if (bossPrefab == null)
+            {
+                Debug.LogWarning("No boss prefab found in BossRoomManager. Game may not work as expected.");
+                yield break;
+            }
+            
+            // Spawn the boss and ensure it's active
+            GameObject bossObject = Instantiate(bossPrefab, spawnPosition, Quaternion.identity);
+            bossObject.SetActive(true);
+            
+            // Make sure it's tagged as an enemy for the game logic
+            bossObject.tag = "Enemy";
+            
+            Debug.Log("Boss instantiated at position: " + spawnPosition);
+            
+            // If it has a SimpleBoss component, initialize it
+            SimpleBoss simpleBoss = bossObject.GetComponent<SimpleBoss>();
+            if (simpleBoss != null)
+            {
+                Debug.Log("Initializing SimpleBoss component");
+                simpleBoss.SetProperlySpawned();
+            }
+            else
+            {
+                // For the BossEnemy component, we need to make it compatible with our system
+                BossEnemy bossEnemy = bossObject.GetComponent<BossEnemy>();
+                if (bossEnemy != null)
+                {
+                    Debug.Log("Initializing BossEnemy component");
+                    bossEnemy.SetProperlySpawned();
+                }
+                else
+                {
+                    Debug.LogError("Boss has neither SimpleBoss nor BossEnemy component!");
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("Cannot spawn boss: Player not found");
+        }
+        
+        // Start the timer
+        timerActive = true;
     }
 
     // Add the coroutine for delayed enemy spawning
@@ -478,5 +586,15 @@ public class GameManager : MonoBehaviour
             }
         }
         return raycastResultList.Count > 0;
+    }
+
+    // Add a specific method for the boss to call when it's defeated
+    public void BossDefeated()
+    {
+        if (bossRoom)
+        {
+            Debug.Log("Boss defeated! Level complete.");
+            Win();
+        }
     }
 }
