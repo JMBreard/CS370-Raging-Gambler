@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
     public PlayerMoney playerMoney;
 
     public GambleManager gambleManager;
+    public RewardManager rewardManager;
 
     public ScoreManager scoreManager;
     public TextMeshProUGUI gameOverScore;
@@ -302,7 +303,14 @@ public class GameManager : MonoBehaviour
     public void moveToShop()
     {
         nextRoomUI.gameObject.SetActive(false);
-        GambleManager.instance.ToggleShop();
+        if (level_counter % 3 == 0)
+        {
+            RewardManager.instance.ToggleShop();
+        }
+        else
+        {
+            GambleManager.instance.ToggleShop();
+        }
     }
     public void startRoom()
     {
@@ -322,7 +330,14 @@ public class GameManager : MonoBehaviour
         {
             pc.toggleShooting();
             pc.toggleMovement();
-            GambleManager.instance.ToggleShop();
+            if (level_counter % 3 == 0)
+            {
+                RewardManager.instance.ToggleShop();
+            }
+            else
+            {
+                GambleManager.instance.ToggleShop();
+            }
         }
         movingRooms = false;
     }

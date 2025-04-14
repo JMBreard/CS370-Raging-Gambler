@@ -3,7 +3,7 @@ using UnityEngine;
 public class RewardShopTrigger : MonoBehaviour
 {
 
-    private void OnTriggerEnter2D(Collider2D other)
+    /* private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
@@ -18,4 +18,5 @@ public class RewardShopTrigger : MonoBehaviour
             RewardManager.instance.ToggleShop();
         }
     }
+    */
 }
