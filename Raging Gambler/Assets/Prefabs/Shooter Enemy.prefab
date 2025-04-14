@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -748969110378875211, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 6992d9192e371ce4d8bd71a2ce849642, type: 2}
+    - target: {fileID: 3674671375409909789, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -6367560908665664636, guid: d348dff3819df794186a80cb95777629, type: 3}
     - target: {fileID: 3674671375409909789, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
       propertyPath: m_Color.b
       value: 0.2924528
@@ -99,6 +107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  gameManager: {fileID: 0}
+  currentHealth: {fileID: 0}
   projectilePrefab: {fileID: 5312864243793544842, guid: bf4cae714de5be7409ead47f57c5c385, type: 3}
   shootRate: 4
   projectileSpeed: 0.25
