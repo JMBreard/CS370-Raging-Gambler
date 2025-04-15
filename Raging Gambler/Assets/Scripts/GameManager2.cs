@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager2 : MonoBehaviour
 {
     public GameObject gameOverUI;
 
@@ -12,25 +12,20 @@ public class GameManager : MonoBehaviour
 
     public GameObject currentRoom; //The whole current room
     public GameObject nextRoom; //The next room
+
     private GameObject currentDoor; //The current door selected
     private GameObject nextDoor; //The door from the next room selected
-
-    [SerializeField] private GameObject exitCoverTiles;
-    [SerializeField] private GameObject entranceCoverTiles;
-
 
     public GameObject[] currentRoomDoors; //An array of all of the doors in current room
     public GameObject[] nextRoomDoors; //An array for all of the doors in the next room
     public ObsctacleSpawner obsctacleSpawner; // Have obstacles move with the room 
 
-    private int moveRoomX = 0; //How much to move a room in the X axis
-    private int moveRoomY = 70; //How much to move a room in the Y axis
+    private float moveRoomX = 17; //How much to move a room in the X axis
+    private int moveRoomY = 104; //How much to move a room in the Y axis
 
     private int comeFromRoom = 3; //Initially sets the room the player comes from as the bottom door
     private int currentDoorIndex;
     private bool movingRooms;
-
-    private bool inSecondRoom = false;
 
     Vector3 newPos;
 
@@ -176,48 +171,45 @@ public class GameManager : MonoBehaviour
         Increment();
 
         movingRooms = true;
-        // currentDoorIndex = Random.Range(0, currentRoomDoors.Length); // Picks a random door
-        // while (currentDoorIndex == comeFromRoom)
-        // { //If the index is the door the player came from, pick a different door
-        //     currentDoorIndex = Random.Range(0, currentRoomDoors.Length);
-        // }
-        // currentDoor = currentRoomDoors[currentDoorIndex]; //Get the door object
-        // // currentDoor.gameObject.SetActive(false); //Turn the door off
-        exitCoverTiles.SetActive(false);
+        currentDoorIndex = Random.Range(0, currentRoomDoors.Length); // Picks a random door
+        while (currentDoorIndex == comeFromRoom)
+        { //If the index is the door the player came from, pick a different door
+            currentDoorIndex = Random.Range(0, currentRoomDoors.Length);
+        }
+        currentDoor = currentRoomDoors[currentDoorIndex]; //Get the door object
+        currentDoor.gameObject.SetActive(false); //Turn the door off
         newPos = nextRoom.transform.position; //Initialize the next position of the room
-        // nextDoor = null; //Intialize the next door
-        // switch (currentDoorIndex)
-        // { //Depending on which door was picked, the switch sets the new position and door, as well as where the player is coming from
-        //     case 0:
-        //         Debug.Log("Left Door Open");
-        //         newPos.x -= moveRoomX; //Moves the next room to the left
-        //         nextDoor = nextRoomDoors[1]; //Sets the door from the next room
-        //         comeFromRoom = 1; //Sets what direction the player came from
-        //         break;
-        //     case 1:
-        //         Debug.Log("Right Door Open");
-        //         newPos.x += moveRoomX; //Moves the next room to the right
-        //         nextDoor = nextRoomDoors[0];
-        //         comeFromRoom = 0;
-        //         break;
-        //     case 2:
-        //         Debug.Log("Top Door Open");
-        //         newPos.y += moveRoomY; //Moves the next room up
-        //         nextDoor = nextRoomDoors[3];
-        //         comeFromRoom = 3;
-        //         break;
-        //     case 3:
-        //         Debug.Log("Bottom Door Open");
-        //         newPos.y -= moveRoomY; //Moves the next room down
-        //         nextDoor = nextRoomDoors[2];
-        //         comeFromRoom = 2;
-        //         break;
-        // }
-        newPos.x += moveRoomX;
-        newPos.y += moveRoomY; 
+        nextDoor = null; //Intialize the next door
+        switch (currentDoorIndex)
+        { //Depending on which door was picked, the switch sets the new position and door, as well as where the player is coming from
+            case 0:
+                Debug.Log("Left Door Open");
+                newPos.x -= moveRoomX; //Moves the next room to the left
+                nextDoor = nextRoomDoors[1]; //Sets the door from the next room
+                comeFromRoom = 1; //Sets what direction the player came from
+                break;
+            case 1:
+                Debug.Log("Right Door Open");
+                newPos.x += moveRoomX; //Moves the next room to the right
+                nextDoor = nextRoomDoors[0];
+                comeFromRoom = 0;
+                break;
+            case 2:
+                Debug.Log("Top Door Open");
+                newPos.y += moveRoomY; //Moves the next room up
+                nextDoor = nextRoomDoors[3];
+                comeFromRoom = 3;
+                break;
+            case 3:
+                Debug.Log("Bottom Door Open");
+                newPos.y -= moveRoomY; //Moves the next room down
+                nextDoor = nextRoomDoors[2];
+                comeFromRoom = 2;
+                break;
+        }
         nextRoom.transform.position = newPos; //Sets the transformation of the next room to whatever direction was picked
         nextRoom.gameObject.SetActive(true); //Turns on the next room
-        // nextDoor.gameObject.SetActive(false); //Turns off the next door
+        nextDoor.gameObject.SetActive(false); //Turns off the next door
 
         obsctacleSpawner.NewRoomObstacles(newPos); // Makes obstacles in new room
 
@@ -255,13 +247,6 @@ public class GameManager : MonoBehaviour
             enemySpawner.gameObject.SetActive(false);
             timerText.gameObject.SetActive(false);
             timeRoom = false;
-            // When time expires in a room, check if we’re in the second room 
-            // and only then finalize the room transition.
-            if(inSecondRoom)
-            {
-                FinalizeRoomTransition();
-                inSecondRoom = false;
-            }
             moveToNextRoom();
             // Win();
         }
@@ -300,40 +285,20 @@ public class GameManager : MonoBehaviour
             nextRoomUI.gameObject.SetActive(true);
             pc.toggleShooting();
             pc.toggleMovement();
-        //     currentDoor.gameObject.SetActive(true); //Turns on the doors so the room closes
-        //     nextDoor.gameObject.SetActive(true);
-        //     mainCamera.MoveToNewRoom(nextRoom.transform); //Moves the camera to the new room
-        //     currentRoom.transform.position = newPos; //Moves the old current room to the new room
-        //     GameObject oldCurrentRoom = currentRoom; //Swaps the current room and next room as the next room is the new current room
-        //     currentRoom = nextRoom;
-        //     nextRoom = oldCurrentRoom;
-        //     GameObject[] oldDoors = currentRoomDoors; //Swaps the door arrays between the current and next room
-        //     currentRoomDoors = nextRoomDoors;
-        //     nextRoomDoors = oldDoors;
-        this.transform.position += new Vector3(0, moveRoomY, 0);
-         inSecondRoom = true;
+            currentDoor.gameObject.SetActive(true); //Turns on the doors so the room closes
+            nextDoor.gameObject.SetActive(true);
+            mainCamera.MoveToNewRoom(nextRoom.transform); //Moves the camera to the new room
+            currentRoom.transform.position = newPos; //Moves the old current room to the new room
+            GameObject oldCurrentRoom = currentRoom; //Swaps the current room and next room as the next room is the new current room
+            currentRoom = nextRoom;
+            nextRoom = oldCurrentRoom;
+            GameObject[] oldDoors = currentRoomDoors; //Swaps the door arrays between the current and next room
+            currentRoomDoors = nextRoomDoors;
+            nextRoomDoors = oldDoors;
+            newPos.x += 1.5f;
+            this.transform.position = newPos;
+            newPos.x -= 1.5f;
         }
-    }
-
-    // This method now finalizes the room transition. It teleports (swaps) the first room
-    // away once the challenge in the second room is completed.
-    private void FinalizeRoomTransition()
-    {
-        // Teleport the old current room to the designated position.
-        currentRoom.transform.position = newPos;
-        // Swap the room references so that nextRoom becomes the new currentRoom.
-        GameObject oldCurrentRoom = currentRoom;
-        currentRoom = nextRoom;
-        nextRoom = oldCurrentRoom;
-        // // Also swap the door arrays accordingly.
-        // GameObject[] oldDoors = currentRoomDoors;
-        // currentRoomDoors = nextRoomDoors;
-        // nextRoomDoors = oldDoors;
-        
-        // // Optionally adjust the GameManager’s own position.
-        // newPos.x += 1.5f;
-        // this.transform.position = newPos;
-        // newPos.x -= 1.5f;
     }
 
     public void moveToShop()
