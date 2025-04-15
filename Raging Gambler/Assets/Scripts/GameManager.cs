@@ -15,8 +15,12 @@ public class GameManager : MonoBehaviour
     private GameObject currentDoor; //The current door selected
     private GameObject nextDoor; //The door from the next room selected
 
-    [SerializeField] private GameObject exitCoverTiles;
-    [SerializeField] private GameObject entranceCoverTiles;
+    [SerializeField] private GameObject currentRoomExitCoverTiles;
+    [SerializeField] private GameObject currentRoomEntranceCoverTiles;
+
+    [SerializeField] private GameObject nextRoomExitCoverTiles;
+    [SerializeField] private GameObject nextRoomEntranceCoverTiles;
+
 
 
     public GameObject[] currentRoomDoors; //An array of all of the doors in current room
@@ -183,6 +187,9 @@ public class GameManager : MonoBehaviour
         Increment();
 
         movingRooms = true;
+
+        currentRoomExitCoverTiles.SetActive(false);
+        nextRoomEntranceCoverTiles.SetActive(false);
         // currentDoorIndex = Random.Range(0, currentRoomDoors.Length); // Picks a random door
         // while (currentDoorIndex == comeFromRoom)
         // { //If the index is the door the player came from, pick a different door
@@ -190,7 +197,6 @@ public class GameManager : MonoBehaviour
         // }
         // currentDoor = currentRoomDoors[currentDoorIndex]; //Get the door object
         // // currentDoor.gameObject.SetActive(false); //Turn the door off
-        exitCoverTiles.SetActive(false);
         newPos = nextRoom.transform.position; //Initialize the next position of the room
         // nextDoor = null; //Intialize the next door
         // switch (currentDoorIndex)
@@ -303,6 +309,8 @@ public class GameManager : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            currentRoomEntranceCoverTiles.SetActive(false);
+
             pickRoomCondition();
             nextRoomUI.gameObject.SetActive(true);
             pc.toggleShooting();
@@ -332,15 +340,14 @@ public class GameManager : MonoBehaviour
         GameObject oldCurrentRoom = currentRoom;
         currentRoom = nextRoom;
         nextRoom = oldCurrentRoom;
-        // // Also swap the door arrays accordingly.
-        // GameObject[] oldDoors = currentRoomDoors;
-        // currentRoomDoors = nextRoomDoors;
-        // nextRoomDoors = oldDoors;
+       
+       nextRoomExitCoverTiles.SetActive(true);
+       nextRoomEntranceCoverTiles.SetActive(false);
         
-        // // Optionally adjust the GameManager’s own position.
-        // newPos.x += 1.5f;
-        // this.transform.position = newPos;
-        // newPos.x -= 1.5f;
+
+
+
+
     }
 
     public void moveToShop()
