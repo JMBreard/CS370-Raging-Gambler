@@ -16,8 +16,8 @@ public class EnemySpawner : MonoBehaviour
     [Tooltip("List of enemy prefabs and their spawn chances")]
     [SerializeField] private EnemySpawnData[] enemySpawnData;
 
-    [Tooltip("Enemy Health Multiplier (to be altered with wager)")]
-    [SerializeField] public int enemyHealthMultiplier = 1;
+    [Tooltip("Enemy Health Adder (to be altered with wager)")]
+    [SerializeField] public int enemyHealthIncreaser = 0;
 
     [Tooltip("Time between enemy spawns")]
     [SerializeField] private float spawnRate = 2f;
@@ -94,7 +94,7 @@ public class EnemySpawner : MonoBehaviour
 
         // Apply health multiplier to the instaniated enemy's health controller
         HealthController hc = enemy.GetComponent<HealthController>();
-        hc.maxHealth *= enemyHealthMultiplier;
+        hc.maxHealth += enemyHealthIncreaser;
         hc.currentHealth = hc.maxHealth;
 
 
@@ -123,9 +123,9 @@ public class EnemySpawner : MonoBehaviour
         Debug.Log("Spawn rate: " + spawnRate);
     }
 
-    public void setEnemyHealthMultiplier(int newMultiplier)
+    public void addEnemyHealth()
     {
-        enemyHealthMultiplier = newMultiplier;
-        Debug.Log("Current enemy health multiplier: " + enemyHealthMultiplier);
+        enemyHealthIncreaser += 1;
+        Debug.Log("Current enemy health is increased by: " + enemyHealthIncreaser);
     }
 }

@@ -92,7 +92,7 @@ public class GambleManager : MonoBehaviour
             // works
             // enemy is EnemySpawner instance
             case "Enemy: health buff":
-                enemySpawner.setEnemyHealthMultiplier(2);
+                enemySpawner.addEnemyHealth();
                 WagerCounts[1] += 1;
                 break;
 
