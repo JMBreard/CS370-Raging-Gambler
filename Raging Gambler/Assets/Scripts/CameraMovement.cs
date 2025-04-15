@@ -3,8 +3,8 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
-    private float currentPosX = 1.5f;
-    private float currentPosY = 0;
+    private float currentPosX = 0.25f;
+    private float currentPosY = -1.6f;
     private Vector3 velocity = Vector3.zero;
 
     private void Update()
@@ -14,7 +14,7 @@ public class CameraMovement : MonoBehaviour
 
     public void MoveToNewRoom(Transform newRoom)
     { //Sets a new X and Y position for the camera based on the new room given
-        currentPosX = newRoom.position.x + 1.5f;
-        currentPosY = newRoom.position.y;
+        currentPosX = newRoom.position.x;
+        currentPosY = newRoom.position.y - 1.5f;
     }
 }
