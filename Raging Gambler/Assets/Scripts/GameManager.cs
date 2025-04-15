@@ -122,13 +122,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Win() // move to next room is the win condition
-    {
-        enemySpawner.gameObject.SetActive(false);
-        remainingEnemies.gameObject.SetActive(false);
-        enemyRoom = false;
-        moveToNextRoom();
+
+    private void Win() { // move to next room is the win condition
+    enemySpawner.gameObject.SetActive(false);
+    remainingEnemies.gameObject.SetActive(false);
+    enemyRoom = false;
+    
+    if (inSecondRoom) {
+        FinalizeRoomTransition();
+        inSecondRoom = false;
     }
+    
+    moveToNextRoom();
+}
+
 
     public void Restart()
     {
