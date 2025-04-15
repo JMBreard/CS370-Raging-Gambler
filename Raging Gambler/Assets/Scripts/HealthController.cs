@@ -18,6 +18,8 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
 
     public GameManager gameManager;
 
+    int DamageAmount = 1;
+
 
     void Start()
     {
@@ -47,7 +49,7 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
     // This method will be called when damage is dealt via the interface.
     public void Damage()
     {
-        TakeDamage(1);
+        TakeDamage(DamageAmount);
         Debug.Log("Current health: " + currentHealth);
     }
 
@@ -117,6 +119,27 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
     {
         maxHealth += 1;
         Debug.Log("max health: " + maxHealth);
+    }
+
+    public void increaseCurrentHealth()
+    {
+        if (currentHealth >= maxHealth)
+        {
+            Debug.Log("Current health is already at max.");
+            return; 
+        }
+        currentHealth += 1;
+        Debug.Log("current health: " + currentHealth);
+    }
+
+    public void increaseDamage() {
+        DamageAmount += 1;
+        Debug.Log("Current damage: " + DamageAmount);
+    }
+
+    public void DecreaseDamage() {
+        DamageAmount -= 1;
+        Debug.Log("Current damage: " + DamageAmount);
     }
 
     public void Steal()
