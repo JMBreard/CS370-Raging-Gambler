@@ -112,6 +112,11 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
     public void reduceMaxHealth()
     {
         maxHealth -= 1;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        Debug.Log("current health: " + currentHealth);
         Debug.Log("max health: " + maxHealth);
     }
 
