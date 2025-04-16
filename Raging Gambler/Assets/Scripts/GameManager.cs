@@ -333,6 +333,8 @@ public class GameManager : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            Vector3 gmOffset = transform.position - currentRoom.transform.position; //GM's distance from room
+
             pickRoomCondition();
             nextRoomUI.gameObject.SetActive(true);
             pc.toggleShooting();
@@ -347,9 +349,9 @@ public class GameManager : MonoBehaviour
             GameObject[] oldDoors = currentRoomDoors; //Swaps the door arrays between the current and next room
             currentRoomDoors = nextRoomDoors;
             nextRoomDoors = oldDoors;
-            newPos.x += 1.5f;
-            this.transform.position = newPos;
-            newPos.x -= 1.5f;
+            
+            transform.position = currentRoom.transform.position + gmOffset;
+
         }
     }
 
