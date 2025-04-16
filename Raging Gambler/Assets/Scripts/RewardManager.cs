@@ -57,7 +57,7 @@ public class RewardManager : MonoBehaviour
     public void BuyReward(Rewards reward)
     {
         int currentMoney = playerMoney.money;
-        if (currentMoney >= reward.cost) {
+        if (currentMoney >= reward.cost && reward.canBuy) {
             playerMoney.subtractMoney(reward.cost);
             playerMoney.UpdateMoneyText();
             ApplyReward(reward);
@@ -102,6 +102,18 @@ public class RewardManager : MonoBehaviour
         }
     }
 
+    public void SetCanBuy(string rewardName, bool value)
+    {
+        foreach (Rewards reward in rewards)
+        {
+            if (reward.name == rewardName)
+            {
+                reward.canBuy = value;
+                return;
+            }
+        }
+    }
+
     public void ToggleShop()
     {
         rewardUI.SetActive(!rewardUI.activeSelf);
@@ -115,6 +127,7 @@ public class Rewards
     public string name;
     public int cost;
     public Sprite image;
+    public bool canBuy = true;
     [HideInInspector] public GameObject itemRef;
 
     // public GameObject enemyPrefab;

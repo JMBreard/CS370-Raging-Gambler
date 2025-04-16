@@ -72,7 +72,7 @@ public class GambleManager : MonoBehaviour
 
     public void BuyWager(Wagers wager) {
         int currentMoney = playerMoney.money;
-        if (currentMoney >= wager.cost) {
+        if (currentMoney >= wager.cost && wager.canBuy) {
             playerMoney.subtractMoney(wager.cost);
             playerMoney.UpdateMoneyText();
             ApplyWager(wager);
@@ -138,6 +138,19 @@ public class GambleManager : MonoBehaviour
         }
     }
 
+    public void SetCanBuy(string wagerName, bool value)
+    {
+        foreach (Wagers wager in wagers)
+        {
+            if (wager.name == wagerName)
+            {
+                wager.canBuy = value;
+                Debug.Log("canBuy = " + wager.canBuy);
+                return;
+            }
+        }
+    }
+
     public void ToggleShop() 
     {
         shopUI.SetActive(!shopUI.activeSelf);
@@ -154,6 +167,7 @@ public class Wagers {
     public int cost;
     public int reward;
     public Sprite image;
+    public bool canBuy = true;
     // [HideInInspector] public int quantity;
     [HideInInspector] public GameObject itemRef;
 }

@@ -119,15 +119,23 @@ public class EnemySpawner : MonoBehaviour
 
     public void increaseSpawnRate()
     {
-        if (spawnRate > 0.5f)
+        if (spawnRate <= 0.5f)
         {
-            spawnRate -= 0.5f;
-            Debug.Log("Current spawn rate: " + spawnRate);
+            GambleManager.instance.SetCanBuy("Enemy: population buff", false);
+            Debug.Log("Spawn rate cannot be decreased further. Current spawn rate: " + spawnRate);
+            return;
         }
-        else
+
+        spawnRate -= 0.5f;
+        // handles edge case of being able to buy an extra debuff when you can't anymore
+        if (spawnRate <= 0.5f)
         {
-            Debug.Log("Spawn rate cannot be decreased further.");
+            GambleManager.instance.SetCanBuy("Enemy: population buff", false);
+            Debug.Log("Spawn rate cannot be decreased further. Current spawn rate: " + spawnRate);
+            return;
         }
+        Debug.Log("Current spawn rate: " + spawnRate);
+
     }
 
     public void addEnemyHealth()
