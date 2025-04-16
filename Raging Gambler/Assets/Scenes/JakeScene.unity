@@ -1183,6 +1183,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMoney: {fileID: 1029621072}
   wagers:
+  - name: 'Enemy: damage buff'
+    cost: 50
+    reward: 100
+    image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    itemRef: {fileID: 0}
   - name: 'Enemy: population buff'
     cost: 50
     reward: 100
@@ -1210,11 +1215,6 @@ MonoBehaviour:
     itemRef: {fileID: 0}
   - name: 'Player: speed debuff'
     cost: 50
-    reward: 100
-    image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-    itemRef: {fileID: 0}
-  - name: 'Player: range debuff'
-    cost: 40
     reward: 100
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     itemRef: {fileID: 0}
@@ -2445,10 +2445,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.00091911765
+    x: 0
     y: 0
-    width: 0.9981618
-    height: 0.99999994
+    width: 1
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -8175,22 +8175,6 @@ MonoBehaviour:
     cost: 1
     image: {fileID: 0}
     itemRef: {fileID: 0}
-  - name: Decrease Time (5s)
-    cost: 1
-    image: {fileID: 0}
-    itemRef: {fileID: 0}
-  - name: Decrease Time (10s)
-    cost: 1
-    image: {fileID: 0}
-    itemRef: {fileID: 0}
-  - name: Decrease Time (15s)
-    cost: 1
-    image: {fileID: 0}
-    itemRef: {fileID: 0}
-  - name: Decrease Time (20s)
-    cost: 1
-    image: {fileID: 0}
-    itemRef: {fileID: 0}
   playerMoney: {fileID: 1029621072}
   rewardUI: {fileID: 1216444171}
   rewardContent: {fileID: 668622166}
@@ -9956,7 +9940,7 @@ MonoBehaviour:
     spawnChance: 3
   - enemyPrefab: {fileID: 5563381071322165230, guid: 31568eb26bb8c684f9c779da565a2560, type: 3}
     spawnChance: 2
-  enemyHealthMultiplier: 1
+  enemyHealthIncreaser: 0
   spawnRate: 2
   spawnDistance: 5
   spawnOnStart: 1

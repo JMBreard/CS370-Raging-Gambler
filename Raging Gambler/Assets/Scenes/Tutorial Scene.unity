@@ -1309,6 +1309,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMoney: {fileID: 1029621072}
   wagers:
+  - name: 'Enemy: damage buff'
+    cost: 50
+    reward: 100
+    image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    itemRef: {fileID: 0}
   - name: 'Enemy: population buff'
     cost: 50
     reward: 100
@@ -1336,11 +1341,6 @@ MonoBehaviour:
     itemRef: {fileID: 0}
   - name: 'Player: speed debuff'
     cost: 50
-    reward: 100
-    image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-    itemRef: {fileID: 0}
-  - name: 'Player: range debuff'
-    cost: 40
     reward: 100
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     itemRef: {fileID: 0}
@@ -10566,7 +10566,7 @@ MonoBehaviour:
     spawnChance: 3
   - enemyPrefab: {fileID: 5563381071322165230, guid: 31568eb26bb8c684f9c779da565a2560, type: 3}
     spawnChance: 2
-  enemyHealthMultiplier: 1
+  enemyHealthIncreaser: 0
   spawnRate: 2
   spawnDistance: 4
   spawnOnStart: 1
@@ -12428,22 +12428,6 @@ MonoBehaviour:
     image: {fileID: 0}
     itemRef: {fileID: 0}
   - name: Increased DPS
-    cost: 1
-    image: {fileID: 0}
-    itemRef: {fileID: 0}
-  - name: Decrease Time (5s)
-    cost: 1
-    image: {fileID: 0}
-    itemRef: {fileID: 0}
-  - name: Decrease Time (10s)
-    cost: 1
-    image: {fileID: 0}
-    itemRef: {fileID: 0}
-  - name: Decrease Time (15s)
-    cost: 1
-    image: {fileID: 0}
-    itemRef: {fileID: 0}
-  - name: Decrease Time (20s)
     cost: 1
     image: {fileID: 0}
     itemRef: {fileID: 0}

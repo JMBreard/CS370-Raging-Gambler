@@ -82,6 +82,11 @@ public class GambleManager : MonoBehaviour
 
     public void ApplyWager(Wagers wager) {
         switch(wager.name) {
+            // need to test
+            case "Enemy: damage buff":
+                health.increaseDamage();
+                break;
+
             // works
             // enemy is EnemySpawner instance
             case "Enemy: population buff":
@@ -126,10 +131,7 @@ public class GambleManager : MonoBehaviour
 
             // bugged, bullet time doesn't reset after restart
             // bullet is ProjectileMovement instance
-            case "Player: range debuff":
-                bullet.reduceBulletTime();
-                WagerCounts[6] += 1;
-                break;
+            
             default:
                 Debug.Log("no debuff available");
                 break;

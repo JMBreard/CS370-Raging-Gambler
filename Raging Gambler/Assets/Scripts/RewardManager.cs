@@ -96,26 +96,6 @@ public class RewardManager : MonoBehaviour
                 health.increaseDamage();
                 break;
 
-            // need to implement
-            case "Decrease Time (5s)":
-                player.increaseSpeed();
-                break;
-            
-            // need to implement
-            case "Decrease Time (10s)":
-                player.increaseSpeed();
-                break;
-            
-            // need to implement
-            case "Decrease Time (15s)":
-                player.increaseSpeed();
-                break;
-
-            // need to implement
-            case "Decrease Time (20s)":
-                player.increaseSpeed();
-                break;
-
             default:
                 Debug.Log("no debuff available");
                 break;
