@@ -1309,47 +1309,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMoney: {fileID: 1029621072}
   wagers:
-  - name: 'Enemy: population buff'
-    cost: 50
+  - name: 'Enemy: damage buff'
+    cost: 1
     reward: 100
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    canBuy: 1
+    itemRef: {fileID: 0}
+  - name: 'Enemy: population buff'
+    cost: 1
+    reward: 100
+    image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Enemy: health buff'
-    cost: 50
+    cost: 1
     reward: 200
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Player: reload debuff'
-    cost: 50
+    cost: 1
     reward: 100
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Player: ammo count debuff'
-    cost: 50
+    cost: 1
     reward: 100
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Player: health debuff'
-    cost: 60
+    cost: 1
     reward: 120
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Player: speed debuff'
-    cost: 50
+    cost: 1
     reward: 100
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-    itemRef: {fileID: 0}
-  - name: 'Player: range debuff'
-    cost: 40
-    reward: 100
-    image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   shopUI: {fileID: 486094664}
   wagerContent: {fileID: 1385476422}
   wagerItem: {fileID: 5393312897184863794, guid: 6e980c5d6dcc4a94fb65d1333b94f770, type: 3}
   enemySpawner: {fileID: 1589405770}
-  player: {fileID: 0}
-  health: {fileID: 0}
+  player: {fileID: 1216564098}
+  health: {fileID: 288039221}
   bullet: {fileID: -3528085231807167959, guid: 94d1eb044f1f7ba4b9ccbc7e78483129, type: 3}
   NormalEnemyPrefab: {fileID: 7138375181999766197, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
   CurvedEnemyPrefab: {fileID: 6875664626074797119, guid: ac1c3a84d26a97c45bf1a72dbb5b00af, type: 3}
@@ -10566,7 +10573,7 @@ MonoBehaviour:
     spawnChance: 3
   - enemyPrefab: {fileID: 5563381071322165230, guid: 31568eb26bb8c684f9c779da565a2560, type: 3}
     spawnChance: 2
-  enemyHealthMultiplier: 1
+  enemyHealthIncreaser: 0
   spawnRate: 2
   spawnDistance: 4
   spawnOnStart: 1
@@ -12410,42 +12417,32 @@ MonoBehaviour:
   - name: +1 Player Health
     cost: 1
     image: {fileID: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: +1 Max Health
     cost: 1
     image: {fileID: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: +1 Ammo Count
     cost: 1
     image: {fileID: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: -1 Reload Time
     cost: 1
     image: {fileID: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: +1 Speed
     cost: 1
     image: {fileID: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: Increased DPS
     cost: 1
     image: {fileID: 0}
-    itemRef: {fileID: 0}
-  - name: Decrease Time (5s)
-    cost: 1
-    image: {fileID: 0}
-    itemRef: {fileID: 0}
-  - name: Decrease Time (10s)
-    cost: 1
-    image: {fileID: 0}
-    itemRef: {fileID: 0}
-  - name: Decrease Time (15s)
-    cost: 1
-    image: {fileID: 0}
-    itemRef: {fileID: 0}
-  - name: Decrease Time (20s)
-    cost: 1
-    image: {fileID: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   playerMoney: {fileID: 1029621072}
   rewardUI: {fileID: 489295598}

@@ -147,31 +147,79 @@ public class PlayerController : MonoBehaviour
 
     public void increaseSpeed() {
         _speed += 1f;
+        if (_speed > 2f) {
+            GambleManager.instance.SetCanBuy("Player: speed debuff", true);
+        }
         Debug.Log("Current Speed: " + _speed);
     }
     
     public void reduceSpeed() {
+        if (_speed <= 2f) {
+            GambleManager.instance.SetCanBuy("Player: speed debuff", false); 
+            Debug.Log("Speed cannot be reduced further. Current speed: " + _speed); 
+            return; 
+        }
+        
+        GambleManager.instance.SetCanBuy("Player: speed debuff", true);
         _speed -= 2f;
-        Debug.Log("Current Speed: " + _speed);
+        // handles edge case of being able to buy an extra debuff when you can't anymore
+        if (_speed <= 2f) {
+            GambleManager.instance.SetCanBuy("Player: speed debuff", false); 
+            Debug.Log("Speed cannot be reduced further. Current speed: " + _speed); 
+            return;
+        }
+        Debug.Log("Current speed: " + _speed);
     }
 
     public void increaseReloadTime() {
         _reloadTime += 1f;
+        if (_reloadTime > 1f) {
+            RewardManager.instance.SetCanBuy("-1 Reload Time", true);
+        }
         Debug.Log("Current reload time: " + _reloadTime);
     }
 
     public void decreaseReloadTime() {
-        _reloadTime -= 0.5f;
+        if (_reloadTime <= 1f) {
+            RewardManager.instance.SetCanBuy("-1 Reload Time", false);
+            Debug.Log("Reload time cannot be reduced further. Current reload time: " + _reloadTime);
+            return;
+        }
+
+        RewardManager.instance.SetCanBuy("-1 Reload Time", true);
+        _reloadTime -= 1f;
+        // handles edge case of being able to buy an extra debuff when you can't anymore
+        if (_reloadTime <= 1f) {
+            RewardManager.instance.SetCanBuy("-1 Reload Time", false);
+            Debug.Log("Reload time cannot be reduced further. Current reload time: " + _reloadTime);
+            return;
+        }
         Debug.Log("Current reload time: " + _reloadTime);
     }
 
     public void increaseMaxAmmoCount() {
         _ammoCount += 1;
+        if (_ammoCount > 2) {
+            GambleManager.instance.SetCanBuy("Player: ammo count debuff", true);
+        }
         Debug.Log("Current max ammo count:" + _ammoCount);
     }
 
     public void decreaseMaxAmmoCount() {
+        if (_ammoCount <= 2) {
+            GambleManager.instance.SetCanBuy("Player: ammo count debuff", false);
+            Debug.Log("Ammo count cannot be reduced further. Current ammo count: " + _ammoCount);
+            return;
+        }
+
+        GambleManager.instance.SetCanBuy("Player: ammo count debuff", true);
         _ammoCount -= 2;
+        // handles edge case of being able to buy an extra debuff when you can't anymore
+        if (_ammoCount <= 2) {
+            GambleManager.instance.SetCanBuy("Player: ammo count debuff", false);
+            Debug.Log("Ammo count cannot be reduced further. Current ammo count: " + _ammoCount);
+            return;
+        }
         Debug.Log("Current max ammo count:" + _ammoCount);
     }
 }

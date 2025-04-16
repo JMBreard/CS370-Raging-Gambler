@@ -72,7 +72,7 @@ public class GambleManager : MonoBehaviour
 
     public void BuyWager(Wagers wager) {
         int currentMoney = playerMoney.money;
-        if (currentMoney >= wager.cost) {
+        if (currentMoney >= wager.cost && wager.canBuy) {
             playerMoney.subtractMoney(wager.cost);
             playerMoney.UpdateMoneyText();
             ApplyWager(wager);
@@ -82,6 +82,11 @@ public class GambleManager : MonoBehaviour
 
     public void ApplyWager(Wagers wager) {
         switch(wager.name) {
+            // need to test
+            case "Enemy: damage buff":
+                health.increaseDamage();
+                break;
+
             // works
             // enemy is EnemySpawner instance
             case "Enemy: population buff":
@@ -126,13 +131,23 @@ public class GambleManager : MonoBehaviour
 
             // bugged, bullet time doesn't reset after restart
             // bullet is ProjectileMovement instance
-            case "Player: range debuff":
-                bullet.reduceBulletTime();
-                WagerCounts[6] += 1;
-                break;
+            
             default:
                 Debug.Log("no debuff available");
                 break;
+        }
+    }
+
+    public void SetCanBuy(string wagerName, bool value)
+    {
+        foreach (Wagers wager in wagers)
+        {
+            if (wager.name == wagerName)
+            {
+                wager.canBuy = value;
+                Debug.Log("canBuy = " + wager.canBuy);
+                return;
+            }
         }
     }
 
@@ -152,6 +167,7 @@ public class Wagers {
     public int cost;
     public int reward;
     public Sprite image;
+    public bool canBuy = true;
     // [HideInInspector] public int quantity;
     [HideInInspector] public GameObject itemRef;
 }
