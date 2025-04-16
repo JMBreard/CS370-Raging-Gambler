@@ -1310,39 +1310,46 @@ MonoBehaviour:
   playerMoney: {fileID: 1029621072}
   wagers:
   - name: 'Enemy: damage buff'
-    cost: 50
+    cost: 1
     reward: 100
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Enemy: population buff'
-    cost: 50
+    cost: 1
     reward: 100
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Enemy: health buff'
-    cost: 50
+    cost: 1
     reward: 200
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Player: reload debuff'
-    cost: 50
+    cost: 1
     reward: 100
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Player: ammo count debuff'
-    cost: 50
+    cost: 1
     reward: 100
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Player: health debuff'
-    cost: 60
+    cost: 1
     reward: 120
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Player: speed debuff'
-    cost: 50
+    cost: 1
     reward: 100
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   shopUI: {fileID: 486094664}
   wagerContent: {fileID: 1385476422}
@@ -12410,26 +12417,32 @@ MonoBehaviour:
   - name: +1 Player Health
     cost: 1
     image: {fileID: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: +1 Max Health
     cost: 1
     image: {fileID: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: +1 Ammo Count
     cost: 1
     image: {fileID: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: -1 Reload Time
     cost: 1
     image: {fileID: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: +1 Speed
     cost: 1
     image: {fileID: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   - name: Increased DPS
     cost: 1
     image: {fileID: 0}
+    canBuy: 1
     itemRef: {fileID: 0}
   playerMoney: {fileID: 1029621072}
   rewardUI: {fileID: 489295598}
