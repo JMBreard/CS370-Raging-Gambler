@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] nextRoomDoors; //An array for all of the doors in the next room
     public ObsctacleSpawner obsctacleSpawner; // Have obstacles move with the room 
 
-    private float moveRoomX = 17; //How much to move a room in the X axis
+    private float moveRoomX = 18; //How much to move a room in the X axis
     private int moveRoomY = 10; //How much to move a room in the Y axis
 
     private int comeFromRoom = 3; //Initially sets the room the player comes from as the bottom door
