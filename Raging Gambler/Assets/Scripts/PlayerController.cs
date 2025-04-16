@@ -151,8 +151,12 @@ public class PlayerController : MonoBehaviour
     }
     
     public void reduceSpeed() {
-        _speed -= 2f;
-        Debug.Log("Current Speed: " + _speed);
+        if (_speed > 2f) {
+            _speed -= 2f;
+            Debug.Log("Current Speed: " + _speed);
+        } else {
+            Debug.Log("Speed cannot be reduced further.");
+        }
     }
 
     public void increaseReloadTime() {
@@ -161,8 +165,12 @@ public class PlayerController : MonoBehaviour
     }
 
     public void decreaseReloadTime() {
-        _reloadTime -= 0.5f;
-        Debug.Log("Current reload time: " + _reloadTime);
+        if (_reloadTime > 0.5f) {
+            _reloadTime -= 0.5f;
+            Debug.Log("Current reload time: " + _reloadTime);
+        } else {
+            Debug.Log("Reload time cannot be reduced further.");
+        }
     }
 
     public void increaseMaxAmmoCount() {
@@ -171,7 +179,11 @@ public class PlayerController : MonoBehaviour
     }
 
     public void decreaseMaxAmmoCount() {
-        _ammoCount -= 2;
-        Debug.Log("Current max ammo count:" + _ammoCount);
+        if (_ammoCount > 2) {
+            _ammoCount -= 2;
+            Debug.Log("Current max ammo count:" + _ammoCount);
+        } else {
+            Debug.Log("Max ammo count cannot be reduced further.");
+        }
     }
 }

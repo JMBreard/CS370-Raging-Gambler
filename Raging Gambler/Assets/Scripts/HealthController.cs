@@ -111,6 +111,12 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
 
     public void reduceMaxHealth()
     {
+        if (maxHealth <= 1)
+        {
+            Debug.Log("Max health is already at minimum.");
+            return; 
+        }
+
         maxHealth -= 1;
         if (currentHealth > maxHealth)
         {
@@ -133,6 +139,7 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
             Debug.Log("Current health is already at max.");
             return; 
         }
+
         currentHealth += 1;
         Debug.Log("current health: " + currentHealth);
     }
@@ -143,6 +150,11 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
     }
 
     public void DecreaseDamage() {
+        if (DamageAmount <= 1) {
+            Debug.Log("Damage cannot be reduced further.");
+            return; 
+        }
+        
         DamageAmount -= 1;
         Debug.Log("Current damage: " + DamageAmount);
     }

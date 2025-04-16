@@ -1348,8 +1348,8 @@ MonoBehaviour:
   wagerContent: {fileID: 1385476422}
   wagerItem: {fileID: 5393312897184863794, guid: 6e980c5d6dcc4a94fb65d1333b94f770, type: 3}
   enemySpawner: {fileID: 1589405770}
-  player: {fileID: 0}
-  health: {fileID: 0}
+  player: {fileID: 1216564098}
+  health: {fileID: 288039221}
   bullet: {fileID: -3528085231807167959, guid: 94d1eb044f1f7ba4b9ccbc7e78483129, type: 3}
   NormalEnemyPrefab: {fileID: 7138375181999766197, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
   CurvedEnemyPrefab: {fileID: 6875664626074797119, guid: ac1c3a84d26a97c45bf1a72dbb5b00af, type: 3}
