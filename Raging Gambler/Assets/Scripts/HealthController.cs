@@ -181,4 +181,6 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
     {
         playerMoney.subtractMoney(gameManager.level_counter * 2);
     }
+
+    public float GetDamageAmount() => DamageAmount;
 }
