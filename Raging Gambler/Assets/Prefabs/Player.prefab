@@ -126,6 +126,7 @@ MonoBehaviour:
   _bulletSpawn: {fileID: 8439304357849240891}
   _ammoCount: 10
   _reloadTime: 3
+  ammoText: {fileID: 0}
 --- !u!50 &8089499895467482028
 Rigidbody2D:
   serializedVersion: 5
@@ -191,7 +192,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.1666666, y: 1.75}
+    oldSize: {x: 0.875, y: 1.3125}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -213,6 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   currentHealth: 5
+  isDead: 0
   healthbar: {fileID: 0}
   playerMoney: {fileID: 0}
   gameManager: {fileID: 0}
@@ -391,7 +393,7 @@ Transform:
   m_GameObject: {fileID: 8439304357849240891}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5833333, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0.349, y: 0.379, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -4265,6 +4265,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2290454449236162696, guid: c09a449156b3da740a14de8f95683d22, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290454449236162696, guid: c09a449156b3da740a14de8f95683d22, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3837246040113604521, guid: c09a449156b3da740a14de8f95683d22, type: 3}
       propertyPath: ammoText
       value: 
@@ -4284,6 +4292,10 @@ PrefabInstance:
     - target: {fileID: 4580015748671396516, guid: c09a449156b3da740a14de8f95683d22, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5163248818740712621, guid: c09a449156b3da740a14de8f95683d22, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5429565316317461585, guid: c09a449156b3da740a14de8f95683d22, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4344,6 +4356,10 @@ PrefabInstance:
     - target: {fileID: 5692947451172183149, guid: c09a449156b3da740a14de8f95683d22, type: 3}
       propertyPath: m_Offset.y
       value: -0.07451171
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597796110308271678, guid: c09a449156b3da740a14de8f95683d22, type: 3}
+      propertyPath: m_Name
+      value: Pistol
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5692947451172183149, guid: c09a449156b3da740a14de8f95683d22, type: 3}
@@ -5644,7 +5660,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 6
-      m_TileSpriteIndex: 15
+      m_TileSpriteIndex: 19
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -5874,7 +5890,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 8
-      m_TileSpriteIndex: 14
+      m_TileSpriteIndex: 18
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -5983,18 +5999,18 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 956373378, guid: e60f272050820744f9bc54e8c090987c, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -342691526, guid: e60f272050820744f9bc54e8c090987c, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 1544852736, guid: e60f272050820744f9bc54e8c090987c, type: 3}
   - m_RefCount: 1
@@ -8370,8 +8386,8 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 0.5882353
-    height: 0.75471693
+    width: 1
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
