@@ -143,4 +143,8 @@ public class EnemySpawner : MonoBehaviour
         enemyHealthIncreaser += 1;
         Debug.Log("Current enemy health is increased by: " + enemyHealthIncreaser);
     }
+
+    // getters for spawn rate and the enemy health increaser
+    public float GetSpawnRate() => spawnRate;
+    public int GetEnemyHealthBuff() => enemyHealthIncreaser;
 }

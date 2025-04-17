@@ -222,4 +222,9 @@ public class PlayerController : MonoBehaviour
         }
         Debug.Log("Current max ammo count:" + _ammoCount);
     }
+
+    // getters for speed, reload time, and ammo count
+    public float GetSpeed() => _speed;
+    public float GetReloadTime() => _reloadTime;
+    public int GetMaxAmmo() => _ammoCount;
 }
