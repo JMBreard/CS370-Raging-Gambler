@@ -8370,8 +8370,8 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1
-    height: 1
+    width: 0.5882353
+    height: 0.75471693
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -9407,7 +9407,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 20
+  m_Spacing: 65
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -20381,11 +20381,6 @@ MonoBehaviour:
     canBuy: 1
     itemRef: {fileID: 0}
   - name: +1 Speed
-    cost: 1
-    image: {fileID: 0}
-    canBuy: 1
-    itemRef: {fileID: 0}
-  - name: Increased DPS
     cost: 1
     image: {fileID: 0}
     canBuy: 1
