@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -173,18 +174,7 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
 
     public void increaseDamage() {
         DamageAmount += 1;
-        Debug.Log("Current damage: " + DamageAmount);
-    }
-
-    // need to add wager/reward for this 
-    public void DecreaseDamage() {
-        if (DamageAmount <= 1) {
-            Debug.Log("Damage cannot be reduced further.");
-            return; 
-        }
-
-        DamageAmount -= 1;
-        Debug.Log("Current damage: " + DamageAmount);
+        Debug.Log(gameObject.name + "'s damage increased to " + DamageAmount);
     }
 
     public void Steal()

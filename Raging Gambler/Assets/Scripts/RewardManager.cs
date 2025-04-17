@@ -91,11 +91,6 @@ public class RewardManager : MonoBehaviour
                 player.increaseSpeed();
                 break;
 
-            // bugged, increases the enemy dps instead of player dps
-            case "Increased DPS":
-                health.increaseDamage();
-                break;
-
             default:
                 Debug.Log("no debuff available");
                 break;
