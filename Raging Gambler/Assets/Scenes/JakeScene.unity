@@ -6284,7 +6284,7 @@ MonoBehaviour:
   wagers:
   - name: 'Enemy: population buff'
     cost: 0
-    baseCost: 25
+    baseCost: 10
     reward: 0
     baseReward: 40
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -6292,7 +6292,7 @@ MonoBehaviour:
     itemRef: {fileID: 0}
   - name: 'Enemy: health buff'
     cost: 0
-    baseCost: 20
+    baseCost: 15
     reward: 0
     baseReward: 30
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -6300,7 +6300,7 @@ MonoBehaviour:
     itemRef: {fileID: 0}
   - name: 'Enemy: damage buff'
     cost: 0
-    baseCost: 25
+    baseCost: 20
     reward: 0
     baseReward: 35
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -6310,7 +6310,7 @@ MonoBehaviour:
     cost: 0
     baseCost: 30
     reward: 0
-    baseReward: 55
+    baseReward: 150
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
@@ -6318,7 +6318,7 @@ MonoBehaviour:
     cost: 0
     baseCost: 30
     reward: 0
-    baseReward: 45
+    baseReward: 150
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
@@ -6326,7 +6326,7 @@ MonoBehaviour:
     cost: 0
     baseCost: 40
     reward: 0
-    baseReward: 75
+    baseReward: 200
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
@@ -6334,7 +6334,7 @@ MonoBehaviour:
     cost: 0
     baseCost: 50
     reward: 0
-    baseReward: 100
+    baseReward: 250
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
