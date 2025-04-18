@@ -2,11 +2,13 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
 using TMPro;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
     public Animator weaponAnimator;
+    public static event Action OnShoot;
     [SerializeField] private float _speed = 4f;
     private Rigidbody2D rb;
     private Vector2 direction;
@@ -107,6 +109,7 @@ public class PlayerController : MonoBehaviour
     {
         Fire();
         weaponAnimator.SetTrigger("Shoot");
+        OnShoot?.Invoke(); // Notify listeners
     }
 
     private void Reload_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
