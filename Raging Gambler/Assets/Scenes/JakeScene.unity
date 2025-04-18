@@ -18991,6 +18991,11 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0040978193, y: -0.079286516}
   m_Size: {x: 0.54667604, y: 1.0581869}
   m_Direction: 0
+--- !u!4 &1216564100 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5429565316317461585, guid: c09a449156b3da740a14de8f95683d22, type: 3}
+  m_PrefabInstance: {fileID: 288039220}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1240018521
 GameObject:
   m_ObjectHideFlags: 0
@@ -28299,8 +28304,10 @@ MonoBehaviour:
   spawnRate: 2
   spawnDistance: 4
   spawnOnStart: 1
-  playerTransform: {fileID: 1260338508}
+  playerTransform: {fileID: 1216564100}
   playerMoney: {fileID: 1029621072}
+  spawnLocation: {fileID: 1260338508}
+  distanceFromPlayer: 2
 --- !u!4 &1589405771
 Transform:
   m_ObjectHideFlags: 0
