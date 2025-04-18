@@ -7,9 +7,10 @@ using TMPro;
 
 public class PauseMenu : MonoBehaviour
 {
-    bool gamePaused = false;
+    public bool gamePaused = false;
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject playerStatsPanel;
+    [SerializeField] GameManager gm;
 
     [Header("Player Stats UI")]
     public TextMeshProUGUI healthText;
@@ -29,6 +30,7 @@ public class PauseMenu : MonoBehaviour
             pauseMenu.SetActive(true);
             playerStatsPanel.SetActive(true);
             gamePaused = true;
+            gm.gamePaused = true;
             Time.timeScale = 0;
         }
         else
@@ -36,6 +38,7 @@ public class PauseMenu : MonoBehaviour
             pauseMenu.SetActive(false);
             playerStatsPanel.SetActive(false);
             gamePaused = false;
+            gm.gamePaused = false;
             Time.timeScale = 1;
         }
     }
@@ -44,6 +47,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         gamePaused = false;
+        gm.gamePaused = false;
         pauseMenu.SetActive(false);
         playerStatsPanel.SetActive(false);
     }

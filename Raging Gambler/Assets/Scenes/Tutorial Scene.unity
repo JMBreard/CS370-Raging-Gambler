@@ -186,11 +186,13 @@ MonoBehaviour:
   gameOverScore: {fileID: 376328369}
   userName: {fileID: 406248044}
   leaderBoardDebug: 0
+  gamePaused: 0
   pauseMenu: {fileID: 1209054641}
   tutorial: 1
   tutorialStart: {fileID: 2053180331}
   tutorialGameOverScreen: {fileID: 617792052}
   tutorialScore: {fileID: 1597824278}
+  pm: {fileID: 1930080144}
 --- !u!4 &23917793
 Transform:
   m_ObjectHideFlags: 0
@@ -3828,6 +3830,7 @@ MonoBehaviour:
   player: {fileID: 881782029}
   health: {fileID: 881782027}
   gameManager: {fileID: 23917792}
+  gambleManager: {fileID: 0}
 --- !u!4 &287201664
 Transform:
   m_ObjectHideFlags: 0
@@ -29785,6 +29788,7 @@ MonoBehaviour:
   CurvedEnemyPrefab: {fileID: 6875664626074797119, guid: ac1c3a84d26a97c45bf1a72dbb5b00af, type: 3}
   ShooterEnemyPrefab: {fileID: 5563381071322165230, guid: 31568eb26bb8c684f9c779da565a2560, type: 3}
   gameManager: {fileID: 0}
+  dmg_ctr: 1
   WagerCounts: 00000000000000000000000000000000000000000000000000000000
 --- !u!4 &1769304096
 Transform:
@@ -31802,8 +31806,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e72d16ed0b4e2a94db433c45ec6f3881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePaused: 0
   pauseMenu: {fileID: 1209054641}
   playerStatsPanel: {fileID: 478739489}
+  gm: {fileID: 23917792}
   healthText: {fileID: 31365268}
   maxHealthText: {fileID: 2113281402}
   speedText: {fileID: 1711357333}
