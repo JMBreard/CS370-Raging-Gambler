@@ -8550,8 +8550,8 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 0.33333334
-    height: 0.44444445
+    width: 1
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -11062,7 +11062,7 @@ GameObject:
   - component: {fileID: 814378855}
   - component: {fileID: 814378854}
   m_Layer: 0
-  m_Name: Crosshairs-Sheet_0
+  m_Name: Dynamic Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
