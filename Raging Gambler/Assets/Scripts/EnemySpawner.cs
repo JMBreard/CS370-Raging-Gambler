@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -34,6 +35,8 @@ public class EnemySpawner : MonoBehaviour
 
     [Tooltip("Reference to the player's PlayerMoney component")]
     [SerializeField] private PlayerMoney playerMoney;
+    [SerializeField] private Transform spawnLocation;
+    [SerializeField] private float distanceFromPlayer;
 
     private float spawnTimer = 0f;
     private bool isSpawning = false;
@@ -87,7 +90,13 @@ public class EnemySpawner : MonoBehaviour
 
         // Determine spawn position relative to the player.
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
-        Vector3 spawnPosition = playerTransform.position + (Vector3)(randomDirection * spawnDistance);
+        Vector3 spawnPosition = spawnLocation.position + (Vector3)(randomDirection * spawnDistance);
+        while((spawnPosition.x <= playerTransform.position.x + distanceFromPlayer && spawnPosition.x >= playerTransform.position.x - distanceFromPlayer) && (spawnPosition.y <= playerTransform.position.y + distanceFromPlayer && spawnPosition.y >= playerTransform.position.y - distanceFromPlayer))
+        {
+            Debug.Log("Too Close to player, Picking new location");
+            randomDirection = Random.insideUnitCircle.normalized;
+            spawnPosition = spawnLocation.position + (Vector3)(randomDirection * spawnDistance);
+        }
 
         // Instantiate the selected enemy.
         GameObject enemy = Instantiate(selectedEnemy, spawnPosition, Quaternion.identity);
