@@ -4417,6 +4417,10 @@ PrefabInstance:
       propertyPath: ammoText
       value: 
       objectReference: {fileID: 1294351816}
+    - target: {fileID: 3837246040113604521, guid: c09a449156b3da740a14de8f95683d22, type: 3}
+      propertyPath: _reloadTime
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3842005688937467308, guid: c09a449156b3da740a14de8f95683d22, type: 3}
       propertyPath: healthbar
       value: 
@@ -6280,29 +6284,13 @@ MonoBehaviour:
   wagers:
   - name: 'Enemy: population buff'
     cost: 0
-    baseCost: 40
+    baseCost: 25
     reward: 0
-    baseReward: 60
+    baseReward: 40
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Enemy: health buff'
-    cost: 0
-    baseCost: 40
-    reward: 0
-    baseReward: 60
-    image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-    canBuy: 1
-    itemRef: {fileID: 0}
-  - name: 'Enemy: damage buff'
-    cost: 0
-    baseCost: 20
-    reward: 0
-    baseReward: 27
-    image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-    canBuy: 1
-    itemRef: {fileID: 0}
-  - name: 'Player: reload debuff'
     cost: 0
     baseCost: 20
     reward: 0
@@ -6310,11 +6298,27 @@ MonoBehaviour:
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
+  - name: 'Enemy: damage buff'
+    cost: 0
+    baseCost: 25
+    reward: 0
+    baseReward: 35
+    image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    canBuy: 1
+    itemRef: {fileID: 0}
+  - name: 'Player: reload debuff'
+    cost: 0
+    baseCost: 30
+    reward: 0
+    baseReward: 55
+    image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    canBuy: 1
+    itemRef: {fileID: 0}
   - name: 'Player: ammo count debuff'
     cost: 0
-    baseCost: 20
+    baseCost: 30
     reward: 0
-    baseReward: 27
+    baseReward: 45
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
@@ -6322,15 +6326,15 @@ MonoBehaviour:
     cost: 0
     baseCost: 40
     reward: 0
-    baseReward: 65
+    baseReward: 75
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Player: speed debuff'
     cost: 0
-    baseCost: 40
+    baseCost: 50
     reward: 0
-    baseReward: 65
+    baseReward: 100
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}

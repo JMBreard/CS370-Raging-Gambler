@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _bulletSpawn;
     [SerializeField] private int _ammoCount = 10;
     private int _currentAmmoCount;
-    [SerializeField] private float _reloadTime = 3.0f;
+    [SerializeField] private float _reloadTime = 2.5f;
     [SerializeField] public TextMeshProUGUI ammoText;
     private bool _canFire = true;
     private bool _reloading = false;
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private bool canMove = true;
 
 
-    void Awake() 
+    void Awake()
     {
         _input = new PlayerInputActions();
         ammoText.text = "Ammo: " + _currentAmmoCount;
@@ -59,8 +59,8 @@ public class PlayerController : MonoBehaviour
     }
 
     // OnEnable is called if the player is active when the scene loads (or is reloaded in GameManager.Restart())
-    private void OnEnable() 
-    {    
+    private void OnEnable()
+    {
         rb = GetComponent<Rigidbody2D>();
 
         _input.Player.Enable();
@@ -80,25 +80,25 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(canMove)
+        if (canMove)
         {
             Vector2 movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             rb.MovePosition(rb.position + movement * _speed * Time.fixedDeltaTime);
 
             if (movement.sqrMagnitude > 0.01f)
             {
-            // Player is moving: set "Speed" to 1
-            animator.SetFloat("Speed", 1f);
+                // Player is moving: set "Speed" to 1
+                animator.SetFloat("Speed", 1f);
             }
             else
             {
-            // Player is idle: set "Speed" to 0
-            animator.SetFloat("Speed", 0f);
+                // Player is idle: set "Speed" to 0
+                animator.SetFloat("Speed", 0f);
             }
         }
     }
 
-    
+
 
 
 
@@ -145,51 +145,61 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("Ready to fire....");
     }
 
-    public void increaseSpeed() {
+    public void increaseSpeed()
+    {
         _speed += 1f;
-        if (_speed > 2f) {
+        if (_speed > 2f)
+        {
             GambleManager.instance.SetCanBuy("Player: speed debuff", true);
         }
         Debug.Log("Current Speed: " + _speed);
     }
-    
-    public void reduceSpeed() {
-        if (_speed <= 2f) {
-            GambleManager.instance.SetCanBuy("Player: speed debuff", false); 
-            Debug.Log("Speed cannot be reduced further. Current speed: " + _speed); 
-            return; 
+
+    public void reduceSpeed()
+    {
+        if (_speed <= 2f)
+        {
+            GambleManager.instance.SetCanBuy("Player: speed debuff", false);
+            Debug.Log("Speed cannot be reduced further. Current speed: " + _speed);
+            return;
         }
-        
+
         GambleManager.instance.SetCanBuy("Player: speed debuff", true);
-        _speed -= 2f;
+        _speed -= 1f;
         // handles edge case of being able to buy an extra debuff when you can't anymore
-        if (_speed <= 2f) {
-            GambleManager.instance.SetCanBuy("Player: speed debuff", false); 
-            Debug.Log("Speed cannot be reduced further. Current speed: " + _speed); 
+        if (_speed <= 2f)
+        {
+            GambleManager.instance.SetCanBuy("Player: speed debuff", false);
+            Debug.Log("Speed cannot be reduced further. Current speed: " + _speed);
             return;
         }
         Debug.Log("Current speed: " + _speed);
     }
 
-    public void increaseReloadTime() {
-        _reloadTime += 1f;
-        if (_reloadTime > 1f) {
+    public void increaseReloadTime()
+    {
+        _reloadTime += 0.5f;
+        if (_reloadTime > 0.5f)
+        {
             RewardManager.instance.SetCanBuy("-1 Reload Time", true);
         }
         Debug.Log("Current reload time: " + _reloadTime);
     }
 
-    public void decreaseReloadTime() {
-        if (_reloadTime <= 1f) {
+    public void decreaseReloadTime()
+    {
+        if (_reloadTime <= 0.5f)
+        {
             RewardManager.instance.SetCanBuy("-1 Reload Time", false);
             Debug.Log("Reload time cannot be reduced further. Current reload time: " + _reloadTime);
             return;
         }
 
         RewardManager.instance.SetCanBuy("-1 Reload Time", true);
-        _reloadTime -= 1f;
+        _reloadTime -= 0.5f;
         // handles edge case of being able to buy an extra debuff when you can't anymore
-        if (_reloadTime <= 1f) {
+        if (_reloadTime <= 0.5f)
+        {
             RewardManager.instance.SetCanBuy("-1 Reload Time", false);
             Debug.Log("Reload time cannot be reduced further. Current reload time: " + _reloadTime);
             return;
@@ -197,16 +207,20 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Current reload time: " + _reloadTime);
     }
 
-    public void increaseMaxAmmoCount() {
+    public void increaseMaxAmmoCount()
+    {
         _ammoCount += 1;
-        if (_ammoCount > 2) {
+        if (_ammoCount > 2)
+        {
             GambleManager.instance.SetCanBuy("Player: ammo count debuff", true);
         }
         Debug.Log("Current max ammo count:" + _ammoCount);
     }
 
-    public void decreaseMaxAmmoCount() {
-        if (_ammoCount <= 2) {
+    public void decreaseMaxAmmoCount()
+    {
+        if (_ammoCount <= 2)
+        {
             GambleManager.instance.SetCanBuy("Player: ammo count debuff", false);
             Debug.Log("Ammo count cannot be reduced further. Current ammo count: " + _ammoCount);
             return;
@@ -215,7 +229,8 @@ public class PlayerController : MonoBehaviour
         GambleManager.instance.SetCanBuy("Player: ammo count debuff", true);
         _ammoCount -= 2;
         // handles edge case of being able to buy an extra debuff when you can't anymore
-        if (_ammoCount <= 2) {
+        if (_ammoCount <= 2)
+        {
             GambleManager.instance.SetCanBuy("Player: ammo count debuff", false);
             Debug.Log("Ammo count cannot be reduced further. Current ammo count: " + _ammoCount);
             return;
