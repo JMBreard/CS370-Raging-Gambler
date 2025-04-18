@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
     }
     public void StartTutorial()
     {
-        if(!pm.gamePaused && !gamePaused)
+        if (!pm.gamePaused && !gamePaused)
         {
             Debug.Log("Tutorial Started");
             Time.timeScale = 1.0f;
@@ -296,9 +296,9 @@ public class GameManager : MonoBehaviour
             {
                 for (int i = 0; i < gambleManager.WagerCounts[wagerIndex]; i++)
                 {
-                    if (wagerIndex == 0) { enemySpawnerComponent.DecreaseSpawnRate(); Debug.Log("Spawn Rate reset!!!"); } // enemy population reset
-                    if (wagerIndex == 1) { enemySpawnerComponent.SubtractEnemyHealth(); Debug.Log("Health reset!!!"); } // enemy health reset
-                    if (wagerIndex == 2) { healthController.DecreaseDamage(); Debug.Log("Damage reset!!!"); } // enemy dmg reset
+                    if (wagerIndex == 0) { enemySpawnerComponent.DecreaseSpawnRate(); } // enemy population reset
+                    if (wagerIndex == 1) { enemySpawnerComponent.SubtractEnemyHealth(); } // enemy health reset
+                    if (wagerIndex == 2) { healthController.DecreaseDamage(); } // enemy dmg reset
                 }
             }
             wagerIndex++;
