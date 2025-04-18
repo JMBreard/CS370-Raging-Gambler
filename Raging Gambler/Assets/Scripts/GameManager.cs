@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(tutorial)
+        if (tutorial)
         {
             tutorialStart.gameObject.SetActive(true);
             pc.toggleShooting();
@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        if(tutorial)
+        if (tutorial)
         {
             tutorialGameOver();
             return;
@@ -167,7 +167,20 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene("Tutorial Scene");
+        if (tutorial)
+        {
+            SceneManager.LoadScene("Tutorial Scene");
+        }
+        else
+        {
+            if (userName.text == "")
+            {
+                userName.text = "Player " + scoreManager.playerCount;
+                scoreManager.playerCount++;
+            }
+            scoreManager.addEntry(playerMoney.money, userName.text);
+            SceneManager.LoadScene("Title Scene");
+        }
     }
 
     public void Exit()
@@ -300,7 +313,7 @@ public class GameManager : MonoBehaviour
             moveToNextRoom();
             // Win();
         }
-        if(!tutorial)
+        if (!tutorial)
         {
             int minutes = Mathf.FloorToInt(remainingTime / 60);
             int seconds = Mathf.FloorToInt(remainingTime % 60);
@@ -349,7 +362,7 @@ public class GameManager : MonoBehaviour
             GameObject[] oldDoors = currentRoomDoors; //Swaps the door arrays between the current and next room
             currentRoomDoors = nextRoomDoors;
             nextRoomDoors = oldDoors;
-            
+
             transform.position = currentRoom.transform.position + gmOffset;
 
         }
@@ -370,7 +383,7 @@ public class GameManager : MonoBehaviour
     public void startRoom()
     {
         enemySpawner.gameObject.SetActive(true);
-        if(tutorial)
+        if (tutorial)
         {
             return;
         }
