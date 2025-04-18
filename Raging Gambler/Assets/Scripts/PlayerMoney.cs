@@ -24,7 +24,6 @@ public class PlayerMoney : MonoBehaviour
 
     public void addMoney(int moneyToAdd)
     {
-        Debug.Log("Money Added " +  moneyToAdd);
         money += moneyToAdd;
         UpdateMoneyText();
     }
@@ -33,7 +32,6 @@ public class PlayerMoney : MonoBehaviour
     {
         if (money - moneyToSubtract < 0)
         {
-            Debug.Log("Not enough money.");
         }
         else
         {

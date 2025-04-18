@@ -19,6 +19,8 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
 
     public GameManager gameManager;
 
+    public GambleManager gambleManager;
+
     int DamageAmount = 1;
 
 
@@ -190,6 +192,7 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
     public void DecreaseDamage()
     {
         DamageAmount -= 1;
+        gambleManager.dmg_ctr -= 1;
     }
 
     public void Steal()

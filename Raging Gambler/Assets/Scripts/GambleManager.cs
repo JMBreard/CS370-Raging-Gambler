@@ -204,6 +204,7 @@ public class GambleManager : MonoBehaviour
     {
         enemySpawner.addEnemyHealth();
         health.increaseDamage();
+        dmg_ctr++;
     }
 
     public void SetCanBuy(string wagerName, bool value)
