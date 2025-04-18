@@ -8520,10 +8520,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.00091911765
+    x: 0
     y: 0
-    width: 0.9981618
-    height: 0.99999994
+    width: 1
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -21339,28 +21339,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rewards:
   - name: +1 Player Health
-    cost: 1
     image: {fileID: 0}
+    cost: 200
+    baseCost: 200
     canBuy: 1
     itemRef: {fileID: 0}
   - name: +1 Max Health
-    cost: 1
     image: {fileID: 0}
+    cost: 250
+    baseCost: 250
     canBuy: 1
     itemRef: {fileID: 0}
   - name: +1 Ammo Count
-    cost: 1
     image: {fileID: 0}
+    cost: 150
+    baseCost: 100
     canBuy: 1
     itemRef: {fileID: 0}
   - name: -1 Reload Time
-    cost: 1
     image: {fileID: 0}
+    cost: 150
+    baseCost: 150
     canBuy: 1
     itemRef: {fileID: 0}
   - name: +1 Speed
-    cost: 1
     image: {fileID: 0}
+    cost: 200
+    baseCost: 200
     canBuy: 1
     itemRef: {fileID: 0}
   playerMoney: {fileID: 1029621072}
@@ -21369,6 +21374,7 @@ MonoBehaviour:
   rewardPrefab: {fileID: 5027055264409348466, guid: 8e557923677310843b1589e4bb0e180e, type: 3}
   player: {fileID: 1216564098}
   health: {fileID: 288039221}
+  gameManager: {fileID: 1260338507}
 --- !u!4 &1379431885
 Transform:
   m_ObjectHideFlags: 0
@@ -28217,7 +28223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xRange: 5
-  yRange: 3
+  yRange: 2
   min: 3
   max: 8
   obstaclePrefab: {fileID: 3920973833086846585, guid: 2788eb2a233d2c241ad61e8abb86a6a6, type: 3}
