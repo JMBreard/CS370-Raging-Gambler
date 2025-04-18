@@ -18,6 +18,7 @@ public class RewardManager : MonoBehaviour
     public PlayerController player;
     public HealthController health;
     public GameManager gameManager;
+    public GambleManager gambleManager;
 
     private void Awake()
     {
@@ -141,6 +142,17 @@ public class RewardManager : MonoBehaviour
             default:
                 Debug.Log("no debuff available");
                 break;
+        }
+    }
+
+    // Regenerates health by one enemy damage hit (scales with their dmg)
+    public void HealthRegen()
+    {
+        int i = 0;
+        while ((health.currentHealth < health.maxHealth) && (i < gambleManager.dmg_ctr))
+        {
+            health.increaseCurrentHealth();
+            i++;
         }
     }
 

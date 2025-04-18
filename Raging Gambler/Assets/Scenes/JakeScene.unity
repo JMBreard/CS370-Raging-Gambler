@@ -6341,6 +6341,7 @@ MonoBehaviour:
   CurvedEnemyPrefab: {fileID: 6875664626074797119, guid: ac1c3a84d26a97c45bf1a72dbb5b00af, type: 3}
   ShooterEnemyPrefab: {fileID: 5563381071322165230, guid: 31568eb26bb8c684f9c779da565a2560, type: 3}
   gameManager: {fileID: 0}
+  dmg_ctr: 1
   WagerCounts: 00000000000000000000000000000000000000000000000000000000
 --- !u!4 &307431533
 Transform:
@@ -19935,7 +19936,7 @@ MonoBehaviour:
   pc: {fileID: 1216564098}
   playerMoney: {fileID: 1029621072}
   gambleManager: {fileID: 307431532}
-  rewardManager: {fileID: 0}
+  rewardManager: {fileID: 1379431884}
   scoreManager: {fileID: 999764423}
   gameOverScore: {fileID: 1093744879}
   userName: {fileID: 949655840}
@@ -21390,6 +21391,7 @@ MonoBehaviour:
   player: {fileID: 1216564098}
   health: {fileID: 288039221}
   gameManager: {fileID: 1260338507}
+  gambleManager: {fileID: 307431532}
 --- !u!4 &1379431885
 Transform:
   m_ObjectHideFlags: 0

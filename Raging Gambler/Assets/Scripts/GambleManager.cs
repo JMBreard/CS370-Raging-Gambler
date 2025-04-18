@@ -26,7 +26,7 @@ public class GambleManager : MonoBehaviour
     public GameObject CurvedEnemyPrefab;
     public GameObject ShooterEnemyPrefab;
     public GameManager gameManager;
-
+    public int dmg_ctr = 1;
     public int[] WagerCounts = new int[7];
 
     private void Awake()
@@ -94,14 +94,14 @@ public class GambleManager : MonoBehaviour
         if (levelCounter <= 0) return;
 
         float scale = 1;
-        int num = Random.Range(0, 101);
-        if (num < 5)
+        int num = Random.Range(0, 100);
+        if (num < 20)
         {
-            scale = 2f;
+            scale = 10f;
         }
         else
         {
-            scale = 1.2f;
+            scale = 1.4f;
         }
 
         foreach (Wagers wager in wagers)
@@ -144,11 +144,6 @@ public class GambleManager : MonoBehaviour
     {
         switch (wager.name)
         {
-            // need to test
-            case "Enemy: damage buff":
-                health.increaseDamage();
-                break;
-
             // works
             // enemy is EnemySpawner instance
             case "Enemy: population buff":
@@ -163,36 +158,40 @@ public class GambleManager : MonoBehaviour
                 WagerCounts[1] += 1;
                 break;
 
+            // need to test
+            case "Enemy: damage buff":
+                health.increaseDamage();
+                WagerCounts[2] += 1;
+                dmg_ctr++;
+                break;
+
             // works
             // player is PlayerController instance
             case "Player: reload debuff":
                 player.increaseReloadTime();
-                WagerCounts[2] += 1;
+                WagerCounts[3] += 1;
                 break;
 
             // works
             // player is PlayerController instance
             case "Player: ammo count debuff":
                 player.decreaseMaxAmmoCount();
-                WagerCounts[3] += 1;
+                WagerCounts[4] += 1;
                 break;
 
             // works
             // health is HealthController instance
             case "Player: health debuff":
                 health.reduceMaxHealth();
-                WagerCounts[4] += 1;
+                WagerCounts[5] += 1;
                 break;
 
             // works
             // player is PlayerController instance
             case "Player: speed debuff":
                 player.reduceSpeed();
-                WagerCounts[5] += 1;
+                WagerCounts[6] += 1;
                 break;
-
-            // bugged, bullet time doesn't reset after restart
-            // bullet is ProjectileMovement instance
 
             default:
                 Debug.Log("no debuff available");

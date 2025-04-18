@@ -285,9 +285,10 @@ public class GameManager : MonoBehaviour
             incrementMoney += wager.reward * gambleManager.WagerCounts[wagerIndex];
             wagerIndex++;
         }
-        for (int i = 0; i < gambleManager.WagerCounts.Length; i++) gambleManager.WagerCounts[i] = 0;
-        Debug.Log(gambleManager.WagerCounts);
+        for (int i = 0; i < gambleManager.WagerCounts.Length; i++) { gambleManager.WagerCounts[i] = 0; }
+        // Debug.Log(gambleManager.WagerCounts);
         playerMoney.addMoney(incrementMoney);
+        rewardManager.HealthRegen();
     }
 
     private void Increment()

@@ -51,7 +51,6 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
     public void Damage()
     {
         TakeDamage(DamageAmount);
-        Debug.Log("Current health: " + currentHealth);
     }
 
 
@@ -116,7 +115,7 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
         {
             GambleManager.instance.SetCanBuy("Player: health debuff", false);
             Debug.Log("Max health is already at minimum. Current max health: " + maxHealth);
-            return; 
+            return;
         }
 
         GambleManager.instance.SetCanBuy("Player: health debuff", true);
@@ -131,7 +130,7 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
         {
             GambleManager.instance.SetCanBuy("Player: health debuff", false);
             Debug.Log("Max health is already at minimum. Current max health: " + maxHealth);
-            return; 
+            return;
         }
 
         Debug.Log("current health: " + currentHealth);
@@ -141,11 +140,17 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
     public void increaseMaxHealth()
     {
         maxHealth += 1;
-        if (maxHealth > 1) {
+        if (maxHealth > 1)
+        {
             GambleManager.instance.SetCanBuy("Player: health debuff", true);
         }
-        if (currentHealth < maxHealth) {
+        if (currentHealth < maxHealth)
+        {
             RewardManager.instance.SetCanBuy("+1 Player Health", true);
+        }
+        if (OnHealthChanged != null)
+        {
+            OnHealthChanged(this, EventArgs.Empty); //The "this" passed is the enemy at first
         }
         Debug.Log("current health: " + currentHealth);
         Debug.Log("max health: " + maxHealth);
@@ -157,22 +162,27 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
         {
             RewardManager.instance.SetCanBuy("+1 Player Health", false);
             Debug.Log("Current health is already at max. Current health: " + currentHealth);
-            return; 
+            return;
         }
 
         RewardManager.instance.SetCanBuy("+1 Player Health", true);
         currentHealth += 1;
+        if (OnHealthChanged != null)
+        {
+            OnHealthChanged(this, EventArgs.Empty); //The "this" passed is the enemy at first
+        }
         // handles edge case of being able to buy an extra buff when you can't anymore/
         if (currentHealth >= maxHealth)
         {
             RewardManager.instance.SetCanBuy("+1 Player Health", false);
             Debug.Log("Current health is already at max. Current health: " + currentHealth);
-            return; 
+            return;
         }
         Debug.Log("current health: " + currentHealth);
     }
 
-    public void increaseDamage() {
+    public void increaseDamage()
+    {
         DamageAmount += 1;
         Debug.Log(gameObject.name + "'s damage increased to " + DamageAmount);
     }
