@@ -4433,6 +4433,10 @@ PrefabInstance:
       propertyPath: playerMoney
       value: 
       objectReference: {fileID: 1029621072}
+    - target: {fileID: 3842005688937467308, guid: c09a449156b3da740a14de8f95683d22, type: 3}
+      propertyPath: gambleManager
+      value: 
+      objectReference: {fileID: 307431532}
     - target: {fileID: 4580015748671396516, guid: c09a449156b3da740a14de8f95683d22, type: 3}
       propertyPath: m_Name
       value: Player

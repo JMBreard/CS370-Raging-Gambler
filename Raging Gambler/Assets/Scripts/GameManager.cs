@@ -306,8 +306,8 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < gambleManager.WagerCounts.Length; i++) { gambleManager.WagerCounts[i] = 0; }
         // Debug.Log(gambleManager.WagerCounts);
         playerMoney.addMoney(incrementMoney);
-        rewardManager.HealthRegen();
-        if (level_counter % 5 == 0)
+        rewardManager.HealthRegen(); // Gives back health equivalent to enemy's base damage stat
+        if (level_counter % 5 == 0) // Increases enemy base stats: HP +1 and Damage +1 every 5 levels
         {
             gambleManager.ScaleEnemies();
         }
