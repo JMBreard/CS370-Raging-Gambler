@@ -91,14 +91,14 @@ public class PauseMenu : MonoBehaviour
          EnemySpawner spawner = FindAnyObjectByType<EnemySpawner>();
         if (spawner != null)
         {
-            enemyPopulationText.text = $"Enemy spawn rate: {spawner.GetSpawnRate():0.0}s";
-            enemyHealthText.text = $"Enemy health increase: +{spawner.GetEnemyHealthBuff()}";
+            enemyPopulationText.text = $"Enemy spawn rate: {spawner.spawnRate}s";
+            // enemyHealthText.text = $"Enemy health: +{spawner.enemyHealthIncreaser}";
         }
 
-        HealthController enemy = FindAnyObjectByType<Enemy>()?.GetComponent<HealthController>();
+        GambleManager enemy = FindAnyObjectByType<GambleManager>()?.GetComponent<GambleManager>();
         if (enemy != null)
         {
-            enemyDamageText.text = $"Enemy DMG: {enemy.GetDamageAmount()}";
+            enemyDamageText.text = $"Enemy DMG: {enemy.dmg_ctr}";
         }
         else
         {

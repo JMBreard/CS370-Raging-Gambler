@@ -21,7 +21,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] public int enemyHealthIncreaser = 0;
 
     [Tooltip("Time between enemy spawns")]
-    [SerializeField] private float spawnRate = 2f;
+    [SerializeField] public float spawnRate = 2f;
 
     [Tooltip("Enemies will spawn this distance away from the player's current position")]
     [SerializeField] private float spawnDistance = 10f;

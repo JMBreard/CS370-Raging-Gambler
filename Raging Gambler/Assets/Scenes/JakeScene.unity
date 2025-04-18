@@ -9147,7 +9147,7 @@ MonoBehaviour:
   ammoText: {fileID: 278928497}
   enemyDamageText: {fileID: 896165551}
   enemyPopulationText: {fileID: 1368839113}
-  enemyHealthText: {fileID: 1637560739}
+  enemyHealthText: {fileID: 0}
 --- !u!1 &612476434
 GameObject:
   m_ObjectHideFlags: 0
@@ -28842,7 +28842,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1637560739
 MonoBehaviour:
   m_ObjectHideFlags: 0
