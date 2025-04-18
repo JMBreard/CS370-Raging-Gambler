@@ -172,7 +172,7 @@ public class Rewards
 {
     public string name;
     public Sprite image;
-    public int cost;
+    [HideInInspector] public int cost;
     public int baseCost;
     public bool canBuy = true;
     [HideInInspector] public GameObject itemRef;

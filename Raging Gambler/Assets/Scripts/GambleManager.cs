@@ -25,63 +25,125 @@ public class GambleManager : MonoBehaviour
     public GameObject NormalEnemyPrefab;
     public GameObject CurvedEnemyPrefab;
     public GameObject ShooterEnemyPrefab;
+    public GameManager gameManager;
 
     public int[] WagerCounts = new int[7];
 
-    private void Awake() 
+    private void Awake()
     {
         if (instance == null)
         {
             instance = this;
-        } else {
+        }
+        else
+        {
             Destroy(gameObject);
         }
-
-        // DontDestroyOnLoad(gameObject);
     }
 
-    private void Start() {
-        foreach (Wagers wager in wagers) 
+    private void Start()
+    {
+        if (gameManager == null)
+        {
+            gameManager = FindAnyObjectByType<GameManager>();
+        }
+
+        foreach (Wagers wager in wagers)
+        {
+            wager.cost = wager.baseCost;
+            wager.reward = wager.baseReward;
+        }
+
+        foreach (Wagers wager in wagers)
         {
             GameObject item = Instantiate(wagerItem, wagerContent);
 
             wager.itemRef = item;
 
-            foreach(Transform child in item.transform)
+            foreach (Transform child in item.transform)
             {
                 if (child.gameObject.name == "Wager")
                 {
                     child.gameObject.GetComponent<TMP_Text>().text = wager.name.ToString();
-                } else if (child.gameObject.name == "Cost")
+                }
+                else if (child.gameObject.name == "Cost")
                 {
                     child.gameObject.GetComponent<TMP_Text>().text = "Stake: $" + wager.cost.ToString();
-                } else if (child.gameObject.name == "Reward")
+                }
+                else if (child.gameObject.name == "Reward")
                 {
                     child.gameObject.GetComponent<TMP_Text>().text = "Win: $" + wager.reward.ToString();
-                } else if (child.gameObject.name == "Image")
+                }
+                else if (child.gameObject.name == "Image")
                 {
                     child.gameObject.GetComponent<Image>().sprite = wager.image;
                 }
             }
 
-            item.GetComponent<Button>().onClick.AddListener(() => {
+            item.GetComponent<Button>().onClick.AddListener(() =>
+            {
                 BuyWager(wager);
-                });
+            });
         }
     }
 
-    public void BuyWager(Wagers wager) {
+    public void UpdateWagers()
+    {
+        int levelCounter = gameManager.level_counter;
+
+        if (levelCounter <= 0) return;
+
+        float scale = 1;
+        int num = Random.Range(0, 101);
+        if (num < 5)
+        {
+            scale = 2f;
+        }
+        else
+        {
+            scale = 1.2f;
+        }
+
+        foreach (Wagers wager in wagers)
+        {
+            // Calculate cost and reward based on base cost and reward and scaling with level
+            wager.cost = Mathf.RoundToInt(wager.baseCost * (1 + levelCounter * 1.1f / 10));
+            wager.reward = Mathf.RoundToInt(wager.baseReward * (1 + levelCounter * scale / 10));
+
+            // Update UI if the item reference exists
+            if (wager.itemRef != null)
+            {
+                foreach (Transform child in wager.itemRef.transform)
+                {
+                    if (child.gameObject.name == "Cost")
+                    {
+                        child.gameObject.GetComponent<TMP_Text>().text = "Cost: $" + wager.cost.ToString();
+                    }
+                    else if (child.gameObject.name == "Reward")
+                    {
+                        child.gameObject.GetComponent<TMP_Text>().text = "Win: $" + wager.reward.ToString();
+                    }
+                }
+            }
+        }
+    }
+
+    public void BuyWager(Wagers wager)
+    {
         int currentMoney = playerMoney.money;
-        if (currentMoney >= wager.cost && wager.canBuy) {
+        if (currentMoney >= wager.cost && wager.canBuy)
+        {
             playerMoney.subtractMoney(wager.cost);
             playerMoney.UpdateMoneyText();
             ApplyWager(wager);
         }
-        
+
     }
 
-    public void ApplyWager(Wagers wager) {
-        switch(wager.name) {
+    public void ApplyWager(Wagers wager)
+    {
+        switch (wager.name)
+        {
             // need to test
             case "Enemy: damage buff":
                 health.increaseDamage();
@@ -107,7 +169,7 @@ public class GambleManager : MonoBehaviour
                 player.increaseReloadTime();
                 WagerCounts[2] += 1;
                 break;
-            
+
             // works
             // player is PlayerController instance
             case "Player: ammo count debuff":
@@ -131,7 +193,7 @@ public class GambleManager : MonoBehaviour
 
             // bugged, bullet time doesn't reset after restart
             // bullet is ProjectileMovement instance
-            
+
             default:
                 Debug.Log("no debuff available");
                 break;
@@ -151,23 +213,25 @@ public class GambleManager : MonoBehaviour
         }
     }
 
-    public void ToggleShop() 
+    public void ToggleShop()
     {
+        if (!shopUI.activeSelf)
+        {
+            UpdateWagers();
+        }
         shopUI.SetActive(!shopUI.activeSelf);
     }
-
-    // private void OnGUI() {
-    //     coinText.text = "Coins: " + coins.ToString();
-    // }
 }
 
 [System.Serializable]
-public class Wagers {
+public class Wagers
+{
     public string name;
     public int cost;
+    public int baseCost;
     public int reward;
+    public int baseReward;
     public Sprite image;
     public bool canBuy = true;
-    // [HideInInspector] public int quantity;
     [HideInInspector] public GameObject itemRef;
 }

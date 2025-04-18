@@ -6275,44 +6275,58 @@ MonoBehaviour:
   playerMoney: {fileID: 1029621072}
   wagers:
   - name: 'Enemy: damage buff'
-    cost: 1
-    reward: 100
+    cost: 0
+    baseCost: 20
+    reward: 0
+    baseReward: 27
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Enemy: population buff'
-    cost: 1
-    reward: 100
+    cost: 0
+    baseCost: 40
+    reward: 0
+    baseReward: 60
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Enemy: health buff'
-    cost: 1
-    reward: 200
+    cost: 0
+    baseCost: 40
+    reward: 0
+    baseReward: 60
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Player: reload debuff'
-    cost: 1
-    reward: 100
+    cost: 0
+    baseCost: 20
+    reward: 0
+    baseReward: 30
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Player: ammo count debuff'
-    cost: 1
-    reward: 100
+    cost: 0
+    baseCost: 20
+    reward: 0
+    baseReward: 27
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Player: health debuff'
-    cost: 1
-    reward: 120
+    cost: 0
+    baseCost: 40
+    reward: 0
+    baseReward: 65
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Player: speed debuff'
-    cost: 1
-    reward: 100
+    cost: 0
+    baseCost: 40
+    reward: 0
+    baseReward: 65
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
@@ -6326,6 +6340,7 @@ MonoBehaviour:
   NormalEnemyPrefab: {fileID: 7138375181999766197, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
   CurvedEnemyPrefab: {fileID: 6875664626074797119, guid: ac1c3a84d26a97c45bf1a72dbb5b00af, type: 3}
   ShooterEnemyPrefab: {fileID: 5563381071322165230, guid: 31568eb26bb8c684f9c779da565a2560, type: 3}
+  gameManager: {fileID: 0}
   WagerCounts: 00000000000000000000000000000000000000000000000000000000
 --- !u!4 &307431533
 Transform:
