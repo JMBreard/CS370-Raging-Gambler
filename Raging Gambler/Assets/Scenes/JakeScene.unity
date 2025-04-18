@@ -4410,6 +4410,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3837246040113604521, guid: c09a449156b3da740a14de8f95683d22, type: 3}
+      propertyPath: _speed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3837246040113604521, guid: c09a449156b3da740a14de8f95683d22, type: 3}
       propertyPath: ammoText
       value: 
       objectReference: {fileID: 1294351816}
@@ -19931,7 +19935,9 @@ MonoBehaviour:
   remainingTime: 5
   remainingEnemies: {fileID: 1837252447}
   enemySpawner: {fileID: 1589405769}
+  enemySpawnerComponent: {fileID: 1589405770}
   enemiesNeeded: 1
+  healthController: {fileID: 288039221}
   nextRoomUI: {fileID: 1623653709}
   roomType: {fileID: 1083433304}
   winCondition: {fileID: 545868396}

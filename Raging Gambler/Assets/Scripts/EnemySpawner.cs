@@ -91,7 +91,7 @@ public class EnemySpawner : MonoBehaviour
         // Determine spawn position relative to the player.
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
         Vector3 spawnPosition = spawnLocation.position + (Vector3)(randomDirection * spawnDistance);
-        while((spawnPosition.x <= playerTransform.position.x + distanceFromPlayer && spawnPosition.x >= playerTransform.position.x - distanceFromPlayer) && (spawnPosition.y <= playerTransform.position.y + distanceFromPlayer && spawnPosition.y >= playerTransform.position.y - distanceFromPlayer))
+        while ((spawnPosition.x <= playerTransform.position.x + distanceFromPlayer && spawnPosition.x >= playerTransform.position.x - distanceFromPlayer) && (spawnPosition.y <= playerTransform.position.y + distanceFromPlayer && spawnPosition.y >= playerTransform.position.y - distanceFromPlayer))
         {
             Debug.Log("Too Close to player, Picking new location");
             randomDirection = Random.insideUnitCircle.normalized;
@@ -147,10 +147,20 @@ public class EnemySpawner : MonoBehaviour
 
     }
 
+    public void DecreaseSpawnRate()
+    {
+        spawnRate += 0.5f;
+    }
+
     public void addEnemyHealth()
     {
         enemyHealthIncreaser += 1;
         Debug.Log("Current enemy health is increased by: " + enemyHealthIncreaser);
+    }
+
+    public void SubtractEnemyHealth()
+    {
+        enemyHealthIncreaser -= 1;
     }
 
     // getters for spawn rate and the enemy health increaser

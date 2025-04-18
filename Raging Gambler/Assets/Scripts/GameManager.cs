@@ -33,8 +33,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] float remainingTime;
     [SerializeField] TextMeshProUGUI remainingEnemies;
     public GameObject enemySpawner;
+    public EnemySpawner enemySpawnerComponent;
 
     [SerializeField] int enemiesNeeded;
+
+    public HealthController healthController;
 
     private bool timeRoom;
     private bool enemyRoom;
@@ -283,12 +286,25 @@ public class GameManager : MonoBehaviour
         foreach (Wagers wager in gambleManager.wagers)
         {
             incrementMoney += wager.reward * gambleManager.WagerCounts[wagerIndex];
+            if (gambleManager.WagerCounts[wagerIndex] > 0)
+            {
+                for (int i = 0; i < gambleManager.WagerCounts[wagerIndex]; i++)
+                {
+                    if (wagerIndex == 0) { enemySpawnerComponent.DecreaseSpawnRate(); Debug.Log("Spawn Rate reset!!!"); } // enemy population reset
+                    if (wagerIndex == 1) { enemySpawnerComponent.SubtractEnemyHealth(); Debug.Log("Health reset!!!"); } // enemy health reset
+                    if (wagerIndex == 2) { healthController.DecreaseDamage(); Debug.Log("Damage reset!!!"); } // enemy dmg reset
+                }
+            }
             wagerIndex++;
         }
         for (int i = 0; i < gambleManager.WagerCounts.Length; i++) { gambleManager.WagerCounts[i] = 0; }
         // Debug.Log(gambleManager.WagerCounts);
         playerMoney.addMoney(incrementMoney);
         rewardManager.HealthRegen();
+        if (level_counter % 5 == 0)
+        {
+            gambleManager.ScaleEnemies();
+        }
     }
 
     private void Increment()

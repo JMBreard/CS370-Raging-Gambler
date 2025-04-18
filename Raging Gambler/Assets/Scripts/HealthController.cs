@@ -187,6 +187,11 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
         Debug.Log(gameObject.name + "'s damage increased to " + DamageAmount);
     }
 
+    public void DecreaseDamage()
+    {
+        DamageAmount -= 1;
+    }
+
     public void Steal()
     {
         playerMoney.subtractMoney(gameManager.level_counter * 2);

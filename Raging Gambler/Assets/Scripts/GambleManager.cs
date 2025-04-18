@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Xml.Serialization;
 
 public class GambleManager : MonoBehaviour
 {
@@ -93,7 +94,7 @@ public class GambleManager : MonoBehaviour
 
         if (levelCounter <= 0) return;
 
-        float scale = 1;
+        float scale;
         int num = Random.Range(0, 100);
         if (num < 20)
         {
@@ -197,6 +198,12 @@ public class GambleManager : MonoBehaviour
                 Debug.Log("no debuff available");
                 break;
         }
+    }
+
+    public void ScaleEnemies()
+    {
+        enemySpawner.addEnemyHealth();
+        health.increaseDamage();
     }
 
     public void SetCanBuy(string wagerName, bool value)
