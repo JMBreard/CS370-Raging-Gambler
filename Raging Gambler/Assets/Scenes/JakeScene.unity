@@ -28432,7 +28432,7 @@ MonoBehaviour:
   playerTransform: {fileID: 1216564100}
   playerMoney: {fileID: 1029621072}
   spawnLocation: {fileID: 1260338508}
-  distanceFromPlayer: 0
+  distanceFromPlayer: 1.5
 --- !u!4 &1589405771
 Transform:
   m_ObjectHideFlags: 0
