@@ -6278,14 +6278,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMoney: {fileID: 1029621072}
   wagers:
-  - name: 'Enemy: damage buff'
-    cost: 0
-    baseCost: 20
-    reward: 0
-    baseReward: 27
-    image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-    canBuy: 1
-    itemRef: {fileID: 0}
   - name: 'Enemy: population buff'
     cost: 0
     baseCost: 40
@@ -6299,6 +6291,14 @@ MonoBehaviour:
     baseCost: 40
     reward: 0
     baseReward: 60
+    image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    canBuy: 1
+    itemRef: {fileID: 0}
+  - name: 'Enemy: damage buff'
+    cost: 0
+    baseCost: 20
+    reward: 0
+    baseReward: 27
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
@@ -9128,8 +9128,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e72d16ed0b4e2a94db433c45ec6f3881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePaused: 0
   pauseMenu: {fileID: 813400029}
   playerStatsPanel: {fileID: 1620310761}
+  gm: {fileID: 0}
   healthText: {fileID: 957037871}
   maxHealthText: {fileID: 702085114}
   speedText: {fileID: 1340188606}
@@ -19952,11 +19954,13 @@ MonoBehaviour:
   gameOverScore: {fileID: 1093744879}
   userName: {fileID: 949655840}
   leaderBoardDebug: 0
+  gamePaused: 0
   pauseMenu: {fileID: 813400029}
   tutorial: 0
   tutorialStart: {fileID: 0}
   tutorialGameOverScreen: {fileID: 0}
   tutorialScore: {fileID: 0}
+  pm: {fileID: 0}
 --- !u!4 &1260338508
 Transform:
   m_ObjectHideFlags: 0
