@@ -150,6 +150,10 @@ public class EnemySpawner : MonoBehaviour
     public void DecreaseSpawnRate()
     {
         spawnRate += 0.5f;
+        if (spawnRate > 0.5f)
+        {
+            GambleManager.instance.SetCanBuy("Enemy: population buff", true);
+        }
     }
 
     public void addEnemyHealth()
