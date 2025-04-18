@@ -96,7 +96,7 @@ public class ObsctacleSpawner : MonoBehaviour
                 float xPosition = Random.Range(-xRange, xRange);
                 float yPosition = Random.Range(-yRange, yRange);
                 randomPosition.x += xPosition;
-                randomPosition.y += yPosition;
+                randomPosition.y += yPosition - 2;
 
                 obstaclePool[i].transform.position = randomPosition;
                 obstaclePool[i].SetActive(true);

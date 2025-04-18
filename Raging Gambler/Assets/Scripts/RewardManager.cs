@@ -33,7 +33,6 @@ public class RewardManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("RewardManager Start called");
 
         if (gameManager == null)
         {
@@ -43,7 +42,6 @@ public class RewardManager : MonoBehaviour
         foreach (Rewards reward in rewards)
         {
             reward.cost = reward.baseCost;
-            Debug.Log("Initialized " + reward.name + " with base cost: " + reward.baseCost);
         }
 
         foreach (Rewards reward in rewards)
@@ -51,7 +49,6 @@ public class RewardManager : MonoBehaviour
             GameObject item = Instantiate(rewardPrefab, rewardContent);
 
             reward.itemRef = item;
-            Debug.Log("Created UI item for " + reward.name);
 
             foreach (Transform child in item.transform)
             {
@@ -62,7 +59,6 @@ public class RewardManager : MonoBehaviour
                 else if (child.gameObject.name == "Cost")
                 {
                     child.gameObject.GetComponent<TMP_Text>().text = "Cost: $" + reward.cost.ToString();
-                    Debug.Log("Set initial cost text for " + reward.name + ": $" + reward.cost);
                 }
                 else if (child.gameObject.name == "Image")
                 {
@@ -87,8 +83,6 @@ public class RewardManager : MonoBehaviour
         {
             // Calculate cost based on base cost and scaling with level
             reward.cost = Mathf.RoundToInt(reward.baseCost * (1 + levelCounter * 1.5f / 10));
-
-            Debug.Log("Display cost: " + reward.cost);
 
             // Update UI if the item reference exists
             if (reward.itemRef != null)
@@ -164,8 +158,6 @@ public class RewardManager : MonoBehaviour
 
     public void ToggleShop()
     {
-        Debug.Log("ToggleShop called, updating costs");
-
         if (!rewardUI.activeSelf)
         {
             UpdateRewardCosts();
