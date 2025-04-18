@@ -19951,8 +19951,8 @@ MonoBehaviour:
   nextRoomUI: {fileID: 1623653709}
   roomType: {fileID: 1083433304}
   winCondition: {fileID: 545868396}
-  level_counter: 0
-  time_difficulty: 5
+  level_counter: 1
+  time_difficulty: 3
   enemy_count_difficulty: 1
   pc: {fileID: 1216564098}
   playerMoney: {fileID: 1029621072}

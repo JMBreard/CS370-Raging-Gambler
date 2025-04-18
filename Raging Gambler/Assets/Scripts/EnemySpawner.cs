@@ -112,7 +112,6 @@ public class EnemySpawner : MonoBehaviour
         if (healthController != null)
         {
             healthController.playerMoney = playerMoney;
-            Debug.Log("Assigned PlayerMoney to new enemy: " + enemy.name);
         }
         else
         {

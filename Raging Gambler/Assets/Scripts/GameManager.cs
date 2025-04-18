@@ -307,9 +307,10 @@ public class GameManager : MonoBehaviour
         // Debug.Log(gambleManager.WagerCounts);
         playerMoney.addMoney(incrementMoney);
         rewardManager.HealthRegen(); // Gives back health equivalent to enemy's base damage stat
-        if (level_counter % 5 == 0) // Increases enemy base stats: HP +1 and Damage +1 every 5 levels
+        if (level_counter % 5 == 0) // Increases enemy base stats: HP +1 and Damage +1 & Player base max HP +1 every 5 levels
         {
             gambleManager.ScaleEnemies();
+            healthController.increaseMaxHealth();
         }
     }
 
