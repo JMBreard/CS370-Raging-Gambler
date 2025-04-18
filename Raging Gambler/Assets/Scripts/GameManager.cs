@@ -67,16 +67,18 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] public bool leaderBoardDebug;
 
-    bool gamePaused = false;
+    public bool gamePaused = false;
     public GameObject pauseMenu;
     [SerializeField] public bool tutorial;
     public GameObject tutorialStart;
     public GameObject tutorialGameOverScreen;
     public TextMeshProUGUI tutorialScore;
     private bool menuShowing = false;
+    public PauseMenu pm;
 
     private void Awake()
     {
+        enemySpawner.gameObject.SetActive(false);
         if (tutorial)
         {
             tutorialStart.gameObject.SetActive(true);
@@ -100,14 +102,18 @@ public class GameManager : MonoBehaviour
     }
     public void StartTutorial()
     {
-        Time.timeScale = 1.0f;
-        menuShowing = false;
-        gameOverUI.SetActive(false);
-        tutorialStart.gameObject.SetActive(false);
-        enemySpawner.SetActive(true);
-        pc = (PlayerController)GameObject.FindWithTag("Player").GetComponent("PlayerController");
-        pc.toggleShooting();
-        pc.toggleMovement();
+        if(!pm.gamePaused && !gamePaused)
+        {
+            Debug.Log("Tutorial Started");
+            Time.timeScale = 1.0f;
+            menuShowing = false;
+            gameOverUI.SetActive(false);
+            tutorialStart.gameObject.SetActive(false);
+            enemySpawner.SetActive(true);
+            pc = (PlayerController)GameObject.FindWithTag("Player").GetComponent("PlayerController");
+            pc.toggleShooting();
+            pc.toggleMovement();
+        }
     }
 
     public void GameOver()
@@ -350,12 +356,14 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 0;
             gamePaused = true;
+            pm.gamePaused = true;
             pauseMenu.SetActive(true);
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && gamePaused == true)
         {
             Time.timeScale = 1;
             gamePaused = false;
+            pm.gamePaused = false;
             pauseMenu.SetActive(false);
         }
     }
