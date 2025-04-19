@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 6992d9192e371ce4d8bd71a2ce849642, type: 2}
+    - target: {fileID: 1655236447584818902, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3674671375409909789, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -47,6 +51,10 @@ PrefabInstance:
     - target: {fileID: 7138375181999766197, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
       propertyPath: m_Name
       value: Shooter Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7849606018774635542, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9137329030014115116, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
       propertyPath: m_LocalPosition.x

@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] AudioSource buttonClicked;
     [SerializeField] AudioSource doorOpen;
+    [SerializeField] AudioSource[] enemyDeathList;
     bool exit = false;
 
     private void Awake()
@@ -155,9 +156,15 @@ public class GameManager : MonoBehaviour
             Destroy(enemy);
         }
     }
+    AudioSource pickRandomEnemyDeathSound()
+    {
+        int soundIndex = Random.Range(0, enemyDeathList.Length);
+        return enemyDeathList[soundIndex];
+    }
 
     public void EnemiesLeftUpdate()
     {
+        pickRandomEnemyDeathSound().Play();
         if (enemyRoom)
         {
             enemiesNeeded--;
