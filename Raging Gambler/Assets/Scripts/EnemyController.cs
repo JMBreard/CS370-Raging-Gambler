@@ -32,11 +32,21 @@ public class Enemy : MonoBehaviour
     {
         if (player != null)
         {
-            // Move towards the player in a straight line.
             Vector2 direction = ((Vector2)player.position - rb.position).normalized;
+            RaycastHit2D hit = Physics2D.CircleCast(rb.position, 0.4f, direction, 1f, LayerMask.GetMask("Obstacles"));
+
+            if (hit.collider != null) {
+            // Steer to the right of the obstacle
+            Vector2 avoidDir = Vector2.Perpendicular(hit.normal).normalized;
+            rb.MovePosition(rb.position + avoidDir * speed * Time.fixedDeltaTime);
+            } else {
+            // Go straight toward player
             rb.MovePosition(rb.position + direction * speed * Time.fixedDeltaTime);
+            }
         }
     }
+
+    
 
     void OnCollisionEnter2D(Collision2D collision)
     {

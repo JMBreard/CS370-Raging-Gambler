@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 642278633772734441}
   - component: {fileID: 8323078354699052460}
   - component: {fileID: 9129086015221680873}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Obstacle
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -107,6 +107,8 @@ MonoBehaviour:
   healthbar: {fileID: 0}
   playerMoney: {fileID: 0}
   gameManager: {fileID: 0}
+  gambleManager: {fileID: 0}
+  enemyDamageList: []
 --- !u!61 &9129086015221680873
 BoxCollider2D:
   m_ObjectHideFlags: 0
