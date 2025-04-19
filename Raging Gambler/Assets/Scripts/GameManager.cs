@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioSource buttonClicked;
     [SerializeField] AudioSource doorOpen;
     [SerializeField] AudioSource[] enemyDeathList;
+    [SerializeField] AudioSource gameOver;
     bool exit = false;
 
     private void Awake()
@@ -125,6 +126,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        gameOver.Play();
         if (tutorial)
         {
             tutorialGameOver();
