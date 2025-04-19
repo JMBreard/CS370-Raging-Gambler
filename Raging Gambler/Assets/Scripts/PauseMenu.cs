@@ -22,9 +22,13 @@ public class PauseMenu : MonoBehaviour
     public TextMeshProUGUI enemyPopulationText;
     public TextMeshProUGUI enemyHealthText;
 
+    [SerializeField] AudioSource buttonClicked;
+    bool restart = false;
+
     public void Pause()
     {
         UpdateStats();
+        buttonClicked.Play();
         if(!gamePaused)
         {
             pauseMenu.SetActive(true);
@@ -45,6 +49,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        buttonClicked.Play();
         Time.timeScale = 1;
         gamePaused = false;
         gm.gamePaused = false;
@@ -54,14 +59,30 @@ public class PauseMenu : MonoBehaviour
 
     public void Restart()
     {
-        Destroy(GameObject.FindWithTag("Player"));
         Time.timeScale = 1;
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+        buttonClicked.Play();
+        restart = true;
+        StartCoroutine(WaitForSoundToFinish());
+        
     }
 
     public void Quit()
     {
-        SceneManager.LoadScene("Title Scene");
+        buttonClicked.Play();
+        StartCoroutine(WaitForSoundToFinish());
+    }
+
+    IEnumerator WaitForSoundToFinish()
+    {
+        yield return new WaitUntil(() => !buttonClicked.isPlaying);
+        if (restart)
+        {
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+        }
+        else
+        {
+            SceneManager.LoadScene("Title Scene");
+        }
     }
 
     public void UpdateStats()

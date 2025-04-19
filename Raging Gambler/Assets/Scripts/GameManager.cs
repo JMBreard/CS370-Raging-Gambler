@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -76,6 +78,9 @@ public class GameManager : MonoBehaviour
     private bool menuShowing = false;
     public PauseMenu pm;
 
+    [SerializeField] AudioSource buttonClicked;
+    bool exit = false;
+
     private void Awake()
     {
         enemySpawner.gameObject.SetActive(false);
@@ -105,6 +110,7 @@ public class GameManager : MonoBehaviour
         if (!pm.gamePaused && !gamePaused)
         {
             Debug.Log("Tutorial Started");
+            buttonClicked.Play();
             Time.timeScale = 1.0f;
             menuShowing = false;
             gameOverUI.SetActive(false);
@@ -176,27 +182,32 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        if (tutorial)
-        {
-            SceneManager.LoadScene("Tutorial Scene");
-        }
-        else
-        {
-            if (userName.text == "")
-            {
-                userName.text = "Player " + scoreManager.playerCount;
-                scoreManager.playerCount++;
-            }
-            scoreManager.addEntry(playerMoney.money, userName.text);
-            SceneManager.LoadScene("Title Scene");
-        }
+        buttonClicked.Play();
+        StartCoroutine(WaitForSoundToFinish());
     }
 
     public void Exit()
     {
-        // Reset time scale
-        Time.timeScale = 1f;
-        if (!leaderBoardDebug && !tutorial)
+        buttonClicked.Play();
+        exit = true;
+        StartCoroutine(WaitForSoundToFinish());
+    }
+    IEnumerator WaitForSoundToFinish()
+    {
+        yield return new WaitUntil(() => !buttonClicked.isPlaying);
+        if(tutorial)
+        {
+            if(exit)
+            {
+                SceneManager.LoadScene("Title Scene");
+            }
+            else
+            {
+                SceneManager.LoadScene("Tutorial Scene");
+            }
+            
+        }
+        else
         {
             if (userName.text == "")
             {
@@ -206,11 +217,6 @@ public class GameManager : MonoBehaviour
             scoreManager.addEntry(playerMoney.money, userName.text);
             SceneManager.LoadScene("Title Scene");
         }
-        else
-        {
-            SceneManager.LoadScene("Title Scene");
-        }
-
     }
 
     public void pickRoomCondition()
@@ -355,6 +361,7 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape) && gamePaused == false)
         {
+            buttonClicked.Play();
             Time.timeScale = 0;
             gamePaused = true;
             pm.gamePaused = true;
@@ -362,6 +369,7 @@ public class GameManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && gamePaused == true)
         {
+            buttonClicked.Play();
             Time.timeScale = 1;
             gamePaused = false;
             pm.gamePaused = false;
@@ -396,6 +404,7 @@ public class GameManager : MonoBehaviour
 
     public void moveToShop()
     {
+        buttonClicked.Play();
         nextRoomUI.gameObject.SetActive(false);
         if (level_counter % 3 == 0)
         {
@@ -408,6 +417,7 @@ public class GameManager : MonoBehaviour
     }
     public void startRoom()
     {
+        buttonClicked.Play();
         enemySpawner.gameObject.SetActive(true);
         if (tutorial)
         {
