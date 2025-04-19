@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -14,6 +15,7 @@ public class Enemy : MonoBehaviour
     private Coroutine dmgCoroutine;
     private string enemyType; // Enemy type corresponds with trait action
     public HealthController currentHealth;
+    private SpriteRenderer spriteRenderer;
 
 
 
@@ -25,6 +27,7 @@ public class Enemy : MonoBehaviour
         {
             gameManager = FindAnyObjectByType<GameManager>();
         }
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Set to virtual to allow override in child classes.
@@ -32,6 +35,7 @@ public class Enemy : MonoBehaviour
     {
         if (player != null)
         {
+            
             Vector2 direction = ((Vector2)player.position - rb.position).normalized;
             RaycastHit2D hit = Physics2D.CircleCast(rb.position, 0.4f, direction, 1f, LayerMask.GetMask("Obstacles"));
 
@@ -43,6 +47,15 @@ public class Enemy : MonoBehaviour
             // Go straight toward player
             rb.MovePosition(rb.position + direction * speed * Time.fixedDeltaTime);
             }
+
+            if (direction.x == 0) {
+                return;
+            }else if (direction.x < 0){
+                spriteRenderer.flipX = true;
+            } else {
+                spriteRenderer.flipX = false;
+            }
+
         }
     }
 
