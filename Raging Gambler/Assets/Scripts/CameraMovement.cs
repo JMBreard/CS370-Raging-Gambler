@@ -14,7 +14,7 @@ public class CameraMovement : MonoBehaviour
 
     public void MoveToNewRoom(Transform newRoom)
     { //Sets a new X and Y position for the camera based on the new room given
-        currentPosX = newRoom.position.x;
-        currentPosY = newRoom.position.y - 1.5f;
+        currentPosX = newRoom.position.x + 0.25f;
+        currentPosY = newRoom.position.y - 1.6f;
     }
 }
