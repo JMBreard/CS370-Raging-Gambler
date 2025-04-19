@@ -195,9 +195,9 @@ public class GameManager : MonoBehaviour
     IEnumerator WaitForSoundToFinish()
     {
         yield return new WaitUntil(() => !buttonClicked.isPlaying);
-        if(tutorial)
+        if (tutorial)
         {
-            if(exit)
+            if (exit)
             {
                 SceneManager.LoadScene("Title Scene");
             }
@@ -205,7 +205,7 @@ public class GameManager : MonoBehaviour
             {
                 SceneManager.LoadScene("Tutorial Scene");
             }
-            
+
         }
         else
         {

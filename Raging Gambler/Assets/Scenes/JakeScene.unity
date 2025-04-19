@@ -20163,9 +20163,9 @@ MonoBehaviour:
   remainingTime: 5
   remainingEnemies: {fileID: 1837252447}
   enemySpawner: {fileID: 1589405769}
-  enemySpawnerComponent: {fileID: 0}
+  enemySpawnerComponent: {fileID: 1589405770}
   enemiesNeeded: 1
-  healthController: {fileID: 0}
+  healthController: {fileID: 288039221}
   nextRoomUI: {fileID: 1623653709}
   roomType: {fileID: 1083433304}
   winCondition: {fileID: 545868396}
