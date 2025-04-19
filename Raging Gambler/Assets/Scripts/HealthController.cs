@@ -206,6 +206,7 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
 
     public void Steal()
     {
+        gameManager.playStealSound();
         playerMoney.subtractMoney(gameManager.level_counter * 2);
     }
 

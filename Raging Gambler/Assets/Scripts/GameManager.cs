@@ -81,6 +81,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioSource doorOpen;
     [SerializeField] AudioSource[] enemyDeathList;
     [SerializeField] AudioSource gameOver;
+    [SerializeField] AudioSource stealMoney;
     bool exit = false;
 
     private void Awake()
@@ -123,7 +124,10 @@ public class GameManager : MonoBehaviour
             pc.toggleMovement();
         }
     }
-
+    public void playStealSound()
+    {
+        stealMoney.Play();
+    }
     public void GameOver()
     {
         gameOver.Play();
