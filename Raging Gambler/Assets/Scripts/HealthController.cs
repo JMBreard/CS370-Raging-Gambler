@@ -1,6 +1,4 @@
 using System;
-using JetBrains.Annotations;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
@@ -22,6 +20,8 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
     public GambleManager gambleManager;
 
     int DamageAmount = 1;
+
+    [SerializeField] AudioSource[] enemyDamageList;
 
 
     void Start()
@@ -68,6 +68,10 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
             currentHealth = 0; // Prevent health from going below zero
             Die();
         }
+        else if(CompareTag("Enemy"))
+        {
+            pickRandomEnemyHurtSound().Play();
+        }
 
         if (OnHealthChanged != null)
         {
@@ -75,6 +79,11 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
         }
     }
 
+    AudioSource pickRandomEnemyHurtSound()
+    {
+        int soundIndex = UnityEngine.Random.Range(0, enemyDamageList.Length);
+        return enemyDamageList[soundIndex];
+    }
     void Die()
     {
         if (isDead)

@@ -44,6 +44,14 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5746704200580065444, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+      propertyPath: 'enemyDamageList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 3778906247056564172}
+    - target: {fileID: 5746704200580065444, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+      propertyPath: 'enemyDamageList.Array.data[1]'
+      value: 
+      objectReference: {fileID: 3778906247056564172}
     - target: {fileID: 7138375181999766197, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
       propertyPath: m_Name
       value: Fast Enemy Variant
@@ -108,6 +116,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 96892086997579285}
   m_SourcePrefab: {fileID: 100100000, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+--- !u!82 &3778906247056564172 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 579418240546545990, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+  m_PrefabInstance: {fileID: 4358322135973183114}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6875664626074797119 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7138375181999766197, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}

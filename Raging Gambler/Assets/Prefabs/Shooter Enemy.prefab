@@ -36,6 +36,14 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5746704200580065444, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+      propertyPath: 'enemyDamageList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2751420242850608157}
+    - target: {fileID: 5746704200580065444, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+      propertyPath: 'enemyDamageList.Array.data[1]'
+      value: 
+      objectReference: {fileID: 278948297837648099}
     - target: {fileID: 7138375181999766197, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
       propertyPath: m_Name
       value: Shooter Enemy
@@ -89,6 +97,16 @@ PrefabInstance:
       insertIndex: 2
       addedObject: {fileID: 3956378278721478691}
   m_SourcePrefab: {fileID: 100100000, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+--- !u!82 &278948297837648099 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3313107863149563320, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+  m_PrefabInstance: {fileID: 3325208983857616219}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &2751420242850608157 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 579418240546545990, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
+  m_PrefabInstance: {fileID: 3325208983857616219}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5563381071322165230 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7138375181999766197, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
