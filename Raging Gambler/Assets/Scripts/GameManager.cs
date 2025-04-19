@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
     public PauseMenu pm;
 
     [SerializeField] AudioSource buttonClicked;
+    [SerializeField] AudioSource doorOpen;
     bool exit = false;
 
     private void Awake()
@@ -285,6 +286,7 @@ public class GameManager : MonoBehaviour
                 comeFromRoom = 2;
                 break;
         }
+        doorOpen.Play();
         nextRoom.transform.position = newPos; //Sets the transformation of the next room to whatever direction was picked
         nextRoom.gameObject.SetActive(true); //Turns on the next room
         nextDoor.gameObject.SetActive(false); //Turns off the next door
@@ -417,10 +419,10 @@ public class GameManager : MonoBehaviour
     }
     public void startRoom()
     {
-        buttonClicked.Play();
         enemySpawner.gameObject.SetActive(true);
         if (tutorial)
         {
+            buttonClicked.Play();
             return;
         }
         if (timeRoom)
@@ -434,6 +436,7 @@ public class GameManager : MonoBehaviour
         }
         if (!firstRoom)
         {
+            buttonClicked.Play();
             pc.toggleShooting();
             pc.toggleMovement();
             if (level_counter % 3 == 0)
