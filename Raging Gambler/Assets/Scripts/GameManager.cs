@@ -130,6 +130,7 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
+        scoreManager.mainGameMusic.Stop();
         gameOver.Play();
         if (tutorial)
         {

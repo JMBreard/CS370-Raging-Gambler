@@ -17,10 +17,18 @@ public class ScoreManager : MonoBehaviour
     }
     public List<scoreEntry> scoreList = new List<scoreEntry>();
     public int playerCount = 1;
-
+    [SerializeField] public AudioSource mainGameMusic;
+    private void Awake()
+    {
+        if (GameObject.FindGameObjectsWithTag("Score").Length > 1)
+        {
+            Destroy(this);
+        }
+    }
     void Start()
     {
         DontDestroyOnLoad(this);
+        mainGameMusic.Play();
     }
 
     void sortList()
