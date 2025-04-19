@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     private bool canShoot = true;
     private bool canMove = true;
 
+    [SerializeField] AudioSource gunShoot;
+
 
     void Awake()
     {
@@ -99,12 +101,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-
-
-
-
-
     private void Fire_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         Fire();
@@ -121,6 +117,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_currentAmmoCount > 0 && _canFire && canShoot)
         {
+            gunShoot.Play();
             _currentAmmoCount--;
             // Gets a bullet from the bullet pool
             GameObject bullet = PoolManager.Instance.RequestBullet();
