@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 97431099250403947}
   - component: {fileID: 5053553304485931349}
   - component: {fileID: 5746704200580065444}
-  - component: {fileID: 2352911150641124729}
+  - component: {fileID: 722218172070652082}
   - component: {fileID: -748969110378875211}
   m_Layer: 7
   m_Name: Enemy
@@ -158,8 +158,8 @@ MonoBehaviour:
   enemyDamageList:
   - {fileID: 579418240546545990}
   - {fileID: 3313107863149563320}
---- !u!61 &2352911150641124729
-BoxCollider2D:
+--- !u!70 &722218172070652082
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -192,18 +192,9 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.2, y: 0.2}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0.006092274, y: -0.034710288}
+  m_Size: {x: 0.20218456, y: 0.22942062}
+  m_Direction: 0
 --- !u!95 &-748969110378875211
 Animator:
   serializedVersion: 7

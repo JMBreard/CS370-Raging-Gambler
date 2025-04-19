@@ -48,17 +48,19 @@ public class Enemy : MonoBehaviour
             rb.MovePosition(rb.position + direction * speed * Time.fixedDeltaTime);
             }
 
-            if (direction.x == 0) {
-                return;
-            }else if (direction.x < 0){
-                spriteRenderer.flipX = true;
-            } else {
-                spriteRenderer.flipX = false;
-            }
-
+           FlipSprite(direction.x);
         }
     }
 
+    protected void FlipSprite(float xDirection)
+    {
+        if (xDirection < 0f) {
+            spriteRenderer.flipX = true;
+        }      
+        else if (xDirection > 0f){
+            spriteRenderer.flipX = false;
+        } 
+    }
     
 
     void OnCollisionEnter2D(Collision2D collision)

@@ -3,9 +3,9 @@ using UnityEngine;
 public class CurvedEnemy : Enemy
 {
     // Controls the intensity of the curve.
-    public float curveAmplitude = 0.5f;
+    public float curveAmplitude = 0.3f;
     // Controls how fast the curve oscillates.
-    public float curveFrequency = 2f;
+    public float curveFrequency = 1f;
 
     protected override void FixedUpdate() // Overides from Enemy Controller
     {
@@ -25,6 +25,8 @@ public class CurvedEnemy : Enemy
 
             // Move using the curved direction.
             rb.MovePosition(rb.position + curvedDirection * speed * Time.fixedDeltaTime);
+
+            FlipSprite(direction.x);
         }
     }
 }
