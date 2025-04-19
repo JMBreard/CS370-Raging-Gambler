@@ -6417,57 +6417,57 @@ MonoBehaviour:
   wagers:
   - name: 'Enemy: population buff'
     cost: 0
-    baseCost: 0
+    baseCost: 25
     reward: 0
-    baseReward: 0
+    baseReward: 45
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Enemy: health buff'
     cost: 0
-    baseCost: 0
+    baseCost: 20
     reward: 0
-    baseReward: 0
+    baseReward: 45
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Enemy: damage buff'
     cost: 0
-    baseCost: 0
+    baseCost: 20
     reward: 0
-    baseReward: 0
+    baseReward: 40
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Player: reload debuff'
     cost: 0
-    baseCost: 0
+    baseCost: 30
     reward: 0
-    baseReward: 0
+    baseReward: 150
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Player: ammo count debuff'
     cost: 0
-    baseCost: 0
+    baseCost: 30
     reward: 0
-    baseReward: 0
+    baseReward: 120
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Player: health debuff'
     cost: 0
-    baseCost: 0
+    baseCost: 40
     reward: 0
-    baseReward: 0
+    baseReward: 200
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
   - name: 'Player: speed debuff'
     cost: 0
-    baseCost: 0
+    baseCost: 50
     reward: 0
-    baseReward: 0
+    baseReward: 250
     image: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     canBuy: 1
     itemRef: {fileID: 0}
@@ -6481,7 +6481,7 @@ MonoBehaviour:
   NormalEnemyPrefab: {fileID: 7138375181999766197, guid: d341ddcb9501ddf48ae980005694fffb, type: 3}
   CurvedEnemyPrefab: {fileID: 6875664626074797119, guid: ac1c3a84d26a97c45bf1a72dbb5b00af, type: 3}
   ShooterEnemyPrefab: {fileID: 5563381071322165230, guid: 31568eb26bb8c684f9c779da565a2560, type: 3}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1260338507}
   dmg_ctr: 1
   WagerCounts: 00000000000000000000000000000000000000000000000000000000
 --- !u!4 &307431533
@@ -21619,31 +21619,31 @@ MonoBehaviour:
   - name: +1 Player Health
     image: {fileID: 0}
     cost: 200
-    baseCost: 0
+    baseCost: 250
     canBuy: 1
     itemRef: {fileID: 0}
   - name: +1 Max Health
     image: {fileID: 0}
     cost: 250
-    baseCost: 0
+    baseCost: 350
     canBuy: 1
     itemRef: {fileID: 0}
   - name: +1 Ammo Count
     image: {fileID: 0}
     cost: 150
-    baseCost: 0
+    baseCost: 250
     canBuy: 1
     itemRef: {fileID: 0}
   - name: -1 Reload Time
     image: {fileID: 0}
     cost: 150
-    baseCost: 0
+    baseCost: 350
     canBuy: 1
     itemRef: {fileID: 0}
   - name: +1 Speed
     image: {fileID: 0}
     cost: 200
-    baseCost: 0
+    baseCost: 400
     canBuy: 1
     itemRef: {fileID: 0}
   playerMoney: {fileID: 1029621072}
