@@ -19,6 +19,7 @@ public class RewardManager : MonoBehaviour
     public HealthController health;
     public GameManager gameManager;
     public GambleManager gambleManager;
+    [SerializeField] AudioSource purchase;
 
     private void Awake()
     {
@@ -104,6 +105,7 @@ public class RewardManager : MonoBehaviour
         int currentMoney = playerMoney.money;
         if (currentMoney >= reward.cost && reward.canBuy)
         {
+            purchase.Play();
             playerMoney.subtractMoney(reward.cost);
             playerMoney.UpdateMoneyText();
             ApplyReward(reward);

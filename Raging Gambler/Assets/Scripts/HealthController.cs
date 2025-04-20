@@ -22,6 +22,7 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
     int DamageAmount = 1;
 
     [SerializeField] AudioSource[] enemyDamageList;
+    [SerializeField] AudioSource[] playerDamageList;
 
 
     void Start()
@@ -72,7 +73,10 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
         {
             pickRandomEnemyHurtSound().Play();
         }
-
+        else if(CompareTag("Player"))
+        {
+            pickRandomPlayerHurtSound().Play();
+        }
         if (OnHealthChanged != null)
         {
             OnHealthChanged(this, EventArgs.Empty); //The "this" passed is the enemy at first
@@ -83,6 +87,11 @@ public class HealthController : MonoBehaviour, ProjectileMovement.IDamagable
     {
         int soundIndex = UnityEngine.Random.Range(0, enemyDamageList.Length);
         return enemyDamageList[soundIndex];
+    }
+    AudioSource pickRandomPlayerHurtSound()
+    {
+        int soundIndex = UnityEngine.Random.Range(0, playerDamageList.Length);
+        return playerDamageList[soundIndex];
     }
     void Die()
     {

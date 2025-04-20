@@ -197,6 +197,8 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         buttonClicked.Play();
+        gameOver.Stop();
+        scoreManager.mainGameMusic.Play();
         StartCoroutine(WaitForSoundToFinish());
     }
 

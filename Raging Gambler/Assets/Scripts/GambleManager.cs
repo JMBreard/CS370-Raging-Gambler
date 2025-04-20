@@ -29,6 +29,7 @@ public class GambleManager : MonoBehaviour
     public GameManager gameManager;
     public int dmg_ctr = 1;
     public int[] WagerCounts = new int[7];
+    [SerializeField] AudioSource purchase;
 
     private void Awake()
     {
@@ -134,6 +135,7 @@ public class GambleManager : MonoBehaviour
         int currentMoney = playerMoney.money;
         if (currentMoney >= wager.cost && wager.canBuy)
         {
+            purchase.Play();
             playerMoney.subtractMoney(wager.cost);
             playerMoney.UpdateMoneyText();
             ApplyWager(wager);
