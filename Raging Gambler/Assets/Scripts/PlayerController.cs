@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     private bool canMove = true;
 
     [SerializeField] AudioSource gunShoot;
+    [SerializeField] AudioSource reload;
 
 
     void Awake()
@@ -139,6 +140,7 @@ public class PlayerController : MonoBehaviour
         _canFire = false;
         _reloading = true;
         yield return new WaitForSeconds(_reloadTime);
+        reload.Play();
         _currentAmmoCount = _ammoCount;
         _canFire = true;
         _reloading = false;
