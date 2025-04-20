@@ -22,7 +22,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (GameObject.FindGameObjectsWithTag("Score").Length > 1)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
     void Start()

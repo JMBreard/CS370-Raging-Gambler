@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
             level_counter = 1;
             Time.timeScale = 0f;
             menuShowing = true;
+            scoreManager = (ScoreManager)GameObject.Find("Score Manager").GetComponent("ScoreManager");
             return;
         }
         Time.timeScale = 1.0f;
@@ -197,14 +198,16 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        buttonClicked.Play();
         gameOver.Stop();
         scoreManager.mainGameMusic.Play();
+        buttonClicked.Play();
         StartCoroutine(WaitForSoundToFinish());
     }
 
     public void Exit()
     {
+        gameOver.Stop();
+        scoreManager.mainGameMusic.Play();
         buttonClicked.Play();
         exit = true;
         StartCoroutine(WaitForSoundToFinish());
