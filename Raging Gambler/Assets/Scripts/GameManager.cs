@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioSource[] enemyDeathList;
     [SerializeField] AudioSource gameOver;
     [SerializeField] AudioSource stealMoney;
+    [SerializeField] AudioSource roomWin;
     bool exit = false;
 
     private void Awake()
@@ -302,6 +303,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
         doorOpen.Play();
+        roomWin.Play();
         nextRoom.transform.position = newPos; //Sets the transformation of the next room to whatever direction was picked
         nextRoom.gameObject.SetActive(true); //Turns on the next room
         nextDoor.gameObject.SetActive(false); //Turns off the next door
