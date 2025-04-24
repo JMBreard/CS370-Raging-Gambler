@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -21,7 +20,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] public int enemyHealthIncreaser = 0;
 
     [Tooltip("Time between enemy spawns")]
-    [SerializeField] public float spawnRate = 2f;
+    [SerializeField] public float spawnInterval = 2f;
 
     [Tooltip("Enemies will spawn this distance away from the player's current position")]
     [SerializeField] private float spawnDistance = 10f;
@@ -55,7 +54,7 @@ public class EnemySpawner : MonoBehaviour
         if (!isSpawning) return;
 
         spawnTimer += Time.deltaTime;
-        if (spawnTimer >= spawnRate)
+        if (spawnTimer >= spawnInterval)
         {
             spawnTimer = 0f;
             SpawnEnemy();
@@ -127,29 +126,29 @@ public class EnemySpawner : MonoBehaviour
 
     public void increaseSpawnRate()
     {
-        if (spawnRate <= 0.5f)
+        if (spawnInterval <= 0.5f)
         {
             GambleManager.instance.SetCanBuy("Enemy: population buff", false);
-            Debug.Log("Spawn rate cannot be decreased further. Current spawn rate: " + spawnRate);
+            Debug.Log("Spawn rate cannot be decreased further. Current spawn rate: " + spawnInterval);
             return;
         }
 
-        spawnRate -= 0.5f;
+        spawnInterval -= 0.5f;
         // handles edge case of being able to buy an extra debuff when you can't anymore
-        if (spawnRate <= 0.5f)
+        if (spawnInterval <= 0.5f)
         {
             GambleManager.instance.SetCanBuy("Enemy: population buff", false);
-            Debug.Log("Spawn rate cannot be decreased further. Current spawn rate: " + spawnRate);
+            Debug.Log("Spawn rate cannot be decreased further. Current spawn rate: " + spawnInterval);
             return;
         }
-        Debug.Log("Current spawn rate: " + spawnRate);
+        Debug.Log("Current spawn rate: " + spawnInterval);
 
     }
 
     public void DecreaseSpawnRate()
     {
-        spawnRate += 0.5f;
-        if (spawnRate > 0.5f)
+        spawnInterval += 0.5f;
+        if (spawnInterval > 0.5f)
         {
             GambleManager.instance.SetCanBuy("Enemy: population buff", true);
         }
@@ -167,6 +166,6 @@ public class EnemySpawner : MonoBehaviour
     }
 
     // getters for spawn rate and the enemy health increaser
-    public float GetSpawnRate() => spawnRate;
+    public float GetSpawnRate() => spawnInterval;
     public int GetEnemyHealthBuff() => enemyHealthIncreaser;
 }

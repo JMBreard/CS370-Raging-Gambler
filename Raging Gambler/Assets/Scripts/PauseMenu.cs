@@ -112,7 +112,7 @@ public class PauseMenu : MonoBehaviour
          EnemySpawner spawner = FindAnyObjectByType<EnemySpawner>();
         if (spawner != null)
         {
-            enemyPopulationText.text = $"Enemy spawn rate: {spawner.spawnRate}s";
+            enemyPopulationText.text = $"Enemy spawn rate: {spawner.spawnInterval}s";
             // enemyHealthText.text = $"Enemy health: +{spawner.enemyHealthIncreaser}";
         }
 
