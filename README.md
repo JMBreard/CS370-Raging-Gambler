@@ -6,3 +6,5 @@ Objectives can include collecting money, defeating enemies, surviving for a set 
 Upon completing a level, the player is given the characteristics of the next level and can wager their money and health. 
 Each level will get progressively more difficult.
 When the player loses all their money or health they return to the first level with a base amount of money.
+
+https://miguelchaveznava.itch.io/raging-gambler
