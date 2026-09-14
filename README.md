@@ -11,4 +11,5 @@ To run the project, go to this link and play the game: <a href="https://miguelch
 
 We learned much about game development and the development pipeline through collaboration, teamwork, and weekly meeting to achieve major milestones and hit certain deadlines. We gained insight on how to work together on complicated systems while splitting up work efficiently among the team, allowing for growth and for certain expertise to be utilized.
 
+
 <img width="960" height="540" alt="gameplay" src="https://github.com/user-attachments/assets/4934ce61-2330-464c-8ae5-8569b9f87f5f" />
