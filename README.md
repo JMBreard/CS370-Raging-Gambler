@@ -1,10 +1,10 @@
-# CS370-Raging-Gambler
-Dungeon crawler with gambling based system.
+# Raging Gambler Game
+This project is a top-down arcade video game where players go through different rooms, defeating enemies and completing challenges, earning money to wage bets, increasing the difficulty but bringing higher rewards to achieve a high score.
 
-Two dimensional top-down view of a character whose objective is to complete unique levels. 
-Objectives can include collecting money, defeating enemies, surviving for a set amount of time etc.
-Upon completing a level, the player is given the characteristics of the next level and can wager their money and health. 
-Each level will get progressively more difficult.
-When the player loses all their money or health they return to the first level with a base amount of money.
+The main gambling mechanic works by changing certain statuses of the enemies or the player, like increasing enemy damage or decreasing player movement speed, which also increases the total reward given to the player for completing a room. Room generation is done by randomly picking a direction for a new room to be created, then allowing the player to enter the room before the old one is destroyed, swapping back and forth to create an illusion of a large maze of rooms. Three types of enemies are spawned through the room and have different attributes of movement and damage to increase difficulty.
 
-https://miguelchaveznava.itch.io/raging-gambler
+The game was created through Unity as the game engine, with the code being written with C#. Assets for the characters, rooms, and UI were found online through platforms like the Unity Asset Store.
+
+
+To run the project, go to this link and play the game: <a href="https://miguelchaveznava.itch.io/raging-gambler">Game Link<a>
+
